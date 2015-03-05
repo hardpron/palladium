@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
@@ -16,7 +15,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby #Could not find a JavaScript runtime' but execjs AND therubyracer are in Gemfile errors
+gem 'therubyracer', platforms: :ruby # Could not find a JavaScript runtime' but execjs AND therubyracer are in Gemfile errors
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -26,10 +25,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
+gem 'less-rails' # Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'twitter-bootstrap-rails'
 
-group :production do #http://railstutorial.ru/chapters/4_0/beginning#sec-heroku_setup
+group :production do # http://railstutorial.ru/chapters/4_0/beginning#sec-heroku_setup
   gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
 end
@@ -53,4 +52,3 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

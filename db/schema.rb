@@ -11,38 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203215325) do
-
+ActiveRecord::Schema.define(version: 20_150_203_215_325) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "products", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "status"
-    t.string   "version"
-    t.string   "update_data"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table 'products', force: :cascade do |t|
+    t.string 'name'
+    t.integer 'status'
+    t.string 'version'
+    t.string 'update_data'
+    t.datetime 'created_at',  null: false
+    t.datetime 'updated_at',  null: false
   end
 
-  create_table "products_runs", id: false, force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "run_id"
+  create_table 'products_runs', id: false, force: :cascade do |t|
+    t.integer 'product_id'
+    t.integer 'run_id'
   end
 
-  create_table "runs", force: :cascade do |t|
-    t.string   "date"
-    t.string   "version"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'runs', force: :cascade do |t|
+    t.string 'date'
+    t.string 'version'
+    t.string 'status'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "test_cases", force: :cascade do |t|
-    t.string   "title"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table 'test_cases', force: :cascade do |t|
+    t.string 'title'
+    t.string 'description'
+    t.datetime 'created_at',  null: false
+    t.datetime 'updated_at',  null: false
   end
-
 end
