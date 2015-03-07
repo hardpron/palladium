@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :runs
 
   resources :products
-
+  post '/' => 'dashboard#listener'
   get 'products/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
