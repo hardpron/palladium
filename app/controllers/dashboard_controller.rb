@@ -9,6 +9,10 @@ class DashboardController < ApplicationController
     case params['act']
       when 'create_product'
         Product.create('name' => params['name'], 'status' => params['status'], 'version' => params['version'], 'update_data' => params['update_data'])
+      when 'delete_all_products'
+        Product.all.each do |i|
+          i.destroy
+        end
     end
     puts '
     ████████████████████████████████████████████████████

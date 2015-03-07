@@ -15,6 +15,11 @@ class Generator
   def create_product(product_name, current_status, version)
     send_post_request({'act' => 'create_product', 'name' => product_name.to_s, 'status' => current_status.to_s, 'version' => version.to_s})
   end
+
+  def delete_all_products
+    send_post_request({'act' => 'delete_all_products'})
+  end
 end
-# g = Generator.new
-# 10.times {g.create_product('11', '11', '11')}
+g = Generator.new
+# g.create_product('11', '11', '11')
+g.delete_all_products
