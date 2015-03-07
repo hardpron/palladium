@@ -13,6 +13,8 @@ class DashboardController < ApplicationController
         Product.all.each do |i|
           i.destroy
         end
+      when 'create_run_for_product'
+       Product.find_by_name(params['product_name']).runs << Run.create('date' => params['update_data'], 'version' => params['version'], 'status' => params['run_status'], )
     end
     puts '
     ████████████████████████████████████████████████████
