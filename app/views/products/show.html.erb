@@ -29,14 +29,13 @@
     <th>Name</th>
     <th>Status</th>
     <th>Version</th>
-    <th>Update data</th>
-    <th colspan="3"></th>
   </tr>
   </thead>
 
   <tbody>
   <tr bordercolor="black">
     <% @product.runs.each do |run| %>
+        <td><%= link_to run.date, run_path(run) %></td>
         <th> <%= run.date %> </th>
         <th> <%= run.status %> </th>
         <th> <%= run.version %> </th>
