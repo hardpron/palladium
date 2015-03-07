@@ -11,6 +11,10 @@ class Generator
   def send_post_request(body = {})
     Net::HTTP.post_form(@uri, body)
   end
+
+  def create_product(product_name, current_status, version)
+    send_post_request({'act' => 'create_product', 'name' => product_name.to_s, 'status' => current_status.to_s, 'version' => version.to_s})
+  end
 end
 # g = Generator.new
-# g.send_post_request
+# 10.times {g.create_product('11', '11', '11')}
