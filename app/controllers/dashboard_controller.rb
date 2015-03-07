@@ -10,11 +10,11 @@ class DashboardController < ApplicationController
       when 'create_product'
         Product.create('name' => params['name'], 'status' => params['status'], 'version' => params['version'], 'update_data' => params['update_data'])
       when 'delete_all_products'
-        Product.all.each do |i|
-          i.destroy
-        end
+        Product.destroy_all
       when 'create_run_for_product'
        Product.find_by_name(params['product_name']).runs << Run.create('date' => params['update_data'], 'version' => params['version'], 'status' => params['run_status'], )
+      when 'delete_all_runs'
+        Run.destroy_all
     end
     puts '
     ████████████████████████████████████████████████████

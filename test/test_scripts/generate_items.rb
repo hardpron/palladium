@@ -32,8 +32,12 @@ class Generator
                        'run_status' => run_status.to_s,
                        'version' => run_version.to_s})
   end
+
+  def delete_all_runs
+    send_post_request({'act' => 'delete_all_runs'})
+  end
 end
 g = Generator.new
-# g.create_product('11', '11', '11')
+# 10.times {g.create_product('11', '11', '11')}
 # g.delete_all_products
-g.create_run_for_product('Product', '100', '100')
+# g.create_run_for_product('Product', '100', '100')
