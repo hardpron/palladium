@@ -22,16 +22,18 @@
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+<%= button_to 'Destroy', {:controller => :products, :action => :destroy, },:method => :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-lg' %>
+
 
 <table border="2" cellspacing="50" cellpadding="0">
-  <thead>
-  <tr bordercolor="black">
+  <%= 'Items list' unless @product.runs.empty? %>
+  <thead class ='runs-title <%= 'hiden' %>'>
+    <tr bordercolor="black">
     <th>Name</th>
     <th>Status</th>
     <th>Version</th>
   </tr>
   </thead>
-
   <tbody>
   <tr bordercolor="black">
     <% @product.runs.each do |run| %>
