@@ -1,9 +1,11 @@
+  <ul class="pager">
+    <li class="previous"><a href=<%=products_path%>><span aria-hidden="true">&larr;</span>Back</a></li>
+  </ul>
 <div class="container">
   <div class="page-header">
     <h1><%= @product.name %></h1>
   </div>
   <%- model_class = Product -%>
-
   <div class="row">
     <div class="row">
       <div class="col-md-8">
