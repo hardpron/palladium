@@ -1,4 +1,7 @@
 <%- model_class = Run -%>
+<ul class="pager">
+  <li class="previous"><a href=<%= product_path(@run.products.first) %>><span aria-hidden="true">&larr;</span>Back</a></li>
+</ul>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
@@ -12,8 +15,7 @@
   <dd><%= @run.status %></dd>
 </dl>
 
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              runs_path, :class => 'btn btn-default'  %>
+
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_run_path(@run), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
