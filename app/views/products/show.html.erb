@@ -41,7 +41,7 @@
         <table class="table table-hover">
           <%= 'Runs for this product is not found' if @product.runs.empty? %>
           <thead class='runs-title <%= 'hiden' if @product.runs.empty? %>'>
-
+          <thead>
           <tr>
             <th>№</th>
             <th>Date</th>
@@ -49,6 +49,7 @@
             <th>Status</th>
             <th>Last Update</th>
           </tr>
+          </thead>
           <% @product.runs.each do |run| %>
               <tr class='clickable-row' data-href= <%= run_path(run) %>>
                 <td><%= run.id %></td>
