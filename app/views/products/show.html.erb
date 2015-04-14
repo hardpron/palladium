@@ -39,9 +39,9 @@
           <dd><%= @product.update_data %></dd>
         </dl>
         <table class="table table-hover">
-          <%= 'Items list' unless @product.runs.empty? %>
-          <thead class='runs-title <%= 'hiden' %>'>
-          <thead>
+          <%= 'Runs for this product is not found' if @product.runs.empty? %>
+          <thead class='runs-title <%= 'hiden' if @product.runs.empty? %>'>
+
           <tr>
             <th>№</th>
             <th>Date</th>
@@ -59,9 +59,6 @@
               </tr>
           <% end %>
           </table>
-        </thead>
-
-        </table>
       </div>
     </div>
   </div>
