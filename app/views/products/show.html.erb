@@ -51,7 +51,7 @@
           </tr>
           </thead>
           <% @product.runs.each do |run| %>
-              <tr class='clickable-row' data-href= <%= run_path(run) %>>
+              <tr class='clickable-row' data-href= <%= product_run_path(@product, run) %>>
                 <td><%= run.id %></td>
                 <td><%= run.date %></td>
                 <td><%= run.version %></td>

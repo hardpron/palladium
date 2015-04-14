@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resources :runs
 
-  resources :products
+  resources :products do
+    resources :runs
+  end
+  resources :runs
   get 'products/index'
   post '/products/show'
   post 'products/index'
