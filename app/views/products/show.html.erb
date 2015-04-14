@@ -1,6 +1,7 @@
-  <ul class="pager">
-    <li class="previous"><a href=<%=products_path%>><span aria-hidden="true">&larr;</span>Back</a></li>
-  </ul>
+<!--/products/1-->
+<ul class="pager">
+  <li class="previous"><a href=<%= products_path %>><span aria-hidden="true">&larr;</span>Back</a></li>
+</ul>
 <div class="container">
   <div class="page-header">
     <h1><%= @product.name %></h1>
@@ -29,7 +30,6 @@
       </div>
     </div>
 
-
     <div class="row">
       <div class="col-md-4">
         <dl class="dl-horizontal">
@@ -38,28 +38,36 @@
           <dt><strong><%= model_class.human_attribute_name(:update_data) %>:</strong></dt>
           <dd><%= @product.update_data %></dd>
         </dl>
-        <table border="2" cellspacing="50" cellpadding="0">
-          <%= 'Items list' unless @product.runs.empty? %>
-          <thead class='runs-title <%= 'hiden' %>'>
-          <tr bordercolor="black">
-            <th>Name</th>
-            <th>Status</th>
+        <table class="table table-hover">
+          <%= 'Runs for this product is not found' if @product.runs.empty? %>
+          <thead class='runs-title <%= 'hiden' if @product.runs.empty? %>'>
+
+          <tr>
+            <th>№</th>
+            <th>Date</th>
             <th>Version</th>
+            <th>Status</th>
+            <th>Last Update</th>
           </tr>
-          </thead>
-          <tbody>
-          <tr bordercolor="black">
-            <% @product.runs.each do |run| %>
-                <td><%= link_to run.date, run_path(run) %></td>
-                <th> <%= run.date %> </th>
-                <th> <%= run.status %> </th>
-                <th> <%= run.version %> </th>
-                <th> <%= run.updated_at %> </th>
-            <% end %>
-          </tr>
-          </tbody>
-        </table>
+          <% @product.runs.each do |run| %>
+              <tr class='clickable-row' data-href= <%= run_path(run) %>>
+                <td><%= run.id %></td>
+                <td><%= run.date %></td>
+                <td><%= run.version %></td>
+                <td><%= run.status %></td>
+                <td><%= run.updated_at %></td>
+              </tr>
+          <% end %>
+          </table>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
