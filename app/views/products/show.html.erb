@@ -1,3 +1,4 @@
+<!--/products/1-->
 <ul class="pager">
   <li class="previous"><a href=<%= products_path %>><span aria-hidden="true">&larr;</span>Back</a></li>
 </ul>
@@ -43,7 +44,7 @@
 
           <table class="table table-hover">
             <% @product.runs.each do |run| %>
-                <tr class='clickable-row' data-href= <%= runs_path(run) %>>
+                <tr class='clickable-row' data-href= <%= run_path(run) %>>
                   <td><%= run.id %></td>
                   <td><%= run.date %></td>
                   <td><%= run.version %></td>
