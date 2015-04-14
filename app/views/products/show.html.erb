@@ -1,6 +1,6 @@
-  <ul class="pager">
-    <li class="previous"><a href=<%=products_path%>><span aria-hidden="true">&larr;</span>Back</a></li>
-  </ul>
+<ul class="pager">
+  <li class="previous"><a href=<%= products_path %>><span aria-hidden="true">&larr;</span>Back</a></li>
+</ul>
 <div class="container">
   <div class="page-header">
     <h1><%= @product.name %></h1>
@@ -29,7 +29,6 @@
       </div>
     </div>
 
-
     <div class="row">
       <div class="col-md-4">
         <dl class="dl-horizontal">
@@ -41,25 +40,29 @@
         <table border="2" cellspacing="50" cellpadding="0">
           <%= 'Items list' unless @product.runs.empty? %>
           <thead class='runs-title <%= 'hiden' %>'>
-          <tr bordercolor="black">
-            <th>Name</th>
-            <th>Status</th>
-            <th>Version</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr bordercolor="black">
+
+          <table class="table table-hover">
             <% @product.runs.each do |run| %>
-                <td><%= link_to run.date, run_path(run) %></td>
-                <th> <%= run.date %> </th>
-                <th> <%= run.status %> </th>
-                <th> <%= run.version %> </th>
-                <th> <%= run.updated_at %> </th>
+                <tr class='clickable-row' data-href= <%= runs_path(run) %>>
+                  <td><%= run.id %></td>
+                  <td><%= run.date %></td>
+                  <td><%= run.version %></td>
+                  <td><%= run.status %></td>
+                  <td><%= run.updated_at %></td>
+                </tr>
             <% end %>
-          </tr>
-          </tbody>
+          </table>
+          </thead>
         </table>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
