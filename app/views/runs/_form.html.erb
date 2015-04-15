@@ -1,45 +1,46 @@
-<%= form_for @run, :html => { :class => "form-horizontal run" } do |f| %>
+<!--http://localhost:3000/products/1/runs/new-->
+<%= form_for @run, :html => {:class => "form-horizontal run"} do |f| %>
 
     <% if @run.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@run.errors.count, "error") %> prohibited this run from being saved:</h3>
+        <div id="error_expl" class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= pluralize(@run.errors.count, "error") %> prohibited this run from being
+              saved:</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <% @run.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="control-group">
+      <%= f.label :date, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :date, :class => 'form-control' %>
       </div>
-      <div class="panel-body">
-        <ul>
-        <% @run.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
+      <%= error_span(@run[:date]) %>
+    </div>
+    <div class="control-group">
+      <%= f.label :version, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :version, :class => 'form-control' %>
       </div>
+      <%= error_span(@run[:version]) %>
     </div>
-  <% end %>
-
-  <div class="control-group">
-    <%= f.label :date, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :date, :class => 'form-control' %>
+    <div class="control-group">
+      <%= f.label :status, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :status, :class => 'form-control' %>
+      </div>
+      <%= error_span(@run[:status]) %>
     </div>
-    <%= error_span(@run[:date]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :version, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :version, :class => 'form-control' %>
-    </div>
-    <%= error_span(@run[:version]) %>
-  </div>
-  <div class="control-group">
-    <%= f.label :status, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :status, :class => 'form-control' %>
-    </div>
-    <%= error_span(@run[:status]) %>
-  </div>
-
-
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            runs_path, :class => 'btn btn-default' %>
+    <%= f.hidden_field :product_id, :value => @product_id %>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                runs_path, :class => 'btn btn-default' %>
 
 <% end %>

@@ -15,6 +15,16 @@ class RunsController < ApplicationController
   # GET /runs/new
   def new
     @run = Run.new
+    puts '
+         ████████████████████████████████████████████
+         █────█────█─███─███────█────██───█─█─█─███─█
+         █─██─█─██─█─███─███─██─█─██──██─██─█─█──█──█
+         █────█────█─███─███────█─██──██─██─█─█─█─█─█
+         █─████─██─█─███─███─██─█─██──██─██─█─█─███─█
+         █─████─██─█───█───█─██─█────██───█───█─███─█
+         ████████████████████████████████████████████
+          '
+    @product_id = params.require('product_id')
   end
 
   # GET /runs/1/edit
@@ -25,11 +35,11 @@ class RunsController < ApplicationController
   # POST /runs.json
   def create
     @run = Run.new(run_params)
-
     respond_to do |format|
       if @run.save
         format.html { redirect_to @run, notice: 'Run was successfully created.' }
         format.json { render :show, status: :created, location: @run }
+        Product.find(params.require(:run)[:product_id]).runs << @run
       else
         format.html { render :new }
         format.json { render json: @run.errors, status: :unprocessable_entity }

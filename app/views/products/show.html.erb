@@ -64,6 +64,8 @@
                           :class => 'btn btn-danger' %>
               <%= link_to t('.edit', :default => t("helpers.links.edit")),
                           edit_product_path(@product), :class => 'btn btn-default' %>
+              <%= link_to t('.new', :default => t("helpers.links.new")),
+                          new_product_run_path(@product), :class => 'btn btn-default' %>
             </div>
         </div>
       </div>
