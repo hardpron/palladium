@@ -15,6 +15,7 @@ en:
       confirm: "Are you sure?"
       destroy: "Delete"
       new: "New"
+      new_run: "New Run"
       edit: "Edit"
     titles:
       edit: "Edit %{model}"
