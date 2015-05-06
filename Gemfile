@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'less-rails' # Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'twitter-bootstrap-rails'
+gem 'devise' #auth
 
 group :production do # http://railstutorial.ru/chapters/4_0/beginning#sec-heroku_setup
   gem 'pg', '0.15.1'
