@@ -53,6 +53,36 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <dl class="dl-horizontal">
+          <dt><strong><%= model_class.human_attribute_name(:version) %>:</strong></dt>
+          <dd><%= @product.version %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:update_data) %>:</strong></dt>
+          <dd><%= @product.update_data %></dd>
+        </dl>
+        <table class="table table-hover">
+          <%= 'Runs for this product is not found' if @product.runs.empty? %>
+          <thead class='runs-title <%= 'hiden' if @product.runs.empty? %>'>
+          <tr>
+            <th>№</th>
+            <th>Date</th>
+            <th>Version</th>
+            <th>Status</th>
+            <th>Last Update</th>
+          </tr>
+          </thead>
+          <% @product.runs.each do |run| %>
+              <tr class='clickable-row' data-href= <%= product_run_path(@product, run) %>>
+                <td><%= run.id %></td>
+                <td><%= run.date %></td>
+                <td><%= run.version %></td>
+                <td><%= run.status %></td>
+                <td><%= run.updated_at %></td>
+              </tr>
+          <% end %>
+        </table>
     <div class="col-md-4">
       <div class="row">
           <div class="row">

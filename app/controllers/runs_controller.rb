@@ -1,5 +1,6 @@
 class RunsController < ApplicationController
   before_action :set_run, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   # GET /runs
   # GET /runs.json
