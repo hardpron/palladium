@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  resources :runs
 
-  resources :products
+  resources :products do
+    resources :runs
+  end
+  resources :runs
   get 'products/index'
+  post '/products/show'
+  post 'products/index'
   post '/products/new' #button 'create new product' dont work if delete if
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

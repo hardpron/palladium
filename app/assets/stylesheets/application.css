@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+.actions-button{
+    margin: 20px;
+}
+.hiden{
+    display: none;
+}
