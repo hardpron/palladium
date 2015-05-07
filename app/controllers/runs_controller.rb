@@ -16,15 +16,6 @@ class RunsController < ApplicationController
   # GET /runs/new
   def new
     @run = Run.new
-    puts '
-         ████████████████████████████████████████████
-         █────█────█─███─███────█────██───█─█─█─███─█
-         █─██─█─██─█─███─███─██─█─██──██─██─█─█──█──█
-         █────█────█─███─███────█─██──██─██─█─█─█─█─█
-         █─████─██─█─███─███─██─█─██──██─██─█─█─███─█
-         █─████─██─█───█───█─██─█────██───█───█─███─█
-         ████████████████████████████████████████████
-          '
     @product_id = params.require('product_id')
   end
 
@@ -65,11 +56,20 @@ class RunsController < ApplicationController
   # DELETE /runs/1
   # DELETE /runs/1.json
   def destroy
-    @run.destroy
+    puts '
+         ████████████████████████████████████████████
+         █────█────█─███─███────█────██───█─█─█─███─█
+         █─██─█─██─█─███─███─██─█─██──██─██─█─█──█──█
+         █────█────█─███─███────█─██──██─██─█─█─█─█─█
+         █─████─██─█─███─███─██─█─██──██─██─█─█─███─█
+         █─████─██─█───█───█─██─█────██───█───█─███─█
+         ████████████████████████████████████████████
+          '
     respond_to do |format|
-      format.html { redirect_to runs_url, notice: 'Run was successfully destroyed.' }
+      format.html { redirect_to product_path(@run.products.first),  notice: 'Run was successfully destroyed.' }
       format.json { head :no_content }
     end
+    @run.destroy
   end
 
   private
