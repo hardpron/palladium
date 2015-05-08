@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :products do
+    resources :plans do
+      resources :runs do
+        resources :set_results do
+          resources :results
+        end
+      end
+    end
+  end
+
   devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.

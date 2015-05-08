@@ -11,13 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507125454) do
+ActiveRecord::Schema.define(version: 20150508132912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "plans", force: :cascade do |t|
+    t.string   "title"
+    t.string   "version"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.integer  "status"
     t.string   "version"
     t.string   "update_data"
@@ -25,31 +33,31 @@ ActiveRecord::Schema.define(version: 20150507125454) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "products_runs", id: false, force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "run_id"
+  create_table "results", force: :cascade do |t|
+    t.string   "status"
+    t.string   "author"
+    t.string   "message"
+    t.integer  "set_result_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "runs", force: :cascade do |t|
-    t.string   "date"
+    t.string   "title"
     t.string   "version"
-    t.string   "status"
+    t.string   "data"
+    t.integer  "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "set_results", force: :cascade do |t|
+    t.string   "data"
+    t.string   "version"
+    t.integer  "status"
     t.integer  "run_id"
-    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "test_cases", force: :cascade do |t|
-    t.string   "title"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
