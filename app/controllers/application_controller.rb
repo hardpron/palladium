@@ -5,6 +5,6 @@ class ApplicationController < ActionController::Base
   # skip_before_filter :verify_authenticity_token, :only => [:listener]
 
   def after_sign_in_path_for(resource)
-
+    products_path
   end
 end

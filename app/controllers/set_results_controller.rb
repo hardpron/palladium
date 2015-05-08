@@ -1,5 +1,6 @@
 class SetResultsController < ApplicationController
   before_action :set_set_result, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   # GET /set_results
   # GET /set_results.json
