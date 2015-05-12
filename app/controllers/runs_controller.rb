@@ -1,6 +1,5 @@
 class RunsController < ApplicationController
   before_action :set_run, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
 
   # GET /runs
   # GET /runs.json
@@ -70,6 +69,6 @@ class RunsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def run_params
-      params[:run]
+      params.require(:run).permit(:name, :version)
     end
 end

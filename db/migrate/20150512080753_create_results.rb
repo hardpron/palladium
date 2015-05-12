@@ -4,7 +4,7 @@ class CreateResults < ActiveRecord::Migration
       t.string :status
       t.string :author
       t.string :message
-      t.integer :set_result_id
+      t.string :result_set_id
 
       t.timestamps null: false
     end

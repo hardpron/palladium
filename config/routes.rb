@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :products do
     resources :plans do
       resources :runs do
-        resources :set_results do
+        resources :result_sets do
           resources :results
         end
       end

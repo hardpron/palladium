@@ -1,6 +1,5 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
 
   # GET /plans
   # GET /plans.json
@@ -57,7 +56,7 @@ class PlansController < ApplicationController
   def destroy
     @plan.destroy
     respond_to do |format|
-      format.html { redirect_to plans_url, notice: 'Plan was successfully destroyed.' }
+      format.html { redirect_to product_plans_path, notice: 'Plan was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,6 +69,6 @@ class PlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plan_params
-      params[:plan]
+      params.require(:plan).permit(:name, :version)
     end
 end

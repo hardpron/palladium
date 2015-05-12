@@ -1,6 +1,5 @@
 class ResultsController < ApplicationController
   before_action :set_result, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
 
   # GET /results
   # GET /results.json
@@ -70,6 +69,6 @@ class ResultsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def result_params
-      params[:result]
+      params.require(:result).permit(:status, :author, :message)
     end
 end

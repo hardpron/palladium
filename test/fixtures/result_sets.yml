@@ -2,10 +2,8 @@
 
 one:
   status: MyString
-  author: MyString
-  message: MyString
+  version: MyString
 
 two:
   status: MyString
-  author: MyString
-  message: MyString
+  version: MyString
