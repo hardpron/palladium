@@ -16,9 +16,9 @@
       <tr>
         <td><%= plan.name %></td>
         <td><%= plan.version %></td>
-        <td><%= link_to 'Show', product_plan_path(plan.product, plan) %></td>
-        <td><%= link_to 'Edit', edit_product_plan_path(plan.product, plan) %></td>
-        <td><%= link_to 'Destroy', product_plans_path, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', product_plan_path(@product_id, plan) %></td>
+        <td><%= link_to 'Edit', edit_product_plan_path(@product_id, plan) %></td>
+        <td><%= link_to 'Destroy', product_plan_path(@product_id, plan), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Plan', new_product_plan_path() %>
+<%= link_to 'New Plan', new_product_plan_path(@product_id) %>

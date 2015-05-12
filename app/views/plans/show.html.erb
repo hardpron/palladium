@@ -10,5 +10,5 @@
   <%= @plan.version %>
 </p>
 
-<%= link_to 'Edit', edit_product_plan_path(@plan.product, @plan) %> |
-<%= link_to 'Back', product_plans_path %>
+<%= link_to 'Edit', edit_product_plan_path(@plan.product_id, @plan) %> |
+<%= link_to 'Back', product_plans_path(@plan.product_id)%>

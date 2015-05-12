@@ -4,10 +4,8 @@ one:
   name: MyString
   status: MyString
   version: MyString
-  update_data: MyString
 
 two:
   name: MyString
   status: MyString
   version: MyString
-  update_data: MyString

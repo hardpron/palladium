@@ -1,5 +1,4 @@
-<%= @plan %>
-<%= form_for(@plan) do |f| %>
+<%= form_for [@product, @plan] do |f| %>
   <% if @plan.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@plan.errors.count, "error") %> prohibited this plan from being saved:</h2>

@@ -1,9 +1,9 @@
-class CreateRuns < ActiveRecord::Migration
+class CreatePlans < ActiveRecord::Migration
   def change
-    create_table :runs do |t|
+    create_table :plans do |t|
       t.string :name
       t.string :version
-      t.string :plan_id
+      t.integer :product_id
 
       t.timestamps null: false
     end

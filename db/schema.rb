@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512080753) do
+ActiveRecord::Schema.define(version: 20150512124644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20150512080753) do
   create_table "plans", force: :cascade do |t|
     t.string   "name"
     t.string   "version"
-    t.string   "product_id"
+    t.integer  "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,32 +28,6 @@ ActiveRecord::Schema.define(version: 20150512080753) do
     t.string   "name"
     t.string   "status"
     t.string   "version"
-    t.string   "update_data"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "result_sets", force: :cascade do |t|
-    t.string   "status"
-    t.string   "version"
-    t.string   "run_is"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "results", force: :cascade do |t|
-    t.string   "status"
-    t.string   "author"
-    t.string   "message"
-    t.string   "result_set_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "runs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "version"
-    t.string   "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
