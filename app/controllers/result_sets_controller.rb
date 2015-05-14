@@ -1,5 +1,6 @@
 class ResultSetsController < ApplicationController
   before_action :set_result_set, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   # GET /result_sets
   # GET /result_sets.json
