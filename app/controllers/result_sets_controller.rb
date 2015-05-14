@@ -10,9 +10,6 @@ class ResultSetsController < ApplicationController
   # GET /result_sets/1
   # GET /result_sets/1.json
   def show
-    @product = product_find_by_id
-    @plan = set_plan
-    @run = set_run
   end
 
   # GET /result_sets/new

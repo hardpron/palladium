@@ -20,5 +20,5 @@
   <%= @result_set.status %>
 </p>
 
-<%= link_to 'Edit', edit_product_plan_run_result_set_path(@product, @plan, @run, @result_set) %> |
+<%= link_to 'Edit', controller: "result_sets", action: "edit", id: @result_set %> |
 <%= link_to 'Back', controller: "result_sets" %>
