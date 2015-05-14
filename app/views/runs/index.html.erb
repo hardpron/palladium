@@ -16,8 +16,8 @@
       <tr>
         <td><%= run.name %></td>
         <td><%= run.version %></td>
-        <td><%= link_to 'Show', product_plan_run_path(@product, @plan, run) %></td>
-        <td><%= link_to 'Edit', edit_product_plan_run_path(@product, @plan, run)  %></td>
+        <td><%= link_to 'Show', controller: "runs", action: "show", id: run %></td>
+        <td><%= link_to 'Edit', controller: "runs", action: "edit", id: run %></td>
         <td><%= link_to 'Destroy', {controller: "runs", action: "destroy", id:run}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Run', new_product_plan_run_path(@product, @plan) %>
+<%= link_to 'New Run', controller: "runs", action: "new" %>
