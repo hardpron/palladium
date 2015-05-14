@@ -4,7 +4,7 @@ class ResultsController < ApplicationController
   # GET /results
   # GET /results.json
   def index
-    @results = Result.all
+    @results = Product.find(product_find_by_id).plans.find(params.require(:plan_id)).runs.find(params.require(:run_id)).result_sets.find(params.require(:result_set_id)).results
   end
 
   # GET /results/1

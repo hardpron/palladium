@@ -4,6 +4,7 @@ class RunsController < ApplicationController
   # GET /runs
   # GET /runs.json
   def index
+    @runs = Product.find(product_find_by_id).plans.find(params.require(:plan_id)).runs
   end
 
   # GET /runs/1
@@ -33,7 +34,7 @@ class RunsController < ApplicationController
     respond_to do |format|
       if @run.save
         Product.find(params.require(:product_id)).plans.find(params.require(:plan_id)).runs << @run
-        format.html { redirect_to action: "show", id: @run, notice: 'Run was successfully created.' }
+        format.html { redirect_to product_plan_run_path(product_find_by_id, plan_find_by_id, @run), notice: 'Run was successfully created.' }
         format.json { render :show, status: :created, location: @run }
       else
         format.html { render :new }
