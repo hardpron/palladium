@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Result Sets</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Version</th>
+    <th>Status</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @result_sets.each do |result_set| %>
+      <tr>
+        <td><%= result_set.name %></td>
+        <td><%= result_set.date %></td>
+        <td><%= result_set.version %></td>
+        <td><%= result_set.status %></td>
+        <td><%= link_to 'Show',  controller: "result_sets", action: "show", id: result_set %></td>
+        <td><%= link_to 'Edit', controller: "result_sets", action: "edit", id: result_set %></td>
+        <td><%= link_to 'Destroy', {controller: "result_sets", action: "destroy", id: result_set}, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Result set', controller: "result_sets", action:  "new" %>

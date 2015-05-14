@@ -2,12 +2,10 @@
 
 one:
   name: MyString
-  status: 1
+  status: MyString
   version: MyString
-  update_data: MyString
 
 two:
   name: MyString
-  status: 1
+  status: MyString
   version: MyString
-  update_data: MyString

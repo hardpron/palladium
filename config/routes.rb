@@ -1,19 +1,22 @@
 Rails.application.routes.draw do
 
-  devise_for :users
   resources :products do
-    resources :runs
+    resources :plans do
+      resources :runs do
+        resources :result_sets do
+          resources :results
+        end
+      end
+    end
   end
-  resources :runs
-  get 'products/index'
-  post '/products/show'
-  post 'products/index'
-  post '/products/new' #button 'create new product' dont work if delete if
+
+  devise_for :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'dashboard#index'
+  root 'products#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

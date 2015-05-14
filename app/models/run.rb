@@ -1,3 +1,4 @@
 class Run < ActiveRecord::Base
-  has_and_belongs_to_many :products
+  belongs_to :plan
+  has_many :result_sets
 end
