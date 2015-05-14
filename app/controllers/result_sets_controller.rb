@@ -5,9 +5,6 @@ class ResultSetsController < ApplicationController
   # GET /result_sets.json
   def index
     @result_sets = ResultSet.all
-    @product = product_find_by_id
-    @plan = set_plan
-    @run = set_run
   end
 
   # GET /result_sets/1

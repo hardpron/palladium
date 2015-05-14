@@ -20,7 +20,7 @@
         <td><%= result_set.date %></td>
         <td><%= result_set.version %></td>
         <td><%= result_set.status %></td>
-        <td><%= link_to 'Show', product_plan_run_result_set_path(@product, @plan, @run, result_set)%></td>
+        <td><%= link_to 'Show',  controller: "result_sets", action: "show", id: result_set %></td>
         <td><%= link_to 'Edit', controller: "result_sets", action: "edit", id: result_set %></td>
         <td><%= link_to 'Destroy', {controller: "result_sets", action: "destroy", id: result_set}, method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Result set', new_product_plan_run_result_set_path %>
+<%= link_to 'New Result set', controller: "result_sets", action:  "new" %>
