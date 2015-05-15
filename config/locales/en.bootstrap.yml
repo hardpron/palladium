@@ -17,6 +17,8 @@ en:
       new: "New"
       new_run: "New Run"
       edit: "Edit"
+      logout: "Logout"
+      settings: "Settings"
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
