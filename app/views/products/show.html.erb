@@ -1,19 +1,62 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+  <div class="page-header">
+    <h1><%= @product.name %></h1>
+    <h5><%= Product.human_attribute_name(:version) %>:<%= @product.version %></h5>
+  </div>
 
-<p>
-  <strong>Status:</strong>
-  <%= @product.status %>
-</p>
+    <% unless @product.plans.empty? %>
+      <div class="jumbotron">
+      <h3><%= t("helpers.titles.plans_and_results") %></h3>
+        <table class="table table-hover">
+          <thead>
+          <tr>
 
-<p>
-  <strong>Version:</strong>
-  <%= @product.version %>
-</p>
+            <th><%= @product.plans.human_attribute_name(:status) %></th>
+            <th><%= @product.plans.human_attribute_name(:version) %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @product.plans.order(created_at: :desc).each do |plan| %>
+              <tr class="clickable-row" data-href= <%= product_plan_path(@product, plan) %>>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+                <td><%= plan.name %></td>
+                <td><%= plan.version %></td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: 50%">
+
+                    </div>
+                    <div class="progress-bar progress-bar-warning" style="width: 20%">
+                      <span class="sr-only">20% Complete (warning)</span>
+                    </div>
+                    <div class="progress-bar progress-bar-danger" style="width: 10%">
+                      <span class="sr-only">10% Complete (danger)</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+    <% end %>
+  </div>
+
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              products_path, :class => 'btn btn-default' %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_product_path(@product), :class => 'btn btn-default' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              product_path(@product),
+              :method => 'delete',
+              :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+              :class => 'btn btn-danger' %>
+</div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
