@@ -13,7 +13,7 @@
     </thead>
     <tbody>
     <% @products.each do |product| %>
-        <tr class='clickable-row' data-href = <%= product_path(product) %>>
+        <tr class="clickable-row <%= product.status %>" data-href = <%= product_path(product) %>>
           <td><%= product.name %></td>
           <td><%= product.status %></td>
           <td><%= product.version %></td>
