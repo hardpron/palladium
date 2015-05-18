@@ -9,17 +9,21 @@ Rails.application.routes.draw do
       end
     end
   end
+  root 'products#index'
+  get 'users/sign_in', to: redirect('/login')
 
-  get 'settings' => 'settings#index'
+  devise_for :users
 
+  devise_scope :user do
+    get "/login" => "devise/sessions#new"
+    get "/settings/profile" => "devise/registrations#edit"
+  end
 
-  devise_for :users, :path => "settings"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'products#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
