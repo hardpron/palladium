@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get "/login" => "devise/sessions#new"
-    get "/settings/profile" => "devise/registrations#edit"
+    get "/settings/admin" => "devise/registrations#edit"
   end
 
 
