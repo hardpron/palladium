@@ -1,0 +1,12 @@
+<%= link_to "Change your password", edit_user_registration_path %>
+<div class="container">
+
+  <%= form_tag("/settings", method: "post") do %>
+      <%= label_tag(:email, "Email:") %>
+      <%= text_field_tag(:email, nil, value: current_user.email)%>
+      <%= submit_tag("Change") %>
+  <% end %>
+<div class="page-header field">
+
+</div>
+</div>
