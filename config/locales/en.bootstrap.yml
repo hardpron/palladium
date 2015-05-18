@@ -24,3 +24,4 @@ en:
       save: "Save %{model}"
       new: "New %{model}"
       delete: "Delete %{model}"
+      plans_and_results: "Plans and Results"
