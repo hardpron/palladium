@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150519094820) do
     t.text     "message"
     t.string   "author"
     t.integer  "result_set_id"
+    t.integer  "result_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
