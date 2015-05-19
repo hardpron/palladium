@@ -13,27 +13,8 @@
  *= require_tree .
  *= require_self
  */
-.actions-button {
-    margin: 20px;
-}
-
-.actions-new-button {
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
 .hiden {
     display: none;
 }
 
-.field_with_errors {
-    display: inline;
-    margin: 0px;
-    padding: 0px;
-    background-color: #ffb5ba;
-}
-
 /*hard class edit*/
-.progress {
-    margin-bottom: 0px;
-}
