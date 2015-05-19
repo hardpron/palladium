@@ -22,6 +22,9 @@ en:
       ubdate: "Update"
       update_profile: "Update profile"
       delete_your_account: "Delete your account"
+      add_new_status: "Add new status"
+      status_name: "Status name"
+      status_color: "Status color"
 
     titles:
       edit: "Edit %{model}"
@@ -29,4 +32,5 @@ en:
       new: "New %{model}"
       delete: "Delete %{model}"
       plans_and_results: "Plans and Results"
-      admin_settings : "Admin Settings"
+      admin_settings_title: "Account Settings"
+      status_settings_title: "Status Settings"

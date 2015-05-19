@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :statuses
+
   resources :products do
     resources :plans do
       resources :runs do
@@ -15,9 +17,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   devise_scope :user do
-    get "/login" => "devise/sessions#new"
-    get "/settings/admin" => "devise/registrations#edit"
+    get '/login' => 'devise/sessions#new'
+    get '/settings/admin' => 'devise/registrations#edit'
   end
+
+  get '/settings/status_settings_title' => 'statuses#index'
+  resources :statuses, path: '/settings/status_settings'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

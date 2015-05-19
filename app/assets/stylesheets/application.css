@@ -16,5 +16,7 @@
 .hiden {
     display: none;
 }
-
+.modal-header{
+    background-color:#EEEEEE;
+}
 /*hard class edit*/
