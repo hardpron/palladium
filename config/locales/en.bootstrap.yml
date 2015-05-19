@@ -19,9 +19,14 @@ en:
       edit: "Edit"
       logout: "Logout"
       settings: "Settings"
+      ubdate: "Update"
+      update_profile: "Update profile"
+      delete_your_account: "Delete your account"
+
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
       new: "New %{model}"
       delete: "Delete %{model}"
       plans_and_results: "Plans and Results"
+      admin_settings : "Admin Settings"
