@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="page-header">
+      <h1 align="center"><%= t('helpers.titles.status_settings_title') %></h1>
+    </div>
+    <div class="col-md-3">
+      <div class="row">
+        <label></label>
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation"><a href="/settings/admin"><%= t('helpers.titles.admin_settings_title') %></a></li>
+          <li role="presentation" class="active"><a href="/settings/status_settings_title">Profile</a></li>
+        </ul>
+      </div>
+    </div>
+
+      <div class="row">
+        <div class="col-md-7">
+
+          <label><%= button_to 'New Status', new_status_path, class:"btn btn-success" %></label>
+        <table class="table table-hover">
+          <tbody>
+          <% @statuses.each do |status| %>
+              <tr class="clickable-row" data-href = <%= "/settings/status_settings/#{status.id}" %> >
+                <td><%= status.name %></td>
+                <td><%= status.colore %></td>
+                <td><%= link_to 'Edit', edit_status_path(status) %></td>
+              </tr>
+          <% end %>
+          </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="field">
+      </div>
+
+  </div>
+</div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
+
+
