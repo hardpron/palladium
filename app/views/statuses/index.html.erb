@@ -41,7 +41,7 @@
           <% @statuses.each do |status| %>
               <tr class="clickable-row" data-href=<%= "/settings/status_settings/#{status.id}" %>>
                 <td><%= status.name %></td>
-                <td><%= status.colore %></td>
+                <td><%= status.color %></td>
                 <td><%= link_to 'Edit', edit_status_path(status) %></td>
               </tr>
           <% end %>

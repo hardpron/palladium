@@ -25,6 +25,7 @@ en:
       add_new_status: "Add new status"
       status_name: "Status name"
       status_color: "Status color"
+      change_color: "Change color"
 
     titles:
       edit: "Edit %{model}"

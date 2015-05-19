@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  colore: MyString
+  color: MyString
 
 two:
   name: MyString
-  colore: MyString
+  color: MyString
