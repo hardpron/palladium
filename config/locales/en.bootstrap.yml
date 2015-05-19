@@ -22,6 +22,7 @@ en:
       ubdate: "Update"
       update_profile: "Update profile"
       delete_your_account: "Delete your account"
+      add_new_status: "Add new status"
 
     titles:
       edit: "Edit %{model}"

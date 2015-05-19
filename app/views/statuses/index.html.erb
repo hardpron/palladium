@@ -13,29 +13,51 @@
       </div>
     </div>
 
-      <div class="row">
-        <div class="col-md-7">
-
-          <label><%= button_to 'New Status', new_status_path, class:"btn btn-success" %></label>
+    <div class="row">
+      <div class="col-md-7">
+        <label></label>
+        <div class="actions">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+          <%= t('helpers.links.new') %>
+        </button>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><%= t('helpers.links.add_new_status') %></h4>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <table class="table table-hover">
           <tbody>
           <% @statuses.each do |status| %>
-              <tr class="clickable-row" data-href = <%= "/settings/status_settings/#{status.id}" %> >
+              <tr class="clickable-row" data-href=<%= "/settings/status_settings/#{status.id}" %>>
                 <td><%= status.name %></td>
                 <td><%= status.colore %></td>
                 <td><%= link_to 'Edit', edit_status_path(status) %></td>
               </tr>
           <% end %>
           </tbody>
-          </table>
-        </div>
+        </table>
       </div>
-      <div class="field">
-      </div>
+    </div>
+    <div class="field">
+    </div>
 
   </div>
 </div>
-
 <script>
     jQuery(document).ready(function ($) {
         $(".clickable-row").click(function () {
@@ -43,5 +65,4 @@
         });
     });
 </script>
-
 
