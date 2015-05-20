@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require spectrum
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
