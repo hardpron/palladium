@@ -40,10 +40,10 @@
         <table class="table table-hover">
           <tbody>
           <% @statuses.each do |status| %>
-              <tr class="clickable-row" data-href=<%= edit_status_path(status) %>>
+              <tr class="clickable-row" data-href="/settings/status_settings_title/<%= status.id %>/edit">
                 <td><%= status.name %></td>
                 <td>
-                  <div class="color_rect masthead" style="background-color: <%= status.color %>;"></div>
+                  <div class="color_rect_index masthead" style = "background-color: <%= status.color %>;"></div>
                 </td>
                 <td><%= link_to 'Edit', edit_status_path(status) %></td>
               </tr>
@@ -54,7 +54,6 @@
     </div>
     <div class="field">
     </div>
-
   </div>
 </div>
 <script>
