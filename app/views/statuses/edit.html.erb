@@ -17,20 +17,15 @@
                 </ul>
               </div>
           <% end %>
-
           <div class="field">
             <%= f.text_field :name, class: "form-control input-lg", type: "text", placeholder: t('helpers.links.status_name') %>
           </div>
-
           <div class="field">
             <%= f.text_field :color, class: "form-control custom color_input", type: "text", placeholder: t('helpers.links.change_color')%>
-
-
             <div class="color_rect" style="background-color: <%= @status.color %>"></div>
-
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" href=<%= statuses_path %> %>Close</button>
+            <a type="button" class="btn btn-default" href='/settings/status_settings_title'>Close</a>
             <%= f.submit class: 'btn btn-primary'%>
           </div>
       <% end %>
