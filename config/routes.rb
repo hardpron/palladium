@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   end
 
   get '/settings/status_settings_title' => 'statuses#index'
+  get '/settings/status_settings_title/:id/edit' => 'statuses#edit'
   resources :statuses, path: '/settings/status_settings'
 
 
