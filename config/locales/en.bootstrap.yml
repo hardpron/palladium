@@ -27,6 +27,7 @@ en:
       status_name: "Status name"
       status_color: "Status color"
       change_color: "Change color"
+      all_version: "All version"
 
     titles:
       edit: "Edit %{model}"
