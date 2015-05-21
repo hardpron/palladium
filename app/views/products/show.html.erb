@@ -16,7 +16,7 @@
               </thead>
               <tbody>
               <% @product.plans.order(created_at: :desc).each do |plan| %>
-                  <tr class="clickable-row run_str" data-href= <%= product_plan_path(@product, plan) %>, name = <%= plan.version %> >
+                  <tr class="clickable-row run_str" data-href=<%= product_plan_path(@product, plan) %>, name=<%= plan.version %>>
 
                     <td><%= plan.name %></td>
                     <td><%= plan.version %></td>
@@ -42,7 +42,7 @@
     </div>
     <div class="col-md-4">
       <div class="list-group">
-        <a class="list-group-item active">
+        <a class="list-group-item active" onclick='unsort()'>
           <h5 align="center"><%= t('helpers.links.all_version') %></h5>
         </a>
         <% @product.plans.select('distinct version').reverse.each do |plan| %>
@@ -71,16 +71,19 @@
             window.document.location = $(this).data("href");
         });
     });
-var version;
-  function sort(version){
-      $('.run_str').each(function(index, obj){
-          if (obj.getAttribute('name') != version){
-              $('.run_str')[index].classList.add("hiden")
-          }
-          else{
-              $('.run_str')[index].classList.remove("hiden")
-          }
-      });
-  }
+
+    function sort(version) {
+        $('.run_str').each(function (index, obj) {
+            if (obj.getAttribute('name') != version) {
+                $('.run_str')[index].classList.add("hiden")
+            }
+            else {
+                $('.run_str')[index].classList.remove("hiden")
+            }
+        });
+    }
+    function unsort() {
+        $('.run_str').removeClass("hiden")
+    }
 </script>
 
