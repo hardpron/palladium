@@ -1,9 +1,52 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @plan.name %>
-</p>
+
+<div class="container">
+  <div class="row">
+    <div class="page-header">
+      <h1 align="center"><%= t('helpers.titles.runs_title') %></h1>
+    </div>
+
+
+    <div class="col-md-11 col-md-offset-1">
+      <% unless @plan.runs.empty? %>
+          <div class='jumbotron'>
+            <h3><%= t('helpers.titles.plans') %></h3>
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th><%= @plan.runs.human_attribute_name(:status) %></th>
+                <th><%= @plan.runs.human_attribute_name(:version) %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @plan.runs.order(created_at: :desc).each do |run| %>
+                  <tr class="clickable-row run_str" data-href='#' name=<%= run.version %>>
+
+                    <td><%= run.name %></td>
+                    <td><%= run.version %></td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-success" style="width: 50%">
+
+                        </div>
+                        <div class="progress-bar progress-bar-warning" style="width: 20%">
+                          <span class="sr-only">20% Complete (warning)</span>
+                        </div>
+                        <div class="progress-bar progress-bar-danger" style="width: 10%">
+                          <span class="sr-only">10% Complete (danger)</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <p>
   <strong>Version:</strong>

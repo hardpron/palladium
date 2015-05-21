@@ -12,6 +12,7 @@ class PlansController < ApplicationController
   # GET /plans/1
   # GET /plans/1.json
   def show
+    @plan = set_plan
   end
 
   # GET /plans/new
