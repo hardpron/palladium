@@ -1,21 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 
-<div class="container">
+<div class="container jumbotron">
   <div class="row">
-    <div class="page-header">
-      <h1 align="center"><%= t('helpers.titles.runs_title') %></h1>
-    </div>
-
-
-    <div class="col-md-11 col-md-offset-1">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="page-header">
+        <h1 align="center"><%= t('helpers.titles.runs_title') %></h1>
+      </div>
       <% unless @plan.runs.empty? %>
-          <div class='jumbotron'>
-            <h3><%= t('helpers.titles.plans') %></h3>
+          <div id="container" style="height: 400px"></div>
+            <h3><%= t('helpers.titles.runs') %></h3>
             <table class="table table-hover">
               <thead>
               <tr>
-                <th><%= @plan.runs.human_attribute_name(:status) %></th>
+                <th><%= @plan.runs.human_attribute_name(:name) %></th>
                 <th><%= @plan.runs.human_attribute_name(:version) %></th>
               </tr>
               </thead>
@@ -43,24 +41,18 @@
               </tbody>
             </table>
       <% end %>
-      </div>
     </div>
   </div>
 </div>
-
-<p>
-  <strong>Version:</strong>
-  <%= @plan.version %>
-</p>
-
-
-<div id="container" style="height: 400px"></div>
-<%= link_to 'Edit', edit_product_plan_path(@plan.product_id, @plan) %> |
-<%= link_to 'Back', product_plans_path(@plan.product_id)%>
 <script type="text/javascript">
     $(function () {
         $('#container').highcharts({
+            navigation: {
+                buttonOptions: {
+                    enabled: false
+                }},
             chart: {
+                backgroundColor: 'rgba(225, 225, 225, 0)',
                 type: 'pie',
                 options3d: {
                     enabled: true,
@@ -69,7 +61,7 @@
                 }
             },
             title: {
-                text: 'Browser market shares at a specific website, 2014'
+                text: '<b><%= @product.name %></b> <br><i><%= @plan.version %></i> version <br> <%= @plan.created_at %>'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

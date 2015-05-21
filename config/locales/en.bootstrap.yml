@@ -16,6 +16,7 @@ en:
       destroy: "Delete"
       new: "New"
       new_run: "New Run"
+      runs: "Runs"
       edit: "Edit"
       logout: "Logout"
       settings: "Settings"
