@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require highcharts
-// highcharts and plugin/exporting.js need for standats charts, highcharts-3d need for 3d charts
-//= require highcharts-3d
 //= require plugin/exporting.js
+//= require highcharts-3d
+// highcharts and plugin/exporting.js need for standats charts, highcharts-3d need for 3d charts #succession!!!#
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
