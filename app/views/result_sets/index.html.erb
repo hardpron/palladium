@@ -17,7 +17,26 @@
           </tr>
           </thead>
           <tbody>
+          <% @result_sets.order(name: :desc).each do |run| %>
+              <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{run.id }" %>">
 
+                <td><%= run.name %></td>
+                <td><%= run.version %></td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: 50%">
+
+                    </div>
+                    <div class="progress-bar progress-bar-warning" style="width: 20%">
+                      <span class="sr-only">20% Complete (warning)</span>
+                    </div>
+                    <div class="progress-bar progress-bar-danger" style="width: 10%">
+                      <span class="sr-only">10% Complete (danger)</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+          <% end %>
           </tbody>
         </table>
 
@@ -71,7 +90,7 @@
                 innerSize: '50%',
                 data: [
                     ['Firefox', 45.0],
-                    ['IE', 26.8],
+                    ['IE', 45.8],
                     ['Chrome', 12.8],
                     ['Safari', 8.5],
                     ['Opera', 6.2],
