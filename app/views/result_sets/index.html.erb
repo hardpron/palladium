@@ -17,11 +17,10 @@
           </tr>
           </thead>
           <tbody>
-          <% @result_sets.order(name: :desc).each do |run| %>
-              <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{run.id }" %>">
-
-                <td><%= run.name %></td>
-                <td><%= run.version %></td>
+          <% @result_sets.order(name: :desc).each do |result| %>
+              <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{result.id}" %>">
+                <td><%= result.name %></td>
+                <td><%= result.version %></td>
                 <td>
                   <div class="progress">
                     <div class="progress-bar progress-bar-success" style="width: 50%">
