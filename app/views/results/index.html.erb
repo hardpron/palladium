@@ -1,31 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Results</h1>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Status</th>
-      <th>Message</th>
-      <th>Author</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="container jumbotron sets_table">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="page-header sets_hading">
+          <h1 align="center"><%= t('helpers.titles.test_results') %></h1>
+        </div>
+        <h3><%= t('helpers.titles.results') %></h3>
+        <table class="table table-hover result_table">
+          <thead>
+          <tr>
+            <th><%= @results.human_attribute_name(:name) %></th>
+            <th><%= @results.human_attribute_name(:version) %></th>
+            <th><%= @results.human_attribute_name(:status) %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @results.each do |result| %>
+              <tr class="clickable-row result_table" data-href="<%= "#{request.original_url }/#{result.id}/results" %>">
+                <td><%= result.message %></td>
+                <td><%= result.author %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
 
-  <tbody>
-    <% @results.each do |result| %>
-      <tr>
-        <td><%= result.status %></td>
-        <td><%= result.message %></td>
-        <td><%= result.author %></td>
-        <td><%= link_to 'Show', controller: "results", action: "show", id: result %></td>
-        <td><%= link_to 'Edit', controller: "results", action: "edit", id:result %></td>
-        <td><%= link_to 'Destroy', {controller: "results", action: "destroy", id: result}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>
 
-<br>
 
-<%= link_to 'New Result', controller: "results", action: "new" %>
+
+
+
