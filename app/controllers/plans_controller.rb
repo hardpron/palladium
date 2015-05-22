@@ -12,6 +12,8 @@ class PlansController < ApplicationController
   # GET /plans/1
   # GET /plans/1.json
   def show
+    @plan = set_plan
+    @product = product_find_by_id
   end
 
   # GET /plans/new

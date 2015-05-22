@@ -1,33 +1,95 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<h1>Listing Result Sets</h1>
+  <div class="container jumbotron sets_table">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="page-header sets_hading">
+          <h1 align="center"><%= t('helpers.titles.test_results') %></h1>
+        </div>
+        <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        <h3><%= t('helpers.titles.results') %></h3>
+        <table class="table table-hover runs_table">
+          <thead>
+          <tr>
+            <th><%= @result_sets.human_attribute_name(:name) %></th>
+            <th><%= @result_sets.human_attribute_name(:version) %></th>
+          </tr>
+          </thead>
+          <tbody>
 
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Date</th>
-    <th>Version</th>
-    <th>Status</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
+          </tbody>
+        </table>
 
-  <tbody>
-  <% @result_sets.each do |result_set| %>
-      <tr>
-        <td><%= result_set.name %></td>
-        <td><%= result_set.date %></td>
-        <td><%= result_set.version %></td>
-        <td><%= result_set.status %></td>
-        <td><%= link_to 'Show',  controller: "result_sets", action: "show", id: result_set %></td>
-        <td><%= link_to 'Edit', controller: "result_sets", action: "edit", id: result_set %></td>
-        <td><%= link_to 'Destroy', {controller: "result_sets", action: "destroy", id: result_set}, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>
 
-<br>
+<script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            navigation: {
+                buttonOptions: {
+                    enabled: false
+                }
+            },
+            chart: {
+                backgroundColor: 'rgba(225, 225, 225, 0)',
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: 'Browser<br>shares',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 50
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -50,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white',
+                            textShadow: '0px 1px 2px black'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%']
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                innerSize: '50%',
+                data: [
+                    ['Firefox', 45.0],
+                    ['IE', 26.8],
+                    ['Chrome', 12.8],
+                    ['Safari', 8.5],
+                    ['Opera', 6.2],
+                    {
+                        name: 'Others',
+                        y: 0.7,
+                        dataLabels: {
+                            enabled: false
+                        }
+                    }
+                ]
+            }]
+        });
+    });
 
-<%= link_to 'New Result set', controller: "result_sets", action:  "new" %>
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>

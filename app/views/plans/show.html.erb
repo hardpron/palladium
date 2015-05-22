@@ -1,14 +1,105 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @plan.name %>
-</p>
 
-<p>
-  <strong>Version:</strong>
-  <%= @plan.version %>
-</p>
+<div class="container jumbotron">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="page-header runs_hading">
+        <h1 align="center"><%= t('helpers.titles.runs_title') %></h1>
+      </div>
+      <% unless @plan.runs.empty? %>
+          <div id="container" style="height: 400px"></div>
+          <h3><%= t('helpers.titles.runs') %></h3>
+          <table class="table table-hover runs_table">
+            <thead>
+            <tr>
+              <th><%= @plan.runs.human_attribute_name(:name) %></th>
+              <th><%= @plan.runs.human_attribute_name(:version) %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @plan.runs.order(created_at: :desc).each do |run| %>
+                <tr class="clickable-row run_str" data-href=<%= product_plan_run_result_sets_path(@product, @plan, run) %> name=<%= run.version %>>
 
-<%= link_to 'Edit', edit_product_plan_path(@plan.product_id, @plan) %> |
-<%= link_to 'Back', product_plans_path(@plan.product_id)%>
+                  <td><%= run.name %></td>
+                  <td><%= run.version %></td>
+                  <td>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-success" style="width: 50%">
+
+                      </div>
+                      <div class="progress-bar progress-bar-warning" style="width: 20%">
+                        <span class="sr-only">20% Complete (warning)</span>
+                      </div>
+                      <div class="progress-bar progress-bar-danger" style="width: 10%">
+                        <span class="sr-only">10% Complete (danger)</span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            navigation: {
+                buttonOptions: {
+                    enabled: false
+                }
+            },
+            chart: {
+                backgroundColor: 'rgba(225, 225, 225, 0)',
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45,
+                    beta: 0
+                }
+            },
+            title: {
+                text: '<b><%= @product.name %></b> <br><i><%= @plan.version %></i> version <br> <%= @plan.created_at %>'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: [
+                    ['Firefox', 45.0],
+                    ['IE', 26.8],
+                    {
+                        name: 'Chrome',
+                        y: 12.8,
+                        color: '#00FF00'
+                    },
+                    ['Safari', 8.5],
+                    ['Opera', 6.2],
+                    ['Others', 0.7]
+                ]
+            }]
+        });
+    });
+
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
