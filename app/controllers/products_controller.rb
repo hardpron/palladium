@@ -15,6 +15,7 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
+    Status.create(name:"Untested", color:'#ffffff') unless Status.exists?(name:"Untested")
     @product = Product.new
   end
 
