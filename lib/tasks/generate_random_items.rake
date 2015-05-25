@@ -25,7 +25,7 @@ namespace :generate_random_items do
 
   task :runs => :environment do
     Plan.all.each do |plan|
-      5.times do |i|
+      4.times do |i|
         plan.runs << Run.create(name:"Plan#{i}", version:"Version#{i}")
       end
     end
@@ -33,7 +33,7 @@ namespace :generate_random_items do
 
    task :result_sets => :environment do
     Run.all.each do |run|
-      5.times do |i|
+      3.times do |i|
         run.result_sets << ResultSet.create(name:"Plan#{i}", version:"Version#{i}")
       end
     end
@@ -41,7 +41,7 @@ namespace :generate_random_items do
 
   task :results => :environment do
     ResultSet.all.each do |result_sets|
-      5.times do |i|
+      2.times do |i|
         result_sets.results << Result.create(message:"Message#{i}", author:"Author#{i}")
       end
     end
