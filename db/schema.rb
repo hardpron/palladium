@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 20150519094820) do
   end
 
   create_table "results", force: :cascade do |t|
-    t.string   "status"
     t.text     "message"
     t.string   "author"
     t.integer  "result_set_id"
@@ -63,8 +62,9 @@ ActiveRecord::Schema.define(version: 20150519094820) do
   create_table "statuses", force: :cascade do |t|
     t.string   "name"
     t.string   "color"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "main_status", default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "users", force: :cascade do |t|

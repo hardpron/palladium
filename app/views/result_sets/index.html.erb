@@ -1,7 +1,7 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <div class="container jumbotron sets_table">
+  <div class="container jumbotron runs_table">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="page-header sets_hading">
@@ -9,7 +9,7 @@
         </div>
         <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         <h3><%= t('helpers.titles.results') %></h3>
-        <table class="table table-hover runs_table">
+        <table class="table table-hover sets_table">
           <thead>
           <tr>
             <th><%= @result_sets.human_attribute_name(:name) %></th>
@@ -17,7 +17,25 @@
           </tr>
           </thead>
           <tbody>
+          <% @result_sets.order(name: :desc).each do |result| %>
+              <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{result.id}/results" %>">
+                <td><%= result.name %></td>
+                <td><%= result.version %></td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: 50%">
 
+                    </div>
+                    <div class="progress-bar progress-bar-warning" style="width: 20%">
+                      <span class="sr-only">20% Complete (warning)</span>
+                    </div>
+                    <div class="progress-bar progress-bar-danger" style="width: 10%">
+                      <span class="sr-only">10% Complete (danger)</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+          <% end %>
           </tbody>
         </table>
 
@@ -71,7 +89,7 @@
                 innerSize: '50%',
                 data: [
                     ['Firefox', 45.0],
-                    ['IE', 26.8],
+                    ['IE', 45.8],
                     ['Chrome', 12.8],
                     ['Safari', 8.5],
                     ['Opera', 6.2],

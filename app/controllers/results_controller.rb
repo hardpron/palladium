@@ -34,7 +34,7 @@ class ResultsController < ApplicationController
   # POST /results.json
   def create
     @result = Result.new(result_params)
-
+    Status.find_by_main_status(true).results << @result
     respond_to do |format|
       if @result.save
         set_result_set.results << @result
@@ -81,7 +81,6 @@ class ResultsController < ApplicationController
     def result_params
       params.require(:result).permit(:status, :message, :author)
     end
-
 
   def set_run
     @run = Run.find(params[:run_id])
