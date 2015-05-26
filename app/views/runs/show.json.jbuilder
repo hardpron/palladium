@@ -1,1 +1,1 @@
-json.extract! @run, :id, :date, :version, :status, :created_at, :updated_at
+json.extract! @run, :id, :name, :version, :created_at, :updated_at

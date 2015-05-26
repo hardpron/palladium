@@ -1,0 +1,6 @@
+products status: success  green
+                 info     blue
+                 warning  yellow
+                 danger   red
+
+plan status - json {success:50, danger:50}

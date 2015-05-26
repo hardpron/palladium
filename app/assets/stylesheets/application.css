@@ -13,9 +13,14 @@
  *= require_tree .
  *= require_self
  */
-.actions-button{
-    margin: 20px;
-}
-.hiden{
+.hiden {
     display: none;
 }
+.modal-header{
+    background-color:#EEEEEE;
+}
+.color_rect{
+    width: 100%;
+    height: 2em;
+}
+/*hard class edit*/

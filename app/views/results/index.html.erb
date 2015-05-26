@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <div class="container jumbotron sets_table">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="page-header sets_hading">
+          <h1 align="center"><%= t('helpers.titles.test_results') %></h1>
+        </div>
+        <h3><%= t('helpers.titles.results') %></h3>
+        <table class="table table-hover result_table">
+          <thead>
+          <tr>
+            <th><%= @results.human_attribute_name(:name) %></th>
+            <th><%= @results.human_attribute_name(:version) %></th>
+            <th><%= @results.human_attribute_name(:status) %></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @results.each do |result| %>
+              <tr class="clickable-row result_table" data-href="<%= "#{request.original_url }/#{result.id}/results" %>">
+                <td><%= result.message %></td>
+                <td><%= result.author %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

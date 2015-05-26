@@ -1,33 +1,31 @@
 <%- model_class = Product -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
-<div class="container">
-<table class="table table-hover">
-  <thead>
-  <tr>
+<div class="container ">
+  <table class="table table-hover">
+    <thead>
+    <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:status) %></th>
       <th><%= model_class.human_attribute_name(:version) %></th>
-      <th><%= model_class.human_attribute_name(:update_data) %></th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <% @products.each do |product| %>
-      <tr class='clickable-row' data-href = <%= product_path(product) %>>
-        <td><%= product.name %></td>
-        <td><%= product.status %></td>
-        <td><%= product.version %></td>
-        <td><%= product.update_data %></td>
-      </tr>
+        <tr class="clickable-row <%= "list-group-item-#{product.status}" %>" data-href= <%= product_path(product) %>>
+          <td><%= product.name %></td>
+          <td><%= product.status %></td>
+          <td><%= product.version %></td>
+        </tr>
     <% end %>
-  </tbody>
-</table>
-<br>
+    </tbody>
+  </table>
+  <br>
 
   <%= link_to t('.new', :default => t("helpers.links.new")),
               new_product_path,
-              :class => 'btn btn-primary' %>
+              :class => 'btn btn-success' %>
 </div>
 
 <script>

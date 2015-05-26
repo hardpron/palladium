@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @result_set.name %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @result_set.date %>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @result_set.version %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @result_set.status %>
+</p>
+
+<%= link_to 'Edit', controller: "result_sets", action: "edit", id: @result_set %> |
+<%= link_to 'Back', controller: "result_sets" %>
