@@ -1,16 +1,11 @@
 class StatusesController < ApplicationController
   before_action :set_status, only: [:show, :edit, :update, :destroy]
-
+  acts_as_token_authentication_handler_for User
   # GET /statuses
   # GET /statuses.json
   def index
     @statuses = Status.all
     @status = Status.new
-  end
-
-  # GET /statuses/1
-  # GET /statuses/1.json
-  def show
   end
 
   # GET /statuses/new

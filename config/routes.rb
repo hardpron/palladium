@@ -21,8 +21,8 @@ Rails.application.routes.draw do
     get '/settings/admin' => 'devise/registrations#edit'
   end
 
-  post '/settings/status_settings_title' => 'statuses#index'
-  post '/settings/status_settings_title/:id/edit' => 'statuses#edit'
+  get '/settings/status_settings_title' => 'statuses#index'
+  get '/settings/status_settings_title/:id/edit' => 'statuses#edit'
   resources :statuses, path: '/settings/status_settings'
 
 
