@@ -1,6 +1,6 @@
 class RunsController < ApplicationController
   before_action :set_run, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  acts_as_token_authentication_handler_for User
 
   # GET /runs
   # GET /runs.json

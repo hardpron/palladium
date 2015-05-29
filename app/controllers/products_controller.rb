@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  acts_as_token_authentication_handler_for User
 
   # GET /products
   # GET /products.json
