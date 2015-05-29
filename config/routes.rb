@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   get '/settings/status_settings_title/:id/edit' => 'statuses#edit'
   resources :statuses, path: '/settings/status_settings'
 
+  #-----------------API----------------------#
+  get 'api/products/get_products' => 'products#get_products'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

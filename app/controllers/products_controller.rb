@@ -63,13 +63,26 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:name, :status, :version)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def product_params
+    params.require(:product).permit(:name, :status, :version)
+  end
+
+  public
+  def get_products
+      products_json = {}
+      Product.all.each do |current_product|
+        products_json.merge!(current_product.id => {'ProductName' => current_product.name,
+                                                          'ProductStatus' => current_product.status,
+                                                          'ProductVersion' => current_product.version,
+                                                          'CreatedAt' => current_product.created_at,
+                                                          'UpdatedAt' => current_product.updated_at})
+      end
+      render :json => products_json
+  end
 end
