@@ -26,4 +26,16 @@ describe 'Products' do
     response = JSON.parse(@api.get_products_by_param({:name => @product_name}))
     expect(response.values.first['ProductName']).to eq(@product_name)
   end
+
+  it 'edit_product' do
+    response = JSON.parse(@api.get_all_products)
+    current_product_data = response[response.keys.first]
+    params = {:product => {:name => "name_after_edit#{Time.now.nsec}",
+                           :status => current_product_data['ProductStatus'],
+                           :version => current_product_data['ProductVersion']}}
+    params.merge!({:id => response.keys.first})
+    @api.edit_product(params)
+    response = JSON.parse(@api.get_products_by_param({:id => response.keys.first}))
+    expect(response.values.first['ProductName']).to eq(params[:product][:name])
+  end
 end

@@ -38,14 +38,15 @@ module Product
 
   # api/products/add_new_product
   def add_new_product(params)
+    params.merge!({:commit => 'Create Product'})
     send_post_request('products/add_new_product', params)
   end
 
-  # api/products/edit_product
+  # api/products/update_product
   # params = {:product => {:name => "name1", :status => "status", :version => "version"}, :id => "14"}
   def edit_product(params)
     params.merge!({:commit => 'Update Product'})
-    send_post_request('products/add_new_product', params)
+    send_post_request('products/update_product', params)
   end
 end
 end
