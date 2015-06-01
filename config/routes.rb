@@ -34,9 +34,8 @@ Rails.application.routes.draw do
   post 'api/products/delete_product' => 'products#destroy'
   # Plans
   get 'api/plans/get_plans' => 'plans#get_plans'
-
-
-
+  get 'api/plans/get_plans_by_param' => 'plans#get_plans_by_param'
+  post 'api/plans/add_new_plan' => 'plans#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

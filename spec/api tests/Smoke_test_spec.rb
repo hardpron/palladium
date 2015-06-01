@@ -58,5 +58,17 @@ describe 'Unit tests' do
       responce = JSON.parse @api.get_all_plans
       expect(responce).not_to be_empty
     end
+
+    it 'get_plan_by_param' do
+      response = JSON.parse(@api.get_plans_by_param({:name => 'name'}))
+      expect(response.values.first['PlanName']).to eq('name')
+    end
+
+    it 'add_new_plan' do
+        params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
+        @api.add_new_plan(params)
+        response = JSON.parse(@api.get_plans_by_param({:name => params[:plan][:name]}))
+        expect(response.values.first['PlanName']).to eq params[:plan][:name]
+    end
   end
 end

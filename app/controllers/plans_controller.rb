@@ -95,4 +95,22 @@ class PlansController < ApplicationController
     end
     render :json => plans_json
   end
+
+  def get_plans_by_param
+    plans_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    plans = Plan.find_by(find_params)
+    if plans.nil?
+      render :json => {}
+    else
+      plans = [plans] until plans.is_a?(Array)
+      plans.each do |current_plan|
+        plans_json.merge!(current_plan.id => {'PlanName' => current_plan.name,
+                                                    'PlanVersion' => current_plan.version,
+                                                    'CreatedAt' => current_plan.created_at,
+                                                    'UpdatedAt' => current_plan.updated_at})
+      end
+      render :json => plans_json
+    end
+  end
 end
