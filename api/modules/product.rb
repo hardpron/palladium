@@ -49,6 +49,7 @@ module Product
     send_post_request('products/update_product', params)
   end
 
+  # api/products/delete_product
   def delete_product(id)
     send_post_request('products/delete_product', {:id => id})
   end
