@@ -48,5 +48,9 @@ module Product
     params.merge!({:commit => 'Update Product'})
     send_post_request('products/update_product', params)
   end
+
+  def delete_product(id)
+    send_post_request('products/delete_product', {:id => id})
+  end
 end
 end

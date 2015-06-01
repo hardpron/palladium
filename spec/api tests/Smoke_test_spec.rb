@@ -38,4 +38,13 @@ describe 'Products' do
     response = JSON.parse(@api.get_products_by_param({:id => response.keys.first}))
     expect(response.values.first['ProductName']).to eq(params[:product][:name])
   end
+
+  it 'delete_product' do
+    response = JSON.parse(@api.get_all_products)
+    current_product_data = response[response.keys.first]
+    @api.delete_product(response.keys.first)
+    response = JSON.parse(@api.get_products_by_param({:name => current_product_data['ProductName']}))
+    expect(response).to be_empty
+  end
+
 end
