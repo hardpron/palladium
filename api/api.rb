@@ -1,9 +1,12 @@
 require 'net/http'
 require_relative 'modules/product'
+require_relative 'modules/plan'
 require 'json'
 class Api
   include Resource
   include Product
+  include Plan
+
   def initialize(address, username, token)
     @uri = URI("http://#{address}/api/")
     @username = username

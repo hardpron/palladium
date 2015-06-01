@@ -81,5 +81,18 @@ class PlansController < ApplicationController
 
   def product_find_by_id
       Product.find(params.require(:product_id))
+  end
+
+  public
+  def get_plans
+    plans_json = {}
+    p '---------------------------------------------------------------------------------------'
+    Plan.all.each do |current_plan|
+      plans_json.merge!(current_plan.id => {'PlanName' => current_plan.name,
+                                                  'PlanVersion' => current_plan.version,
+                                                  'CreatedAt' => current_plan.created_at,
+                                                  'UpdatedAt' => current_plan.updated_at})
     end
+    render :json => plans_json
+  end
 end

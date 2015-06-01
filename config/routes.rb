@@ -25,12 +25,16 @@ Rails.application.routes.draw do
   get '/settings/status_settings_title/:id/edit' => 'statuses#edit'
   resources :statuses, path: '/settings/status_settings'
 
-  #-----------------API----------------------#
+  #---------------------------API------------------------------#
+  # Products
   get 'api/products/get_products' => 'products#get_products'
   get 'api/products/get_products_by_param' => 'products#get_products_by_param'
   post 'api/products/add_new_product' => 'products#create'
   post 'api/products/update_product' => 'products#update'
   post 'api/products/delete_product' => 'products#destroy'
+  # Plans
+  get 'api/plans/get_plans' => 'plans#get_plans'
+
 
 
 
