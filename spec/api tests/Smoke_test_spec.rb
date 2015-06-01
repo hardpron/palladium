@@ -20,7 +20,7 @@ describe 'Products' do
     expect(response.values.first['ProductName']).to eq(name)
   end
 
-  it 'Add new product' do
+  it 'add_new_product' do
     params = {:product => {:name => 'name', :status => 'status', :version => 'version'}}
     expect(@api.add_new_product(params).code).to eq('302')
   end
