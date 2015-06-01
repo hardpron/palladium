@@ -12,7 +12,7 @@ module Plan
   end
 
   # api/products/add_new_product
-  def get_plans_by_param(params)
+  def add_new_plan(params)
     params.merge!({:commit => 'Create Plan'})
     send_post_request('plans/add_new_plan', params)
   end

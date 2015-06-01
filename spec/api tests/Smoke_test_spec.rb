@@ -28,7 +28,7 @@ describe 'Unit tests' do
 
     it 'get_products_by_param' do
       response = JSON.parse(@api.get_products_by_param({:name => @product_name}))
-      expect(response.values.first['ProductName']).to eq(@product_name)
+      expect(response.values.first['ProductVersion']).to eq(@product_version)
     end
 
     it 'edit_product' do
@@ -54,14 +54,20 @@ describe 'Unit tests' do
   end
 
   describe 'Plans' do
+
+    before :all do
+      @plan_name = "name#{Time.now.nsec}"
+      @plan_version = "version#{Time.now.nsec}"
+      @api.add_new_plan({:plan => {:name => @plan_name, :version => @plan_version}})
+    end
     it 'get_all_plans' do
       responce = JSON.parse @api.get_all_plans
       expect(responce).not_to be_empty
     end
 
-    it 'get_plan_by_param' do
-      response = JSON.parse(@api.get_plans_by_param({:name => 'name'}))
-      expect(response.values.first['PlanName']).to eq('name')
+    it 'get_plans_by_param' do
+      response = JSON.parse(@api.get_plans_by_param({:name => @plan_name}))
+      expect(response.values.first['PlanVersion']).to eq(@plan_version)
     end
 
     it 'add_new_plan' do
