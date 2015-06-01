@@ -19,7 +19,7 @@ describe 'Products' do
 
   it 'get_all_products' do
     responce = JSON.parse @api.get_all_products
-    expect(responce.keys.size).to be >= 1
+    expect(responce).not_to be_empty
   end
 
   it 'get_products_by_param' do
