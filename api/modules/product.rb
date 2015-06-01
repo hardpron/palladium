@@ -11,7 +11,6 @@ module Resource
     req = Net::HTTP::Post.new(local_uri, initheader = {'Content-Type' =>'application/json'})
     req.add_field('X-User-Email', @username)
     req.add_field('X-User-Token', @token)
-    req.add_field('commit', 'Create Product')
     req.body = params.to_json
     res = Net::HTTP.new(local_uri.host, local_uri.port).start do |http|
       http.request(req)
@@ -26,26 +25,27 @@ module Resource
   end
 
 module Product
-  # api/products/get_products
+  # api/products/get_products_by_param
   def get_all_products
     send_get_request('products/get_products', {:user_email => @username, :user_token => @token})
   end
 
+  def get_products_by_param(param)
+    raise('Method get_products_by_param get hash with one pair keys and values') unless param.keys.size == 1
+    param = {param.keys.first.to_s => param.values.first.to_s}
+    send_get_request('products/get_products_by_param', {:user_email => @username, :user_token => @token, :param => param})
+  end
+
   # api/products/add_new_product
-  def add_new_product(name, version, status = '')
-    send_post_request('products/add_new_product', {:product => {:name => name, :status => status, :version => version}})
+  def add_new_product(params)
+    send_post_request('products/add_new_product', params)
+  end
+
+  # api/products/edit_product
+  # params = {:product => {:name => "name1", :status => "status", :version => "version"}, :id => "14"}
+  def edit_product(params)
+    params.merge!({:commit => 'Update Product'})
+    send_post_request('products/add_new_product', params)
   end
 end
 end
-# "product"=>{"name"=>"1", "status"=>"11", "version"=>"111"}, "commit"=>"Create Product"
-
-# req = Net::HTTP::Post.new(@uri)
-# req.add_field('X-User-Email', @username)
-# req.add_field('X-User-Token', @token)
-# req.add_field('products', [])
-#
-# res = Net::HTTP.new(@uri.host, @uri.port).start do |http|
-#   http.request(req)
-# end
-#
-# puts res.body

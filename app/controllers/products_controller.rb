@@ -85,4 +85,19 @@ class ProductsController < ApplicationController
       end
       render :json => products_json
   end
+
+  def get_products_by_param
+    products_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    products = Product.find_by(find_params)
+    products = [products] until products.is_a?(Array)
+     products.each do |current_product|
+      products_json.merge!(current_product.id => {'ProductName' => current_product.name,
+                                                  'ProductStatus' => current_product.status,
+                                                  'ProductVersion' => current_product.version,
+                                                  'CreatedAt' => current_product.created_at,
+                                                  'UpdatedAt' => current_product.updated_at})
+    end
+    render :json => products_json
+  end
 end
