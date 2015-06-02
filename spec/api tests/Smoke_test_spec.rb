@@ -23,10 +23,17 @@ describe 'Unit tests' do
   describe 'Products' do
 
     it 'add_new_product' do
-      params = {:product => {:name => "name#{Time.now.nsec}", :status => "status#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
+      params = {:product => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
       @api.add_new_product(params)
       response = JSON.parse(@api.get_products_by_param({:name => params[:product][:name]}))
       expect(response.values.size).to eq 1
+    end
+
+    it 'add_new_product with status field' do
+      params = {:product => {:name => "name#{Time.now.nsec}", :status => "status#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
+      @api.add_new_product(params)
+      response = JSON.parse(@api.get_products_by_param({:name => params[:product][:name]}))
+      expect(response.values.first['productStatus']).to be_nil
     end
 
     it 'get_all_products' do
