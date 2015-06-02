@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   post 'api/plans/add_new_plan' => 'plans#create'
   post 'api/plans/update_plan' => 'plans#update'
   post 'api/plans/delete_plan' => 'plans#destroy'
+  # Runs
+  get 'api/runs/get_all_runs' => 'runs#get_all_runs'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

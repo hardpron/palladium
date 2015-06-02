@@ -87,7 +87,6 @@ class PlansController < ApplicationController
   public
   def get_plans
     plans_json = {}
-    p '---------------------------------------------------------------------------------------'
     Plan.all.each do |current_plan|
       plans_json.merge!(current_plan.id => {'PlanName' => current_plan.name,
                                                   'PlanVersion' => current_plan.version,

@@ -14,11 +14,12 @@ class RunsController < ApplicationController
   end
 
   # GET /runs/new
-  def new
-    @product = product_find_by_id
-    @plan = plan_find_by_id
-    @run = Run.new
-  end
+  # This method will be commented because creation can be only through API
+  # def new
+  #   @product = product_find_by_id
+  #   @plan = plan_find_by_id
+  #   @run = Run.new
+  # end
 
   # GET /runs/1/edit
   def edit
@@ -86,5 +87,17 @@ class RunsController < ApplicationController
 
   def plan_find_by_id
      Product.find(product_find_by_id).plans.find(params.require(:plan_id))
-   end
+  end
+
+  public
+  def get_all_runs
+    runs_json = {}
+    Run.all.each do |current_run|
+      runs_json.merge!(current_run.id => {'RunName' => current_run.name,
+                                            'RunVersion' => current_run.version,
+                                            'CreatedAt' => current_run.created_at,
+                                            'UpdatedAt' => current_run.updated_at})
+    end
+    render :json => runs_json
+  end
 end

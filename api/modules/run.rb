@@ -1,10 +1,10 @@
 module Resource
 module Run
-  # # api/plans/get_products_by_param
-  # # @return [String] with all plans data. Use +JSON.parse string+ to convert it to hash
-  # def get_all_plans
-  #   send_get_request('plans/get_plans', {:user_email => @username, :user_token => @token})
-  # end
+  # api/runs/get_all_runs
+  # @return [String] with all plans data. Use +JSON.parse string+ to convert it to hash
+  def get_all_runs
+    send_get_request('runs/get_all_runs', {:user_email => @username, :user_token => @token})
+  end
   #
   # # api/plans/get_plans_by_param
   # # @return [String] with plans data. Use +JSON.parse string+ to convert it to hash

@@ -77,7 +77,7 @@ describe 'Unit tests' do
   describe 'Plans' do
 
     it 'add_new_plan' do
-      params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :product_id => '164'}
+      params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :product_id => @product_id}
       @api.add_new_plan(params)
       response = JSON.parse(@api.get_plans_by_param({:name => params[:plan][:name]}))
       expect(response.values.first['PlanName']).to eq params[:plan][:name]
@@ -115,7 +115,9 @@ describe 'Unit tests' do
   end
 
   describe 'Runs' do
-
-
+    it 'get_all_runs' do
+        response = JSON.parse @api.get_all_runs
+        expect(response).not_to be_empty
+    end
   end
 end
