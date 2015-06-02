@@ -6,7 +6,6 @@ describe 'Unit tests' do
 
     # Product Data
     @product_name = "Product_name#{Time.now.nsec}"
-    @product_status = "Product_status#{Time.now.nsec}"
     @product_version = "Product_version#{Time.now.nsec}"
 
     @api.add_new_product({:product => {:name => @product_name, :status => @product_status, :version => @product_version}})

@@ -55,9 +55,8 @@ module Product
   # @param params [Hash] with product data.
   # Example:
   # {:product => {:name => "Product_name",
-  #               :status => "Status",
   #               :version => "Version"}}
-  # You can change only Product_name, Status and Version (data type - string)
+  # You can change only Product_name and Version (data type - string)
   def add_new_product(params)
     params.merge!({:commit => 'Create Product'})
     send_post_request('products/add_new_product', params)
@@ -67,10 +66,9 @@ module Product
   # @param params [Hash] with product data.
   # Example:
   # {:product => {:name => "Product_name",
-  #               :status => "Status",
   #               :version => "Version"}
   # :id => "1"}
-  # Change  Product_name, Status and Version (data type - string) for product with any id
+  # Change  Product_name and Version (data type - string) for product with any id
   def edit_product(params)
     params.merge!({:commit => 'Update Product'})
     send_post_request('products/update_product', params)
