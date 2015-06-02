@@ -27,16 +27,25 @@ module Plan
     send_post_request('plans/add_new_plan', params)
   end
 
-  # # api/plans/update_product
-  # # params = {:product => {:name => "name1", :status => "status", :version => "version"}, :id => "14"}
+  # api/plans/update_plan
+  # @param params [Hash] with product data.
+  # Example:
+  # {:plan => {:name => "Plan_name",
+  #            :version => "Version"}
+  # :id => "1"}
+  # Change  Plan_name and Version (data type - string) for plan with any id
   def edit_plan(params)
     params.merge!({:commit => 'Update Plan'})
     send_post_request('plans/update_plan', params)
   end
 
-  # api/plans/delete_product
-  def delete_plan(id)
-    send_post_request('plans/delete_plan', {:id => id})
+  # api/plans/delete_plan
+  # @param params [Hash] with plan id.
+  # Example:
+  # {:id => "1"}
+  # ATTENTION!!! Plan, and all its runs, set-results and results will be deleted!! Dont use this method inattentively
+  def delete_plan(params)
+    send_post_request('plans/delete_plan', params)
   end
 end
 end

@@ -87,7 +87,8 @@ describe 'Unit tests' do
     it 'delete_plan' do
       response = JSON.parse(@api.get_all_plans)
       current_plan_data = response[response.keys.first]
-      @api.delete_plan(response.keys.first)
+      params = {id: response.keys.first}
+      @api.delete_plan(params)
       response = JSON.parse(@api.get_plans_by_param({:name => current_plan_data['PlanName']}))
       expect(response).to be_empty
     end
