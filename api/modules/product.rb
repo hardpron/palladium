@@ -68,7 +68,7 @@ module Product
   # @param params [Hash] with product id.
   # Example:
   # {:id => "1"}
-  # ATTANTION!!! Product, and all its plans, runs, set-results and results will be deleted!! Dont use this method inattentively
+  # ATTENTION!!! Product, and all its plans, runs, set-results and results will be deleted!! Dont use this method inattentively
   def delete_product(params)
     send_post_request('products/delete_product', params)
   end
