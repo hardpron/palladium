@@ -55,13 +55,6 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    @product.plans.each do |current_plan|
-      current_plan.runs.each do |current_set_result|
-        current_set_result.results.delete_all
-      end
-      current_plan.runs.delete_all
-    end
-    @product.plans.delete_all
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
