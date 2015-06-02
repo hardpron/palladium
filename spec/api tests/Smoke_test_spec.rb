@@ -87,5 +87,13 @@ describe 'Unit tests' do
       response = JSON.parse(@api.get_plan_by_param({:id => response.keys.first}))
       expect(response.values.first['PlanName']).to eq(params[:plan][:name])
     end
+
+    it 'delete_plan' do
+      response = JSON.parse(@api.get_all_plans)
+      current_plan_data = response[response.keys.first]
+      @api.delete_plan(response.keys.first)
+      response = JSON.parse(@api.get_plans_by_param({:name => current_plan_data['PlanName']}))
+      expect(response).to be_empty
+    end
   end
 end
