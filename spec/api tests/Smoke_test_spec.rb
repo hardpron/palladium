@@ -46,7 +46,8 @@ describe 'Unit tests' do
     it 'delete_product' do
       response = JSON.parse(@api.get_all_products)
       current_product_data = response[response.keys.first]
-      @api.delete_product(response.keys.first)
+      params = {:id => response.keys.first}
+      @api.delete_product(params)
       response = JSON.parse(@api.get_products_by_param({:name => current_product_data['ProductName']}))
       expect(response).to be_empty
     end
