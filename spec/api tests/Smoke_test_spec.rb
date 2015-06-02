@@ -8,9 +8,9 @@ describe 'Unit tests' do
   describe 'Products' do
 
     before :all do
-      @product_name = "name#{Time.now.nsec}"
-      @product_status = "status#{Time.now.nsec}"
-      @product_version = "version#{Time.now.nsec}"
+      @product_name = "Product_name#{Time.now.nsec}"
+      @product_status = "Product_status#{Time.now.nsec}"
+      @product_version = "Product_version#{Time.now.nsec}"
       @api.add_new_product({:product => {:name => @product_name, :status => @product_status, :version => @product_version}})
     end
 
@@ -55,13 +55,13 @@ describe 'Unit tests' do
   describe 'Plans' do
 
     before :all do
-      @plan_name = "name#{Time.now.nsec}"
-      @plan_version = "version#{Time.now.nsec}"
+      @plan_name = "Plan_name#{Time.now.nsec}"
+      @plan_version = "Plan_version#{Time.now.nsec}"
       @api.add_new_plan({:plan => {:name => @plan_name, :version => @plan_version}})
     end
 
     it 'add_new_plan' do
-      params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
+      params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :product_id => '164'}
       @api.add_new_plan(params)
       response = JSON.parse(@api.get_plans_by_param({:name => params[:plan][:name]}))
       expect(response.values.first['PlanName']).to eq params[:plan][:name]

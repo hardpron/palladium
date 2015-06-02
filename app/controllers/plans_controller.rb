@@ -17,10 +17,11 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/new
-  def new
-    @product = product_find_by_id
-    @plan = Plan.new
-  end
+  # This method will be commented because creation can be only through API
+  # def new
+  #   @product = product_find_by_id
+  #   @plan = Plan.new
+  # end
 
   # GET /plans/1/edit
   def edit
@@ -31,10 +32,10 @@ class PlansController < ApplicationController
   # POST /plans.json
   def create
     @plan = Plan.new(plan_params)
-
+    product_for_plan = product_find_by_id
     respond_to do |format|
       if @plan.save
-        product_find_by_id.plans << @plan
+        product_for_plan.plans << @plan
         format.html { redirect_to product_plan_url(product_find_by_id, @plan), notice: 'Plan was successfully created.' }
         format.json { render :show, status: :created, location: @plan }
       else
@@ -76,7 +77,7 @@ class PlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plan_params
-      params.require(:plan).permit(:name, :version)
+      params.require(:plan).permit(:name, :version, :product_id)
     end
 
   def product_find_by_id
