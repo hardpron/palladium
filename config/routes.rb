@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   # Products
   get 'api/products/get_products' => 'products#get_products'
   get 'api/products/get_products_by_param' => 'products#get_products_by_param'
+  get 'api/products/get_all_plans_by_product' => 'products#get_all_plans_by_product'
   post 'api/products/add_new_product' => 'products#create'
   post 'api/products/update_product' => 'products#update'
   post 'api/products/delete_product' => 'products#destroy'

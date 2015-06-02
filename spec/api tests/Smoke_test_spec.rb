@@ -1,16 +1,24 @@
 require_relative '../../api/api'
 require 'json'
 describe 'Unit tests' do
-  before :all do
+  before :each do
     @api = Api.new('localhost:3000', 'flamine@list.ru', '4s8Fq325PJmsD1frVSHx')
+
+    # Product Data
     @product_name = "Product_name#{Time.now.nsec}"
     @product_status = "Product_status#{Time.now.nsec}"
     @product_version = "Product_version#{Time.now.nsec}"
+
     @api.add_new_product({:product => {:name => @product_name, :status => @product_status, :version => @product_version}})
+
     @product_id = JSON.parse(@api.get_products_by_param({:name => @product_name})).keys.first
-    @plan_version = "Plan_version#{Time.now.nsec}"
+
+    # Plan Data
     @plan_name = "Plan_name#{Time.now.nsec}"
+    @plan_version = "Plan_version#{Time.now.nsec}"
+
     @api.add_new_plan({:plan => {:name => @plan_name, :version => @plan_version}, :product_id => @product_id})
+    @plan_id = JSON.parse(@api.get_plans_by_param({:name => @plan_name})).keys.first
   end
 
   describe 'Products' do
@@ -30,6 +38,12 @@ describe 'Unit tests' do
     it 'get_products_by_param' do
       response = JSON.parse(@api.get_products_by_param({:name => @product_name}))
       expect(response.values.first['ProductVersion']).to eq(@product_version)
+    end
+
+    it 'get_all_plans_by_product' do
+      params = {:id => @product_id}
+      response = JSON.parse @api.get_all_plans_by_product(params)
+      expect(response.keys.first).to eq(@plan_id)
     end
 
     it 'edit_product' do

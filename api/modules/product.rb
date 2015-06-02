@@ -40,6 +40,17 @@ module Product
   end
   alias_method :get_product_by_param, :get_products_by_param
 
+  # api/products/get_all_plans_by_product
+  # @param param [Hash] with product id
+  # Example:
+  # {:id => product_id}
+  # You can change only product_id (data type - string)
+  def get_all_plans_by_product(param)
+    raise('Method get_products_by_param get hash with one pair keys and values') unless param.keys.size == 1
+    param = {param.keys.first.to_s => param.values.first.to_s}
+    send_get_request('products/get_all_plans_by_product', {:user_email => @username, :user_token => @token, :param => param})
+  end
+
   # api/products/add_new_product
   # @param params [Hash] with product data.
   # Example:

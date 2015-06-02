@@ -93,7 +93,7 @@ class ProductsController < ApplicationController
     if products.nil?
       render :json => {}
     else
-      products = [products] until products.is_a?(Array)
+      products = [products] unless products.is_a?(Array)
       products.each do |current_product|
         products_json.merge!(current_product.id => {'ProductName' => current_product.name,
                                                     'ProductStatus' => current_product.status,
@@ -102,6 +102,24 @@ class ProductsController < ApplicationController
                                                     'UpdatedAt' => current_product.updated_at})
       end
       render :json => products_json
+    end
+  end
+
+  def get_all_plans_by_product
+    plans_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    plans = Product.find(find_params['id']).plans
+    if plans.nil?
+      render :json => {}
+    else
+      plans = [plans] unless plans.is_a?(Array)
+      plans.each do |current_plan|
+        plans_json.merge!(current_plan.first.id => {'PlanName' => current_plan.first.name,
+                                                    'PlanVersion' => current_plan.first.version,
+                                                    'CreatedAt' => current_plan.first.created_at,
+                                                    'UpdatedAt' => current_plan.first.updated_at})
+      end
+      render :json => plans_json
     end
   end
 end
