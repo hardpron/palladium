@@ -1,31 +1,34 @@
 module Resource
 module Run
   # api/runs/get_all_runs
-  # @return [String] with all plans data. Use +JSON.parse string+ to convert it to hash
+  # @return [String] with all runs data. Use +JSON.parse string+ to convert it to hash
   def get_all_runs
     send_get_request('runs/get_all_runs', {:user_email => @username, :user_token => @token})
   end
   #
-  # # api/plans/get_plans_by_param
+  # # api/runs/get_runs_by_param
   # # @return [String] with plans data. Use +JSON.parse string+ to convert it to hash
-  # def get_plans_by_param(param)
-  #   raise('Method get_plans_by_param get hash with one pair keys and values') unless param.keys.size == 1
-  #   param = {param.keys.first.to_s => param.values.first.to_s}
-  #   send_get_request('plans/get_plans_by_param', {:user_email => @username, :user_token => @token, :param => param})
-  # end
-  # alias_method :get_plan_by_param, :get_plans_by_param
+  def get_runs_by_param(param)
+    raise('Method get_runs_by_param get hash with one pair keys and values') unless param.keys.size == 1
+    param = {param.keys.first.to_s => param.values.first.to_s}
+    send_get_request('runs/get_runs_by_param', {:user_email => @username, :user_token => @token, :param => param})
+  end
+  alias_method :get_run_by_param, :get_runs_by_param
   #
-  # # api/plans/add_new_plan
-  # # @param params [Hash] with plan data and product id.
-  # # Example:
-  # # {:plan => {:name => "Plan_name",
-  # #               :version => "Version"}
-  # # :product_id = "1"}
-  # # You can change only Plan_name and Version (data type - string) and change product_id
-  # def add_new_plan(params)
-  #   params.merge!({:commit => 'Create Plan'})
-  #   send_post_request('plans/add_new_plan', params)
-  # end
+  # api/runs/add_new_run
+  # @param params [Hash] with run data and product id.
+  # @return [String] with established data
+  # Example:
+  # {:run => {:name => "Run_name",
+  #           :version => "Version"}
+  # :plan_id = "1"}
+  # => "{"id":2102,"name":"Run_name","version":"Version","plan_id":715,"created_at":"2015-06-02T15:10:16.057Z","updated_at":"2015-06-02T15:10:16.063Z"}"
+  # You can change only Run_name and Version (data type - string) and change plan_id
+  def add_new_run(params)
+    params.merge!({:commit => 'Create Run'})
+    response = send_post_request('runs/add_new_run', params)
+    response.body
+  end
   #
   # # api/plans/update_plan
   # # @param params [Hash] with product data.

@@ -18,6 +18,12 @@ describe 'Unit tests' do
 
     @api.add_new_plan({:plan => {:name => @plan_name, :version => @plan_version}, :product_id => @product_id})
     @plan_id = JSON.parse(@api.get_plans_by_param({:name => @plan_name})).keys.first
+
+    # Run Data
+    @run_name = "Run_name#{Time.now.nsec}"
+    @run_version = "Run_name#{Time.now.nsec}"
+    @api.add_new_run({:run => {:name => @run_name, :version => @run_version}, :plan_id => @plan_id})
+    @run_id = JSON.parse(@api.get_runs_by_param({:name => @run_name})).keys.first
   end
 
   describe 'Products' do
@@ -118,6 +124,17 @@ describe 'Unit tests' do
     it 'get_all_runs' do
         response = JSON.parse @api.get_all_runs
         expect(response).not_to be_empty
+    end
+
+    it 'get_runs_by_param' do
+      response = JSON.parse(@api.get_runs_by_param({:name => @run_name}))
+      expect(response.values.first['RunVersion']).to eq(@run_version)
+    end
+
+    it 'add_new_run' do
+      params = {:run => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :plan_id => @plan_id}
+      response = @api.add_new_run(params)
+      expect(JSON.parse(response)['name']).to eq params[:run][:name]
     end
   end
 end

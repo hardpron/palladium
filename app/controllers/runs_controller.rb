@@ -32,15 +32,15 @@ class RunsController < ApplicationController
   # POST /runs.json
   def create
     @run = Run.new(run_params)
-
+    plan_for_runs = Plan.find(params.require(:plan_id))
     respond_to do |format|
       if @run.save
-        Product.find(params.require(:product_id)).plans.find(params.require(:plan_id)).runs << @run
-        format.html { redirect_to product_plan_run_path(product_find_by_id, plan_find_by_id, @run), notice: 'Run was successfully created.' }
-        format.json { render :show, status: :created, location: @run }
+        plan_for_runs.runs << @run
+        # This string will be commented because creation can be only through API
+        # format.html { redirect_to product_plan_run_path(product_find_by_id, plan_find_by_id, @run), notice: 'Run was successfully created.' }
+        format.json { render :json => @run }
       else
-        format.html { render :new }
-        format.json { render json: @run.errors, status: :unprocessable_entity }
+        render :json => @run.errors
       end
     end
   end
@@ -99,5 +99,23 @@ class RunsController < ApplicationController
                                             'UpdatedAt' => current_run.updated_at})
     end
     render :json => runs_json
+  end
+
+  def get_runs_by_param
+    runs_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    runs = Run.find_by(find_params)
+    if runs.nil?
+      render :json => {}
+    else
+      runs = [runs] until runs.is_a?(Array)
+      runs.each do |current_run|
+        runs_json.merge!(current_run.id => {'RunName' => current_run.name,
+                                              'RunVersion' => current_run.version,
+                                              'CreatedAt' => current_run.created_at,
+                                              'UpdatedAt' => current_run.updated_at})
+      end
+      render :json => runs_json
+    end
   end
 end
