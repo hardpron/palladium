@@ -10,6 +10,7 @@ module Plan
     param = {param.keys.first.to_s => param.values.first.to_s}
     send_get_request('plans/get_plans_by_param', {:user_email => @username, :user_token => @token, :param => param})
   end
+  alias_method :get_plan_by_param, :get_plans_by_param
 
   # api/products/add_new_product
   def add_new_plan(params)
@@ -19,10 +20,10 @@ module Plan
   #
   # # api/products/update_product
   # # params = {:product => {:name => "name1", :status => "status", :version => "version"}, :id => "14"}
-  # def edit_product(params)
-  #   params.merge!({:commit => 'Update Product'})
-  #   send_post_request('products/update_product', params)
-  # end
+  def edit_plan(params)
+    params.merge!({:commit => 'Update Plan'})
+    send_post_request('plans/update_plan', params)
+  end
   #
   # # api/products/delete_product
   # def delete_product(id)

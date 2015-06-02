@@ -22,8 +22,8 @@ describe 'Unit tests' do
     end
 
     it 'get_all_products' do
-      responce = JSON.parse @api.get_all_products
-      expect(responce).not_to be_empty
+      response = JSON.parse @api.get_all_products
+      expect(response).not_to be_empty
     end
 
     it 'get_products_by_param' do
@@ -50,7 +50,6 @@ describe 'Unit tests' do
       response = JSON.parse(@api.get_products_by_param({:name => current_product_data['ProductName']}))
       expect(response).to be_empty
     end
-
   end
 
   describe 'Plans' do
@@ -69,13 +68,24 @@ describe 'Unit tests' do
     end
 
     it 'get_all_plans' do
-      responce = JSON.parse @api.get_all_plans
-      expect(responce).not_to be_empty
+      response = JSON.parse @api.get_all_plans
+      expect(response).not_to be_empty
     end
 
     it 'get_plans_by_param' do
       response = JSON.parse(@api.get_plans_by_param({:name => @plan_name}))
       expect(response.values.first['PlanVersion']).to eq(@plan_version)
+    end
+
+    it 'edit_plan' do
+      response = JSON.parse @api.get_plans_by_param({:name => @plan_name})
+      current_plan_data = response[response.keys.first]
+      params = {:plan => {:name => "name_after_edit#{Time.now.nsec}",
+                          :version => current_plan_data['ProductVersion']}}
+      params.merge!({:id => response.keys.first})
+      @api.edit_plan(params)
+      response = JSON.parse(@api.get_plan_by_param({:id => response.keys.first}))
+      expect(response.values.first['PlanName']).to eq(params[:plan][:name])
     end
   end
 end
