@@ -60,6 +60,14 @@ describe 'Unit tests' do
       @plan_version = "version#{Time.now.nsec}"
       @api.add_new_plan({:plan => {:name => @plan_name, :version => @plan_version}})
     end
+
+    it 'add_new_plan' do
+      params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
+      @api.add_new_plan(params)
+      response = JSON.parse(@api.get_plans_by_param({:name => params[:plan][:name]}))
+      expect(response.values.first['PlanName']).to eq params[:plan][:name]
+    end
+
     it 'get_all_plans' do
       responce = JSON.parse @api.get_all_plans
       expect(responce).not_to be_empty
@@ -68,13 +76,6 @@ describe 'Unit tests' do
     it 'get_plans_by_param' do
       response = JSON.parse(@api.get_plans_by_param({:name => @plan_name}))
       expect(response.values.first['PlanVersion']).to eq(@plan_version)
-    end
-
-    it 'add_new_plan' do
-        params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
-        @api.add_new_plan(params)
-        response = JSON.parse(@api.get_plans_by_param({:name => params[:plan][:name]}))
-        expect(response.values.first['PlanName']).to eq params[:plan][:name]
     end
   end
 end
