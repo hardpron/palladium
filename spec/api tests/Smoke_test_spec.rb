@@ -3,16 +3,17 @@ require 'json'
 describe 'Unit tests' do
   before :all do
     @api = Api.new('localhost:3000', 'flamine@list.ru', '4s8Fq325PJmsD1frVSHx')
+    @product_name = "Product_name#{Time.now.nsec}"
+    @product_status = "Product_status#{Time.now.nsec}"
+    @product_version = "Product_version#{Time.now.nsec}"
+    @api.add_new_product({:product => {:name => @product_name, :status => @product_status, :version => @product_version}})
+    @product_id = JSON.parse(@api.get_products_by_param({:name => @product_name})).keys.first
+    @plan_version = "Plan_version#{Time.now.nsec}"
+    @plan_name = "Plan_name#{Time.now.nsec}"
+    @api.add_new_plan({:plan => {:name => @plan_name, :version => @plan_version}, :product_id => @product_id})
   end
 
   describe 'Products' do
-
-    before :all do
-      @product_name = "Product_name#{Time.now.nsec}"
-      @product_status = "Product_status#{Time.now.nsec}"
-      @product_version = "Product_version#{Time.now.nsec}"
-      @api.add_new_product({:product => {:name => @product_name, :status => @product_status, :version => @product_version}})
-    end
 
     it 'add_new_product' do
       params = {:product => {:name => "name#{Time.now.nsec}", :status => "status#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
@@ -54,12 +55,6 @@ describe 'Unit tests' do
   end
 
   describe 'Plans' do
-
-    before :all do
-      @plan_name = "Plan_name#{Time.now.nsec}"
-      @plan_version = "Plan_version#{Time.now.nsec}"
-      @api.add_new_plan({:plan => {:name => @plan_name, :version => @plan_version}})
-    end
 
     it 'add_new_plan' do
       params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :product_id => '164'}

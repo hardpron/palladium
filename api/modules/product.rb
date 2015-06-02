@@ -38,6 +38,7 @@ module Product
     param = {param.keys.first.to_s => param.values.first.to_s}
     send_get_request('products/get_products_by_param', {:user_email => @username, :user_token => @token, :param => param})
   end
+  alias_method :get_product_by_param, :get_products_by_param
 
   # api/products/add_new_product
   # @param params [Hash] with product data.
