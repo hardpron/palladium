@@ -211,4 +211,9 @@ describe 'Unit tests' do
       expect(response).to be_empty
     end
   end
+
+  describe 'Result Set' do
+
+
+  end
 end
