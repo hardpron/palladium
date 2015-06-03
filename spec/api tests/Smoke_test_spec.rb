@@ -133,7 +133,7 @@ describe 'Unit tests' do
 
     it 'get_runs_by_param' do
       response = JSON.parse(@api.get_runs_by_param({:name => @run_name}))
-      expect(response.values.first['RunVersion']).to eq(@run_version)
+      expect(response.values.first['version']).to eq(@run_version)
     end
 
     it 'add_new_run' do

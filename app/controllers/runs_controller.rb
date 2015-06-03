@@ -93,10 +93,11 @@ class RunsController < ApplicationController
   def get_all_runs
     runs_json = {}
     Run.all.each do |current_run|
-      runs_json.merge!(current_run.id => {'RunName' => current_run.name,
-                                            'RunVersion' => current_run.version,
-                                            'CreatedAt' => current_run.created_at,
-                                            'UpdatedAt' => current_run.updated_at})
+      runs_json.merge!(current_run.id => {'name' => current_run.name,
+                                          'version' => current_run.version,
+                                          'plan_id' => current_run.plan_id,
+                                          'created_at' => current_run.created_at,
+                                          'updated_at' => current_run.updated_at})
     end
     render :json => runs_json
   end
@@ -110,10 +111,11 @@ class RunsController < ApplicationController
     else
       runs = [runs] until runs.is_a?(Array)
       runs.each do |current_run|
-        runs_json.merge!(current_run.id => {'RunName' => current_run.name,
-                                              'RunVersion' => current_run.version,
-                                              'CreatedAt' => current_run.created_at,
-                                              'UpdatedAt' => current_run.updated_at})
+        runs_json.merge!(current_run.id => {'name' => current_run.name,
+                                            'version' => current_run.version,
+                                            'plan_id' => current_run.plan_id,
+                                            'created_at' => current_run.created_at,
+                                            'updated_at' => current_run.updated_at})
       end
       render :json => runs_json
     end
