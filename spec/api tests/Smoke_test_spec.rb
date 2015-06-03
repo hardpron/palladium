@@ -8,7 +8,7 @@ describe 'Unit tests' do
     @product_name = "Product_name#{Time.now.nsec}"
     @product_version = "Product_version#{Time.now.nsec}"
     @product_params = {:product => {:name => @product_name,
-                                   :version => @product_version}}
+                                    :version => @product_version}}
     response_product = @api.add_new_product(@product_params)
     @product_id = JSON.parse(response_product)['id']
 
@@ -91,7 +91,7 @@ describe 'Unit tests' do
       params = {:product => {:name => "name_after_edit#{Time.now.nsec}",
                              :status => response['status'],
                              :version => response['version']},
-                             :id => id}
+                :id => id}
       response = @api.edit_product(params)
       response = JSON.parse(response)
       expect(response['name']).to eq(params[:product][:name])
@@ -174,8 +174,8 @@ describe 'Unit tests' do
 
   describe 'Runs' do
     it 'get_all_runs' do
-        response = JSON.parse @api.get_all_runs
-        expect(response).not_to be_empty
+      response = JSON.parse @api.get_all_runs
+      expect(response).not_to be_empty
     end
 
     it 'get_runs_by_param' do
@@ -207,7 +207,7 @@ describe 'Unit tests' do
       response = JSON.parse @api.get_runs_by_param({:name => @run_name})
       current_plan_data = response[response.keys.first]
       params = {:run => {:name => "name_after_edit#{Time.now.nsec}",
-                          :version => current_plan_data['version']},
+                         :version => current_plan_data['version']},
                 :id => response.keys.first}
       response = @api.edit_run(params)
       response = JSON.parse(response)
@@ -257,5 +257,23 @@ describe 'Unit tests' do
       expect(response.values.first['updated_at']).not_to be_nil
     end
 
+    it 'edit_result_set' do
+      params_to_new_result_set = {:result_set => {:name => "name#{Time.now.nsec}",
+                                                  :version => "version#{Time.now.nsec}",
+                                                  :date => "date#{Time.now.nsec}"},
+                                  :run_id => @run_id}
+      response_new_result_set = @api.add_new_result_set(params_to_new_result_set)
+      response_new_result_set = JSON.parse(response_new_result_set)
+      params = {:result_set => {:name => "name_after_edit#{Time.now.nsec}",
+                                :version => response_new_result_set['version'],
+                                :date => response_new_result_set['date']},
+                :id => response_new_result_set['id']}
+      response = @api.edit_result_set(params)
+      expect(JSON.parse(response)['name']).to eq params[:result_set][:name]
+      expect(JSON.parse(response)['version']).to eq params[:result_set][:version]
+      expect(JSON.parse(response)['run_id']).not_to be_nil
+      expect(JSON.parse(response)['created_at']).not_to be_nil
+      expect(JSON.parse(response)['updated_at']).not_to be_nil
+    end
   end
 end

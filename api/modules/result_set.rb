@@ -30,5 +30,20 @@ module ResultSet
     response = send_post_request('result_sets/add_new_result_set', params)
     response.body
   end
+
+  # api/result_sets/update_result_set
+  # @param params [Hash] with result_set data.
+  # Example:
+  # {:result_set => {:name => "ResultSetName",
+  #                 :version => "ResultSetVersion",
+  #                 :date => "ResultSetDate"},
+  # :id => 'Run_Id'}
+  # => "{"id":6126,"name":"name344658327","date":"date344683020","version":"version344671751","status":null,"run_id":2289,"created_at":"2015-06-03T12:49:18.356Z","updated_at":"2015-06-03T12:49:18.362Z"}"
+  # You can change only ResultSetName, ResultSetData and ResultSetVersion (data type - string) for result_set with any id
+  def edit_result_set(params)
+    params.merge!({:commit => 'Update Result Set'})
+    response = send_post_request('result_sets/update_result_set', params)
+    response.body
+  end
 end
 end

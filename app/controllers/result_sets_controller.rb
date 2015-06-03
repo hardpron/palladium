@@ -53,8 +53,9 @@ class ResultSetsController < ApplicationController
   def update
     respond_to do |format|
       if @result_set.update(result_set_params)
-        format.html { redirect_to product_plan_run_result_set_path(product_find_by_id, set_plan, set_run, @result_set), notice: 'Result set was successfully updated.' }
-        format.json { render :show, status: :ok, location: @result_set }
+        # format.html { redirect_to product_plan_run_result_set_path(product_find_by_id, set_plan, set_run, @result_set), notice: 'Result set was successfully updated.' }
+        # This string will be commented because creation can be only through API
+        format.json { render :json => @result_set }
       else
         format.html { render :edit }
         format.json { render json: @result_set.errors, status: :unprocessable_entity }

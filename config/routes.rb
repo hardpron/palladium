@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   get 'api/result_sets/get_all_result_sets' => 'result_sets#get_all_result_sets'
   get 'api/result_sets/get_result_sets_by_param' => 'result_sets#get_result_sets_by_param'
   post 'api/result_sets/add_new_result_set' => 'result_sets#create'
+  post 'api/result_sets/update_result_set' => 'result_sets#update'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
