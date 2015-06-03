@@ -38,6 +38,9 @@ describe 'Unit tests' do
       params = {:product => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
       response = @api.add_new_product(params)
       expect(JSON.parse(response)['name']).to eq params[:product][:name]
+      expect(JSON.parse(response)['status']).to be_nil
+      expect(JSON.parse(response)['version']).to eq params[:product][:version]
+      expect(JSON.parse(response)['created_at']).not_to be_nil
     end
 
     it 'add_new_product with status field' do
@@ -45,6 +48,9 @@ describe 'Unit tests' do
       response = @api.add_new_product(params)
       expect(JSON.parse(response)['name']).to eq params[:product][:name]
       expect(JSON.parse(response)['status']).to be_nil
+      expect(JSON.parse(response)['version']).to eq params[:product][:version]
+      expect(JSON.parse(response)['created_at']).not_to be_nil
+      expect(JSON.parse(response)['updated_at']).not_to be_nil
     end
 
     it 'get_all_products' do
@@ -55,6 +61,11 @@ describe 'Unit tests' do
     it 'get_products_by_param' do
       response = JSON.parse(@api.get_products_by_param({:name => @product_name}))
       expect(response.values.first['version']).to eq(@product_version)
+      expect(response.values.first['name']).to eq @product_name
+      expect(response.values.first['status']).to be_nil
+      expect(response.values.first['created_at']).not_to be_nil
+      expect(response.values.first['updated_at']).not_to be_nil
+
     end
 
     it 'get_all_plans_by_product' do
@@ -73,6 +84,10 @@ describe 'Unit tests' do
       response = @api.edit_product(params)
       response = JSON.parse(response)
       expect(response['name']).to eq(params[:product][:name])
+      expect(response['status']).to be_nil
+      expect(response['version']).to eq(params[:product][:version])
+      expect(response['created_at']).not_to be_nil
+      expect(response['updated_at']).not_to be_nil
     end
 
     it 'delete_product' do
@@ -92,6 +107,11 @@ describe 'Unit tests' do
       response = @api.add_new_plan(params)
       response = JSON.parse(response)
       expect(response['name']).to eq params[:plan][:name]
+      expect(response['version']).to eq params[:plan][:version]
+      expect(response['status']).to be_nil
+      expect(response['product_id']).not_to be_nil
+      expect(response['created_at']).not_to be_nil
+      expect(response['updated_at']).not_to be_nil
     end
 
     it 'get_all_plans' do
@@ -102,6 +122,11 @@ describe 'Unit tests' do
     it 'get_plans_by_param' do
       response = JSON.parse(@api.get_plans_by_param({:name => @plan_name}))
       expect(response.values.first['version']).to eq(@plan_version)
+      expect(response.values.first['name']).to eq(@plan_name)
+      expect(response.values.first['status']).to be_nil
+      expect(response.values.first['product_id']).not_to be_nil
+      expect(response.values.first['created_at']).not_to be_nil
+      expect(response.values.first['updated_at']).not_to be_nil
     end
 
     it 'edit_plan' do
@@ -113,6 +138,11 @@ describe 'Unit tests' do
       response = @api.edit_plan(params)
       response = JSON.parse(response)
       expect(response['name']).to eq(params[:plan][:name])
+      expect(response['version']).to eq(params[:plan][:version])
+      expect(response['status']).to be_nil
+      expect(response['product_id']).not_to be_nil
+      expect(response['created_at']).not_to be_nil
+      expect(response['updated_at']).not_to be_nil
     end
 
     it 'delete_plan' do
@@ -134,12 +164,20 @@ describe 'Unit tests' do
     it 'get_runs_by_param' do
       response = JSON.parse(@api.get_runs_by_param({:name => @run_name}))
       expect(response.values.first['version']).to eq(@run_version)
+      expect(response.values.first['name']).to eq(@run_name)
+      expect(response.values.first['plan_id']).not_to be_nil
+      expect(response.values.first['created_at']).not_to be_nil
+      expect(response.values.first['updated_at']).not_to be_nil
     end
 
     it 'add_new_run' do
       params = {:run => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :plan_id => @plan_id}
       response = @api.add_new_run(params)
       expect(JSON.parse(response)['name']).to eq params[:run][:name]
+      expect(JSON.parse(response)['version']).to eq params[:run][:version]
+      expect(JSON.parse(response)['plan_id']).not_to be_nil
+      expect(JSON.parse(response)['created_at']).not_to be_nil
+      expect(JSON.parse(response)['updated_at']).not_to be_nil
     end
   end
 end
