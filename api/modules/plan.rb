@@ -29,6 +29,17 @@ module Plan
     response.body
   end
 
+  # api/plan/get_all_runs_by_plan
+  # @param param [Hash] with plan id
+  # Example:
+  # {:id => plan_id}
+  # You can change only plan_id (data type - string)
+  def get_all_runs_by_plan(param)
+    raise('Method get_all_runs_by_plan get hash with one pair keys and values') unless param.keys.size == 1
+    param = {param.keys.first.to_s => param.values.first.to_s}
+    send_get_request('plans/get_all_runs_by_plan', {:user_email => @username, :user_token => @token, :param => param})
+  end
+
   # api/plans/update_plan
   # @param params [Hash] with product data.
   # Example:

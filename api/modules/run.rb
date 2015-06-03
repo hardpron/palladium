@@ -5,7 +5,7 @@ module Run
   def get_all_runs
     send_get_request('runs/get_all_runs', {:user_email => @username, :user_token => @token})
   end
-  #
+
   # # api/runs/get_runs_by_param
   # # @return [String] with run data. Use +JSON.parse string+ to convert it to hash
   def get_runs_by_param(param)
@@ -14,7 +14,7 @@ module Run
     send_get_request('runs/get_runs_by_param', {:user_email => @username, :user_token => @token, :param => param})
   end
   alias_method :get_run_by_param, :get_runs_by_param
-  #
+
   # api/runs/add_new_run
   # @param params [Hash] with run data and product id.
   # @return [String] with established data

@@ -119,6 +119,12 @@ describe 'Unit tests' do
       expect(response).not_to be_empty
     end
 
+    it 'get_all_runs_by_plan' do
+      params = {:id => @plan_id}
+      response = JSON.parse @api.get_all_runs_by_plan params
+      expect(response).not_to be_empty
+    end
+
     it 'get_plans_by_param' do
       response = JSON.parse(@api.get_plans_by_param({:name => @plan_name}))
       expect(response.values.first['version']).to eq(@plan_version)

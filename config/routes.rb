@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   # Plans
   get 'api/plans/get_plans' => 'plans#get_plans'
   get 'api/plans/get_plans_by_param' => 'plans#get_plans_by_param'
+  get 'api/plans/get_all_runs_by_plan' => 'plans#get_all_runs_by_plan'
   post 'api/plans/add_new_plan' => 'plans#create'
   post 'api/plans/update_plan' => 'plans#update'
   post 'api/plans/delete_plan' => 'plans#destroy'

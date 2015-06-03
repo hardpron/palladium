@@ -116,5 +116,25 @@ class PlansController < ApplicationController
       end
       render :json => plans_json
     end
+    end
+
+  def get_all_runs_by_plan
+    runs_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    runs = Plan.find(find_params['id']).runs
+    if runs.nil?
+      render :json => {}
+    else
+      runs = [runs] until runs.is_a?(Array)
+      runs.each do |current_run|
+        p current_run
+        runs_json.merge!(current_run.first.id => {'name' => current_run.first.name,
+                                                  'version' => current_run.first.version,
+                                                  'plan_id' => current_run.first.plan_id,
+                                                  'created_at' => current_run.first.created_at,
+                                                  'updated_at' => current_run.first.updated_at})
+      end
+      render :json => runs_json
+    end
   end
 end
