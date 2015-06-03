@@ -70,6 +70,7 @@ module Product
   # {:product => {:name => "Product_name",
   #               :version => "Version"}
   # :id => "1"}
+  # => "{"id":608,"name":"name_after_edit190147678","status":null,"version":"version","created_at":"2015-06-03T10:39:52.180Z","updated_at":"2015-06-03T10:39:52.206Z"}"
   # Change  Product_name and Version (data type - string) for product with any id
   def edit_product(params)
     params.merge!({:commit => 'Update Product'})

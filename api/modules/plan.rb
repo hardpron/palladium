@@ -1,6 +1,6 @@
 module Resource
 module Plan
-  # api/plans/get_products_by_param
+  # api/plans/get_plans_by_param
   # @return [String] with all plans data. Use +JSON.parse string+ to convert it to hash
   def get_all_plans
     send_get_request('plans/get_plans', {:user_email => @username, :user_token => @token})
@@ -21,6 +21,7 @@ module Plan
   # {:plan => {:name => "Plan_name",
   #               :version => "Version"}
   # :product_id = "1"}
+  # => "{"id":850,"name":"Plan_name247119597","version":"Plan_version247137883","product_id":609,"created_at":"2015-06-03T10:41:02.257Z","updated_at":"2015-06-03T10:41:02.263Z"}"
   # You can change only Plan_name and Version (data type - string) and change product_id
   def add_new_plan(params)
     params.merge!({:commit => 'Create Plan'})
@@ -34,6 +35,7 @@ module Plan
   # {:plan => {:name => "Plan_name",
   #            :version => "Version"}
   # :id => "1"}
+  # => "{"id":852,"name":"name_after_edit882457614","version":null,"product_id":610,"created_at":"2015-06-03T10:41:32.824Z","updated_at":"2015-06-03T10:41:32.893Z"}"
   # Change  Plan_name and Version (data type - string) for plan with any id
   def edit_plan(params)
     params.merge!({:commit => 'Update Plan'})
