@@ -38,7 +38,7 @@ module ResultSet
   #                 :version => "ResultSetVersion",
   #                 :date => "ResultSetDate"},
   # :id => 'Run_Id'}
-  # => "{"id":6126,"name":"name344658327","date":"date344683020","version":"version344671751","status":null,"run_id":2289,"created_at":"2015-06-03T12:49:18.356Z","updated_at":"2015-06-03T12:49:18.362Z"}"
+  # => "{"id":6179,"name":"name_after_edit278619558","date":"date250119125","version":"version250060107","status":null,"run_id":2330,"created_at":"2015-06-03T14:19:19.261Z","updated_at":"2015-06-03T14:19:19.291Z"}"
   # You can change only ResultSetName, ResultSetData and ResultSetVersion (data type - string) for result_set with any id
   def edit_result_set(params)
     params.merge!({:commit => 'Update Result Set'})
