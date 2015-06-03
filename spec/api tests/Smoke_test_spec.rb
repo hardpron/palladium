@@ -30,16 +30,15 @@ describe 'Unit tests' do
 
     it 'add_new_product' do
       params = {:product => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
-      @api.add_new_product(params)
-      response = JSON.parse(@api.get_products_by_param({:name => params[:product][:name]}))
-      expect(response.values.size).to eq 1
+      response = @api.add_new_product(params)
+      expect(JSON.parse(response)['name']).to eq params[:product][:name]
     end
 
     it 'add_new_product with status field' do
       params = {:product => {:name => "name#{Time.now.nsec}", :status => "status#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}}
-      @api.add_new_product(params)
-      response = JSON.parse(@api.get_products_by_param({:name => params[:product][:name]}))
-      expect(response.values.first['productStatus']).to be_nil
+      response = @api.add_new_product(params)
+      expect(JSON.parse(response)['name']).to eq params[:product][:name]
+      expect(JSON.parse(response)['status']).to be_nil
     end
 
     it 'get_all_products' do
@@ -65,9 +64,9 @@ describe 'Unit tests' do
                              :status => current_product_data['ProductStatus'],
                              :version => current_product_data['ProductVersion']}}
       params.merge!({:id => response.keys.first})
-      @api.edit_product(params)
-      response = JSON.parse(@api.get_products_by_param({:id => response.keys.first}))
-      expect(response.values.first['ProductName']).to eq(params[:product][:name])
+      response = @api.edit_product(params)
+      response = JSON.parse(response)
+      expect(response['name']).to eq(params[:product][:name])
     end
 
     it 'delete_product' do
@@ -84,9 +83,9 @@ describe 'Unit tests' do
 
     it 'add_new_plan' do
       params = {:plan => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :product_id => @product_id}
-      @api.add_new_plan(params)
-      response = JSON.parse(@api.get_plans_by_param({:name => params[:plan][:name]}))
-      expect(response.values.first['PlanName']).to eq params[:plan][:name]
+      response = @api.add_new_plan(params)
+      response = JSON.parse(response)
+      expect(response['name']).to eq params[:plan][:name]
     end
 
     it 'get_all_plans' do
@@ -105,9 +104,9 @@ describe 'Unit tests' do
       params = {:plan => {:name => "name_after_edit#{Time.now.nsec}",
                           :version => current_plan_data['ProductVersion']}}
       params.merge!({:id => response.keys.first})
-      @api.edit_plan(params)
-      response = JSON.parse(@api.get_plan_by_param({:id => response.keys.first}))
-      expect(response.values.first['PlanName']).to eq(params[:plan][:name])
+      response = @api.edit_plan(params)
+      response = JSON.parse(response)
+      expect(response['name']).to eq(params[:plan][:name])
     end
 
     it 'delete_plan' do

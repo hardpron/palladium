@@ -36,6 +36,7 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         product_for_plan.plans << @plan
+        format.json { render :json => @plan }
         format.html { redirect_to product_plan_url(product_find_by_id, @plan), notice: 'Plan was successfully created.' }
         format.json { render :show, status: :created, location: @plan }
       else
@@ -50,6 +51,7 @@ class PlansController < ApplicationController
   def update
     respond_to do |format|
       if @plan.update(plan_params)
+        format.json { render :json => @plan }
         format.html { redirect_to product_plan_path(product_find_by_id, @plan), notice: 'Plan was successfully updated.' }
         format.json { render :show, status: :ok, location: @plan }
       else

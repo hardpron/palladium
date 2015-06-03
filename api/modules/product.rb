@@ -56,10 +56,12 @@ module Product
   # Example:
   # {:product => {:name => "Product_name",
   #               :version => "Version"}}
+  #=> "{"id":470,"name":"Product_name","status":null,"version":"Version","created_at":"2015-06-02T15:46:18.795Z","updated_at":"2015-06-02T15:46:18.795Z"}"
   # You can change only Product_name and Version (data type - string)
   def add_new_product(params)
     params.merge!({:commit => 'Create Product'})
-    send_post_request('products/add_new_product', params)
+    response = send_post_request('products/add_new_product', params)
+    response.body
   end
 
   # api/products/update_product
@@ -71,7 +73,8 @@ module Product
   # Change  Product_name and Version (data type - string) for product with any id
   def edit_product(params)
     params.merge!({:commit => 'Update Product'})
-    send_post_request('products/update_product', params)
+    response = send_post_request('products/update_product', params)
+    response.body
   end
 
   # api/products/delete_product

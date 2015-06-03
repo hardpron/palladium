@@ -24,7 +24,8 @@ module Plan
   # You can change only Plan_name and Version (data type - string) and change product_id
   def add_new_plan(params)
     params.merge!({:commit => 'Create Plan'})
-    send_post_request('plans/add_new_plan', params)
+    response = send_post_request('plans/add_new_plan', params)
+    response.body
   end
 
   # api/plans/update_plan
@@ -36,7 +37,8 @@ module Plan
   # Change  Plan_name and Version (data type - string) for plan with any id
   def edit_plan(params)
     params.merge!({:commit => 'Update Plan'})
-    send_post_request('plans/update_plan', params)
+    response = send_post_request('plans/update_plan', params)
+    response.body
   end
 
   # api/plans/delete_plan
