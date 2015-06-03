@@ -3,6 +3,7 @@ require_relative 'modules/product'
 require_relative 'modules/plan'
 require_relative 'modules/run'
 require_relative 'modules/result_set'
+require_relative 'modules/result'
 require 'json'
 class Api
   include Resource
@@ -10,6 +11,7 @@ class Api
   include Plan
   include Run
   include ResultSet
+  include Result
 
   def initialize(address, username, token)
     @uri = URI("http://#{address}/api/")

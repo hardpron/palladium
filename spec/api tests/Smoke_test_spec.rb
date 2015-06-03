@@ -324,4 +324,9 @@ describe 'Unit tests' do
       expect(JSON.parse response).to be_empty
     end
   end
+
+  describe 'Result' do
+
+
+  end
 end

@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   post 'api/result_sets/add_new_result_set' => 'result_sets#create'
   post 'api/result_sets/update_result_set' => 'result_sets#update'
   post 'api/result_sets/delete_result_set' => 'result_sets#destroy'
+  #Result
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
