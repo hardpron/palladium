@@ -187,6 +187,12 @@ describe 'Unit tests' do
       expect(response.values.first['updated_at']).not_to be_nil
     end
 
+    it 'get_all_result_sets_by_run' do
+      params = {:id => @run_id}
+      response = JSON.parse @api.get_all_result_sets_by_run params
+      expect(response).not_to be_empty
+    end
+
     it 'add_new_run' do
       params = {:run => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :plan_id => @plan_id}
       response = @api.add_new_run(params)

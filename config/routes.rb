@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   # Runs
   get 'api/runs/get_all_runs' => 'runs#get_all_runs'
   get 'api/runs/get_runs_by_param' => 'runs#get_runs_by_param'
+  get 'api/runs/get_all_result_sets_by_run' => 'runs#get_all_result_sets_by_run'
   post 'api/runs/add_new_run' => 'runs#create'
   post 'api/runs/update_run' => 'runs#update'
   post 'api/runs/delete_run' => 'runs#destroy'

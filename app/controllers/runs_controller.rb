@@ -120,4 +120,24 @@ class RunsController < ApplicationController
       render :json => runs_json
     end
   end
+
+  def get_all_result_sets_by_run
+    result_sets_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    result_sets = Run.find(find_params['id']).result_sets
+    if result_sets.nil?
+      render :json => {}
+    else
+      result_sets = [result_sets] until result_sets.is_a?(Array)
+      result_sets.each do |current_result_set|
+        result_sets_json.merge!(current_result_set.first.id => {'name' => current_result_set.first.name,
+                                                          'date' => current_result_set.first.date,
+                                                          'version' => current_result_set.first.version,
+                                                          'run_id' => current_result_set.first.run_id,
+                                                          'created_at' => current_result_set.first.created_at,
+                                                          'updated_at' => current_result_set.first.updated_at})
+      end
+      render :json => result_sets_json
+    end
+  end
 end

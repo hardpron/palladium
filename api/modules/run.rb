@@ -15,6 +15,12 @@ module Run
   end
   alias_method :get_run_by_param, :get_runs_by_param
 
+  def get_all_result_sets_by_run(param)
+    raise('Method get_all_result_sets_by_run get hash with one pair keys and values') unless param.keys.size == 1
+    param = {param.keys.first.to_s => param.values.first.to_s}
+    send_get_request('runs/get_all_result_sets_by_run', {:user_email => @username, :user_token => @token, :param => param})
+  end
+
   # api/runs/add_new_run
   # @param params [Hash] with run data and product id.
   # @return [String] with established data

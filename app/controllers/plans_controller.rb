@@ -127,7 +127,6 @@ class PlansController < ApplicationController
     else
       runs = [runs] until runs.is_a?(Array)
       runs.each do |current_run|
-        p current_run
         runs_json.merge!(current_run.first.id => {'name' => current_run.first.name,
                                                   'version' => current_run.first.version,
                                                   'plan_id' => current_run.first.plan_id,
