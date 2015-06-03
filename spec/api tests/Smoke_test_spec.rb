@@ -54,7 +54,7 @@ describe 'Unit tests' do
 
     it 'get_products_by_param' do
       response = JSON.parse(@api.get_products_by_param({:name => @product_name}))
-      expect(response.values.first['ProductVersion']).to eq(@product_version)
+      expect(response.values.first['version']).to eq(@product_version)
     end
 
     it 'get_all_plans_by_product' do

@@ -78,11 +78,11 @@ class ProductsController < ApplicationController
   def get_products
     products_json = {}
     Product.all.each do |current_product|
-      products_json.merge!(current_product.id => {'ProductName' => current_product.name,
-                                                  'ProductStatus' => current_product.status,
-                                                  'ProductVersion' => current_product.version,
-                                                  'CreatedAt' => current_product.created_at,
-                                                  'UpdatedAt' => current_product.updated_at})
+      products_json.merge!(current_product.id => {'name' => current_product.name,
+                                                  'status' => current_product.status,
+                                                  'version' => current_product.version,
+                                                  'created_at' => current_product.created_at,
+                                                  'updated_at' => current_product.updated_at})
     end
     render :json => products_json
   end
@@ -96,11 +96,11 @@ class ProductsController < ApplicationController
     else
       products = [products] unless products.is_a?(Array)
       products.each do |current_product|
-        products_json.merge!(current_product.id => {'ProductName' => current_product.name,
-                                                    'ProductStatus' => current_product.status,
-                                                    'ProductVersion' => current_product.version,
-                                                    'CreatedAt' => current_product.created_at,
-                                                    'UpdatedAt' => current_product.updated_at})
+        products_json.merge!(current_product.id => {'name' => current_product.name,
+                                                    'status' => current_product.status,
+                                                    'version' => current_product.version,
+                                                    'created_at' => current_product.created_at,
+                                                    'updated_at' => current_product.updated_at})
       end
       render :json => products_json
     end
@@ -117,8 +117,8 @@ class ProductsController < ApplicationController
       plans.each do |current_plan|
         plans_json.merge!(current_plan.first.id => {'PlanName' => current_plan.first.name,
                                                     'PlanVersion' => current_plan.first.version,
-                                                    'CreatedAt' => current_plan.first.created_at,
-                                                    'UpdatedAt' => current_plan.first.updated_at})
+                                                    'created_at' => current_plan.first.created_at,
+                                                    'updated_at' => current_plan.first.updated_at})
       end
       render :json => plans_json
     end
