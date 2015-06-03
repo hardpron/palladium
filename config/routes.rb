@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get 'api/runs/get_runs_by_param' => 'runs#get_runs_by_param'
   post 'api/runs/add_new_run' => 'runs#create'
   post 'api/runs/update_run' => 'runs#update'
+  post 'api/runs/delete_run' => 'runs#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -51,7 +51,7 @@ class RunsController < ApplicationController
     respond_to do |format|
       if @run.update(run_params)
         format.json { render json: @run}
-        format.html { redirect_to action: "show", id: set_run, notice: 'Run was successfully updated.' }
+        format.html { redirect_to action: 'show', id: set_run, notice: 'Run was successfully updated.' }
         format.json { render :show, status: :ok, location: @run }
       else
         format.html { render :edit }
@@ -63,8 +63,7 @@ class RunsController < ApplicationController
   # DELETE /runs/1
   # DELETE /runs/1.json
   def destroy
-    @plan = @product.plans.find(params.require(:plan_id))
-    @run.destroy
+    set_run.destroy
     respond_to do |format|
       format.html { redirect_to action: "index", notice: 'Run was successfully destroyed.' }
       format.json { head :no_content }

@@ -186,7 +186,7 @@ describe 'Unit tests' do
       expect(JSON.parse(response)['updated_at']).not_to be_nil
     end
 
-    it 'edit_plan' do
+    it 'edit_run' do
       response = JSON.parse @api.get_runs_by_param({:name => @run_name})
       current_plan_data = response[response.keys.first]
       params = {:run => {:name => "name_after_edit#{Time.now.nsec}",
@@ -200,6 +200,15 @@ describe 'Unit tests' do
       expect(response['plan_id']).not_to be_nil
       expect(response['created_at']).not_to be_nil
       expect(response['updated_at']).not_to be_nil
+    end
+
+    it 'delete_run' do
+      run_params = {:run => {:name => "name#{Time.now.nsec}", :version => "version#{Time.now.nsec}"}, :plan_id => @plan_id}
+      response = @api.add_new_run(run_params)
+      params = {id: (JSON.parse response)['id']}
+      @api.delete_run(params)
+      response = JSON.parse(@api.get_runs_by_param({:name => run_params[:run][:name]}))
+      expect(response).to be_empty
     end
   end
 end

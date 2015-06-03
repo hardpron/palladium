@@ -43,5 +43,14 @@ module Run
     response = send_post_request('runs/update_run', params)
     response.body
   end
+
+  # api/runs/delete_run
+  # @param params [Hash] with run id.
+  # Example:
+  # {:id => "1"}
+  # ATTENTION!!! Run, and all its set-results and results will be deleted!! Dont use this method inattentively
+  def delete_run(params)
+    send_post_request('runs/delete_run', params)
+  end
 end
 end
