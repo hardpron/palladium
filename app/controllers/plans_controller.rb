@@ -90,10 +90,11 @@ class PlansController < ApplicationController
   def get_plans
     plans_json = {}
     Plan.all.each do |current_plan|
-      plans_json.merge!(current_plan.id => {'PlanName' => current_plan.name,
-                                                  'PlanVersion' => current_plan.version,
-                                                  'CreatedAt' => current_plan.created_at,
-                                                  'UpdatedAt' => current_plan.updated_at})
+      plans_json.merge!(current_plan.id => {'name' => current_plan.name,
+                                            'version' => current_plan.version,
+                                            'product_id' => current_plan.product_id,
+                                            'created_at' => current_plan.created_at,
+                                            'updated_at' => current_plan.updated_at})
     end
     render :json => plans_json
   end
@@ -107,10 +108,11 @@ class PlansController < ApplicationController
     else
       plans = [plans] until plans.is_a?(Array)
       plans.each do |current_plan|
-        plans_json.merge!(current_plan.id => {'PlanName' => current_plan.name,
-                                                    'PlanVersion' => current_plan.version,
-                                                    'CreatedAt' => current_plan.created_at,
-                                                    'UpdatedAt' => current_plan.updated_at})
+        plans_json.merge!(current_plan.id => {'name' => current_plan.name,
+                                              'version' => current_plan.version,
+                                              'product_id' => current_plan.product_id,
+                                              'created_at' => current_plan.created_at,
+                                              'updated_at' => current_plan.updated_at})
       end
       render :json => plans_json
     end

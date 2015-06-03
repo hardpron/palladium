@@ -101,7 +101,7 @@ describe 'Unit tests' do
 
     it 'get_plans_by_param' do
       response = JSON.parse(@api.get_plans_by_param({:name => @plan_name}))
-      expect(response.values.first['PlanVersion']).to eq(@plan_version)
+      expect(response.values.first['version']).to eq(@plan_version)
     end
 
     it 'edit_plan' do
