@@ -50,6 +50,7 @@ class RunsController < ApplicationController
   def update
     respond_to do |format|
       if @run.update(run_params)
+        format.json { render json: @run}
         format.html { redirect_to action: "show", id: set_run, notice: 'Run was successfully updated.' }
         format.json { render :show, status: :ok, location: @run }
       else

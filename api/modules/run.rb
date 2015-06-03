@@ -29,5 +29,19 @@ module Run
     response = send_post_request('runs/add_new_run', params)
     response.body
   end
+
+  # api/runs/update_run
+  # @param params [Hash] with product data.
+  # Example:
+  # {:plan => {:name => "Run_name",
+  #            :version => "Version"}
+  # :id => "1"}
+  # => "{"id":2260,"name":"name_after_edit192383833","version":"Run_name147672081","plan_id":876,"created_at":"2015-06-03T11:40:51.158Z","updated_at":"2015-06-03T11:40:51.203Z"}"
+  # Change  Plan_name and Version (data type - string) for plan with any id
+  def edit_run(params)
+    params.merge!({:commit => 'Update Run'})
+    response = send_post_request('runs/update_run', params)
+    response.body
+  end
 end
 end
