@@ -275,5 +275,17 @@ describe 'Unit tests' do
       expect(JSON.parse(response)['created_at']).not_to be_nil
       expect(JSON.parse(response)['updated_at']).not_to be_nil
     end
+
+    it 'delete_result_set' do
+      params = {:result_set => {:name => "name#{Time.now.nsec}",
+                                :version => "version#{Time.now.nsec}",
+                                :date => "date#{Time.now.nsec}"},
+                :run_id => @run_id}
+      response = @api.add_new_result_set(params)
+      params = {id: (JSON.parse response)['id']}
+      @api.delete_result_set(params)
+      response = @api.get_result_sets_by_param({:name => (JSON.parse response)['id']})
+      expect(JSON.parse response).to be_empty
+    end
   end
 end

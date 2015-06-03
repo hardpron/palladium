@@ -68,7 +68,8 @@ class ResultSetsController < ApplicationController
   def destroy
     @result_set.destroy
     respond_to do |format|
-      format.html { redirect_to product_plan_run_result_sets_path(product_find_by_id, set_plan, set_run), notice: 'Result set was successfully destroyed.' }
+      # format.html { redirect_to product_plan_run_result_sets_path(product_find_by_id, set_plan, set_run), notice: 'Result set was successfully destroyed.' }
+      # This method will be commented because creation can be only through API
       format.json { head :no_content }
     end
   end

@@ -45,5 +45,14 @@ module ResultSet
     response = send_post_request('result_sets/update_result_set', params)
     response.body
   end
+
+  # api/result_sets/delete_result_set
+  # @param params [Hash] with result_set id.
+  # Example:
+  # {:id => "1"}
+  # ATTENTION!!! ResultSet and results will be deleted!! Dont use this method inattentively
+  def delete_result_set(params)
+    send_post_request('result_sets/delete_result_set', params)
+  end
 end
 end
