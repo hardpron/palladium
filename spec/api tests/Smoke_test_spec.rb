@@ -326,7 +326,10 @@ describe 'Unit tests' do
   end
 
   describe 'Result' do
-
+    it 'get_all_results' do
+      response = JSON.parse @api.get_all_results
+      expect(response).not_to be_empty
+    end
 
   end
 end

@@ -72,15 +72,15 @@ class ResultsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_result
-      @result = Result.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_result
+    @result = Result.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def result_params
-      params.require(:result).permit(:status, :message, :author)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def result_params
+    params.require(:result).permit(:status, :message, :author)
+  end
 
   def set_run
     @run = Run.find(params[:run_id])
@@ -96,5 +96,19 @@ class ResultsController < ApplicationController
 
   def set_result_set
     @result_set = ResultSet.find(params[:result_set_id])
+  end
+
+  public
+  def get_all_results
+    results_json = {}
+    Result.all.each do |current_result|
+      results_json.merge!(current_result.id => {'message' => current_result.message,
+                                                'author' => current_result.author,
+                                                'result_set_id' => current_result.result_set_id,
+                                                'status_id' => current_result.status_id,
+                                                'created_at' => current_result.created_at,
+                                                'updated_at' => current_result.updated_at})
+    end
+    render :json => results_json
   end
 end
