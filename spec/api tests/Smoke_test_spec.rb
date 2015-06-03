@@ -213,7 +213,10 @@ describe 'Unit tests' do
   end
 
   describe 'Result Set' do
-
+    it 'get_all_result_sets' do
+      response = JSON.parse @api.get_all_result_sets
+      expect(response).not_to be_empty
+    end
 
   end
 end

@@ -93,4 +93,18 @@ class ResultSetsController < ApplicationController
   def product_find_by_id
     Product.find(params.require(:product_id))
   end
+
+  public
+  def get_all_result_sets
+    result_sets_json = {}
+    ResultSet.all.each do |current_result_sets|
+      result_sets_json.merge!(current_result_sets.id => {'name' => current_result_sets.name,
+                                                         'date' => current_result_sets.date,
+                                                         'version' => current_result_sets.version,
+                                                         'run_id' => current_result_sets.run_id,
+                                                         'created_at' => current_result_sets.created_at,
+                                                         'updated_at' => current_result_sets.updated_at})
+    end
+    render :json => result_sets_json
+  end
 end
