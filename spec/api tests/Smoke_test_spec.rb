@@ -1,29 +1,35 @@
 require_relative '../../api/api'
 require 'json'
 describe 'Unit tests' do
-  before :each do
+  before :all do
     @api = Api.new('localhost:3000', 'flamine@list.ru', '4s8Fq325PJmsD1frVSHx')
 
     # Product Data
     @product_name = "Product_name#{Time.now.nsec}"
     @product_version = "Product_version#{Time.now.nsec}"
-
-    @api.add_new_product({:product => {:name => @product_name, :status => @product_status, :version => @product_version}})
-
-    @product_id = JSON.parse(@api.get_products_by_param({:name => @product_name})).keys.first
+    @product_params = {:product => {:name => @product_name,
+                                   :version => @product_version}}
+    response_product = @api.add_new_product(@product_params)
+    @product_id = JSON.parse(response_product)['id']
 
     # Plan Data
     @plan_name = "Plan_name#{Time.now.nsec}"
     @plan_version = "Plan_version#{Time.now.nsec}"
+    @plan_params = {:plan => {:name => @plan_name,
+                              :version => @plan_version},
+                    :product_id => @product_id}
 
-    @api.add_new_plan({:plan => {:name => @plan_name, :version => @plan_version}, :product_id => @product_id})
-    @plan_id = JSON.parse(@api.get_plans_by_param({:name => @plan_name})).keys.first
+    response_plan = @api.add_new_plan(@plan_params)
+    @plan_id = JSON.parse(response_plan)['id']
 
     # Run Data
     @run_name = "Run_name#{Time.now.nsec}"
     @run_version = "Run_name#{Time.now.nsec}"
-    @api.add_new_run({:run => {:name => @run_name, :version => @run_version}, :plan_id => @plan_id})
-    @run_id = JSON.parse(@api.get_runs_by_param({:name => @run_name})).keys.first
+    @run_params = {:run => {:name => @run_name,
+                            :version => @run_version},
+                   :plan_id => @plan_id}
+    response_run = @api.add_new_run(@run_params)
+    @run_id = JSON.parse(response_run)['id']
   end
 
   describe 'Products' do
@@ -54,16 +60,16 @@ describe 'Unit tests' do
     it 'get_all_plans_by_product' do
       params = {:id => @product_id}
       response = JSON.parse @api.get_all_plans_by_product(params)
-      expect(response.keys.first).to eq(@plan_id)
+      expect(response.keys.first).to eq(@plan_id.to_s)
     end
 
     it 'edit_product' do
-      response = JSON.parse(@api.get_all_products)
-      current_product_data = response[response.keys.first]
+      response = @api.add_new_product(@product_params)
+      id = JSON.parse(response)['id']
       params = {:product => {:name => "name_after_edit#{Time.now.nsec}",
-                             :status => current_product_data['ProductStatus'],
-                             :version => current_product_data['ProductVersion']}}
-      params.merge!({:id => response.keys.first})
+                             :status => response['status'],
+                             :version => response['version']},
+                             :id => id}
       response = @api.edit_product(params)
       response = JSON.parse(response)
       expect(response['name']).to eq(params[:product][:name])
