@@ -30,6 +30,17 @@ describe 'Unit tests' do
                    :plan_id => @plan_id}
     response_run = @api.add_new_run(@run_params)
     @run_id = JSON.parse(response_run)['id']
+
+    #Result Set Data
+    @result_set_name = "name#{Time.now.nsec}"
+    @result_set_version = "version#{Time.now.nsec}"
+    @result_set_date = "date#{Time.now.nsec}"
+    @result_set_param = {:result_set => {:name => @result_set_name,
+                                         :version => @result_set_version,
+                                         :date => @result_set_date},
+                         :run_id => @run_id}
+    response_result_set = @api.add_new_result_set(@result_set_param)
+    @result_set_id = (JSON.parse response_result_set)['id']
   end
 
   describe 'Products' do
@@ -216,6 +227,28 @@ describe 'Unit tests' do
     it 'get_all_result_sets' do
       response = JSON.parse @api.get_all_result_sets
       expect(response).not_to be_empty
+    end
+
+    it 'add_new_result_set' do
+      params = {:result_set => {:name => "name#{Time.now.nsec}",
+                                :version => "version#{Time.now.nsec}",
+                                :date => "date#{Time.now.nsec}"},
+                :run_id => @run_id}
+      response = @api.add_new_result_set(params)
+      expect(JSON.parse(response)['name']).to eq params[:result_set][:name]
+      expect(JSON.parse(response)['version']).to eq params[:result_set][:version]
+      expect(JSON.parse(response)['run_id']).not_to be_nil
+      expect(JSON.parse(response)['created_at']).not_to be_nil
+      expect(JSON.parse(response)['updated_at']).not_to be_nil
+    end
+
+    it 'get_result_set_by_param' do
+      response = JSON.parse(@api.get_result_set_by_param({:name => @result_set_name}))
+      expect(response.values.first['version']).to eq(@result_set_version)
+      expect(response.values.first['name']).to eq(@result_set_name)
+      expect(response.values.first['run_id']).not_to be_nil
+      expect(response.values.first['created_at']).not_to be_nil
+      expect(response.values.first['updated_at']).not_to be_nil
     end
 
   end
