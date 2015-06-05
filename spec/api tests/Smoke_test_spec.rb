@@ -331,5 +331,19 @@ describe 'Unit tests' do
       expect(response).not_to be_empty
     end
 
+    it 'add_new_result' do
+      params = {:result => {:message => "message#{Time.now.nsec}",
+                            :author => "author#{Time.now.nsec}"},
+                :result_set_id => @result_set_id}
+
+      response = @api.add_new_result(params)
+      expect(JSON.parse(response)['message']).to eq params[:result][:message]
+      expect(JSON.parse(response)['author']).to eq params[:result][:author]
+      expect(JSON.parse(response)['result_set_id']).to eq(@result_set_id)
+      expect(JSON.parse(response)['status_id']).not_to be_nil
+      expect(JSON.parse(response)['created_at']).not_to be_nil
+      expect(JSON.parse(response)['updated_at']).not_to be_nil
+    end
+
   end
 end

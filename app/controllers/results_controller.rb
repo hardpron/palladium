@@ -34,12 +34,18 @@ class ResultsController < ApplicationController
   # POST /results.json
   def create
     @result = Result.new(result_params)
-    Status.find_by_main_status(true).results << @result
+    set_result = set_result_set
     respond_to do |format|
       if @result.save
-        set_result_set.results << @result
-        format.html { redirect_to product_plan_run_result_set_result_path(product_find_by_id, set_plan, set_run, set_result_set, @result), notice: 'Result was successfully created.' }
-        format.json { render :show, status: :created, location: @result }
+        if params['status_id'].nil?
+          Status.find_by_main_status(true).results << @result
+        else
+          Status.find(params['status_id']).results << @result
+        end
+        set_result.results << @result
+        # format.html { redirect_to product_plan_run_result_set_result_path(product_find_by_id, set_plan, set_run, set_result_set, @result), notice: 'Result was successfully created.' }
+        # This method will be commented because creation can be only through API
+        format.json { render :json => @result }
       else
         format.html { render :new }
         format.json { render json: @result.errors, status: :unprocessable_entity }
@@ -79,7 +85,7 @@ class ResultsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def result_params
-    params.require(:result).permit(:status, :message, :author)
+    params.require(:result).permit(:message, :author)
   end
 
   def set_run

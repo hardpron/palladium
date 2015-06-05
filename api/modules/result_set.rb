@@ -16,7 +16,7 @@ module ResultSet
   alias_method :get_result_sets_by_param, :get_result_set_by_param
 
   # api/result_sets/add_new_result_set
-  # @param params [Hash] with result_set data and product id.
+  # @param params [Hash] with result_set data and run id.
   # @return [String] with established data
   # Example:
   # {:result_set => {:name => "ResultSetName",
