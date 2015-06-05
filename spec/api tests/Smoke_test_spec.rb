@@ -31,7 +31,7 @@ describe 'Unit tests' do
     response_run = @api.add_new_run(@run_params)
     @run_id = JSON.parse(response_run)['id']
 
-    #Result Set Data
+    # Result Set Data
     @result_set_name = "name#{Time.now.nsec}"
     @result_set_version = "version#{Time.now.nsec}"
     @result_set_date = "date#{Time.now.nsec}"
@@ -41,6 +41,14 @@ describe 'Unit tests' do
                          :run_id => @run_id}
     response_result_set = @api.add_new_result_set(@result_set_param)
     @result_set_id = (JSON.parse response_result_set)['id']
+    # Result Data
+    @result_message = "message#{Time.now.nsec}"
+    @result_author = "author#{Time.now.nsec}"
+    @result_params = {:result => {:message => @result_message,
+                                  :author => @result_author},
+                      :result_set_id => @result_set_id}
+    result_responce = @api.add_new_result(@result_params)
+    @result_id = (JSON.parse result_responce)['id']
   end
 
   describe 'Products' do
@@ -345,5 +353,17 @@ describe 'Unit tests' do
       expect(JSON.parse(response)['updated_at']).not_to be_nil
     end
 
+    it 'edit_result' do
+      params = {:result => {:message => "message_after_edit#{Time.now.nsec}",
+                            :author => @result_author},
+                :id => @result_id}
+      response = @api.edit_result(params)
+      expect(JSON.parse(response)['message']).to eq params[:result][:message]
+      expect(JSON.parse(response)['author']).to eq params[:result][:author]
+      expect(JSON.parse(response)['result_set_id']).to eq(@result_set_id)
+      expect(JSON.parse(response)['status_id']).not_to be_nil
+      expect(JSON.parse(response)['created_at']).not_to be_nil
+      expect(JSON.parse(response)['updated_at']).not_to be_nil
+    end
   end
 end

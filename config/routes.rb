@@ -56,8 +56,7 @@ Rails.application.routes.draw do
   #Result
   get 'api/results/get_all_results' => 'results#get_all_results'
   post 'api/results/add_new_result' => 'results#create'
-
-
+  post 'api/results/update_result' => 'results#update'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
