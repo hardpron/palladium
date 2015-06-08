@@ -24,24 +24,24 @@ module Status
   # You can change only Name and #FF0000 (data type - string) and change Result_set_id
   def add_new_status(params)
     params.merge!({:commit => 'Create Status'})
-    response = send_post_request('/status/add_new_status', params)
+    response = send_post_request('/statuses/add_new_status', params)
     response.body
   end
-  #
-  # # api/results/update_result
-  # # @param params [Hash] with result data.
-  # # Example:
-  # # {:result => {:message => "Message",
-  # #              :author => "Futhor"},
-  # #  :id => 'id'}
-  # # => "{"id":6179,"name":"name_after_edit278619558","date":"date250119125","version":"version250060107","status":null,"run_id":2330,"created_at":"2015-06-03T14:19:19.261Z","updated_at":"2015-06-03T14:19:19.291Z"}"
-  # # You can change only Message and Futhor (data type - string) for result with any id
-  # def edit_result(params)
-  #   params.merge!({:commit => 'Update Result Set'})
-  #   response = send_post_request('results/update_result', params)
-  #   response.body
-  # end
-  #
+
+  # api/statuses/update_status
+  # @param params [Hash] with status data.
+  # Example:
+  # {:status => {:name => "Name",
+  #              :color => "#FF0000"},
+  #  :id => 'id'}
+  # => "{"id":32,"name":"name_after_edit246765131","color":"#FF000","main_status":false,"created_at":"2015-06-08T12:46:29.219Z","updated_at":"2015-06-08T12:46:29.261Z"}"
+  # You can change only Name and #FF0000 (data type - string) for statuses with any id
+  def edit_status(params)
+    params.merge!({:commit => 'Update Status'})
+    response = send_post_request('statuses/update_status', params)
+    response.body
+  end
+
   # # api/results/delete_result
   # # @param params [Hash] with result id.
   # # Example:

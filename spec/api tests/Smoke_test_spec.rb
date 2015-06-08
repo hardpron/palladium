@@ -51,7 +51,7 @@ describe 'Unit tests' do
     @result_id = (JSON.parse result_responce)['id']
     # Status
     @status_name = "name#{Time.now.nsec}"
-    @status_color = "color#{Time.now.nsec}"
+    @status_color = "#FF000"
     @status_params = {:status => {:name => @status_name, :color => @status_color}}
     status_response = @api.add_new_status(@status_params)
     @status_id = (JSON.parse status_response)['id']
@@ -91,7 +91,6 @@ describe 'Unit tests' do
       expect(response.values.first['status']).to be_nil
       expect(response.values.first['created_at']).not_to be_nil
       expect(response.values.first['updated_at']).not_to be_nil
-
     end
 
     it 'get_all_plans_by_product' do
@@ -165,7 +164,7 @@ describe 'Unit tests' do
       response = JSON.parse @api.get_plans_by_param({:name => @plan_name})
       current_plan_data = response[response.keys.first]
       params = {:plan => {:name => "name_after_edit#{Time.now.nsec}",
-                          :version => current_plan_data['ProductVersion']}}
+                          :version => current_plan_data['version']}}
       params.merge!({:id => response.keys.first})
       response = @api.edit_plan(params)
       response = JSON.parse(response)
@@ -412,6 +411,21 @@ describe 'Unit tests' do
       expect(JSON.parse(response)['color']).to eq params[:status][:color]
       expect(JSON.parse(response)['created_at']).not_to be_nil
       expect(JSON.parse(response)['updated_at']).not_to be_nil
+    end
+
+    it 'edit_status' do
+      response = JSON.parse @api.get_statuses_by_param({:name => @status_name})
+      current_status_data = response[response.keys.first]
+
+      params = {:status => {:name => "name_after_edit#{Time.now.nsec}",
+                            :color => current_status_data['color']}}
+      params.merge!({:id => response.keys.first})
+      response = @api.edit_status(params)
+      response = JSON.parse(response)
+      expect(response['name']).to eq(params[:status][:name])
+      expect(response['color']).to eq(current_status_data['color'])
+      expect(response['created_at']).not_to be_nil
+      expect(response['updated_at']).not_to be_nil
     end
   end
 end

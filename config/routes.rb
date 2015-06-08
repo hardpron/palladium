@@ -62,7 +62,8 @@ Rails.application.routes.draw do
   # Status
   get 'api/statuses/get_all_statuses' => 'statuses#get_all_statuses'
   get 'api/statuses/get_statuses_by_param' => 'statuses#get_statuses_by_param'
-  post 'api/status/add_new_status' => 'statuses#create'
+  post 'api/statuses/add_new_status' => 'statuses#create'
+  post 'api/statuses/update_status' => 'statuses#update'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
