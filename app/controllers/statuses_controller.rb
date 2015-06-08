@@ -40,7 +40,7 @@ class StatusesController < ApplicationController
     respond_to do |format|
       if @status.update(status_params)
         format.json { render :json => @status }
-        format.html { redirect_to @status, notice: 'Status was successfully updated.' }
+        format.html { redirect_to statuses_path, notice: 'Status was successfully updated.' }
         format.json { render :show, status: :ok, location: @status }
       else
         format.html { render :edit }
