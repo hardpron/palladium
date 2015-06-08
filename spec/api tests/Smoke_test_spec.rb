@@ -427,5 +427,16 @@ describe 'Unit tests' do
       expect(response['created_at']).not_to be_nil
       expect(response['updated_at']).not_to be_nil
     end
+
+    it 'delete_status' do
+      params_status_for_create = {:status => {:name => "name#{Time.now.nsec}",
+                                              :color => "#FF0000"}}
+      response_status_for_create = @api.add_new_status(params_status_for_create)
+      result_id = (JSON.parse response_status_for_create)['id']
+      params = {:id => result_id}
+      @api.delete_status(params)
+      response = JSON.parse(@api.get_statuses_by_param({:name => params_status_for_create[:status][:name]}))
+      expect(response).to be_empty
+    end
   end
 end

@@ -42,13 +42,13 @@ module Status
     response.body
   end
 
-  # # api/results/delete_result
-  # # @param params [Hash] with result id.
-  # # Example:
-  # # {:id => "1"}
-  # # ATTENTION!!! Result will be deleted!! Dont use this method inattentively
-  # def delete_result(params)
-  #   send_post_request('results/delete_result', params)
-  # end
+  # api/statuses/delete_status
+  # @param params [Hash] with status id.
+  # Example:
+  # {:id => "1"}
+  # ATTENTION!!! Status will be deleted!! Dont use this method inattentively
+  def delete_status(params)
+    send_post_request('statuses/delete_status', params)
+  end
 end
 end
