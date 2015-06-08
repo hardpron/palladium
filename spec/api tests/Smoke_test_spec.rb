@@ -339,6 +339,11 @@ describe 'Unit tests' do
       expect(response).not_to be_empty
     end
 
+    it 'get_result_by_param' do
+      response = JSON.parse(@api.get_result_by_param({:author => @result_author}))
+      expect(response).not_to be_empty
+    end
+
     it 'add_new_result' do
       params = {:result => {:message => "message#{Time.now.nsec}",
                             :author => "author#{Time.now.nsec}"},
@@ -364,6 +369,18 @@ describe 'Unit tests' do
       expect(JSON.parse(response)['status_id']).not_to be_nil
       expect(JSON.parse(response)['created_at']).not_to be_nil
       expect(JSON.parse(response)['updated_at']).not_to be_nil
+    end
+
+    it 'delete_result' do
+      params_result_for_create = {:result => {:message => "message#{Time.now.nsec}",
+                                 :author => "author#{Time.now.nsec}"},
+                                 :result_set_id => @result_set_id}
+      response_result_for_create = @api.add_new_result(params_result_for_create)
+      result_id = (JSON.parse response_result_for_create)['id']
+      params = {:id => result_id}
+      @api.delete_result(params)
+      response = JSON.parse(@api.get_result_by_param({:author => params_result_for_create[:result][:author]}))
+      expect(response).to be_empty
     end
   end
 end

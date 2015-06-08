@@ -114,18 +114,18 @@ class ResultSetsController < ApplicationController
   def get_result_sets_by_param
     result_sets_json = {}
     find_params = JSON.parse(params['param'].gsub('=>', ':'))
-    result_sets = ResultSet.find_by(find_params)
-    if result_sets.nil?
+    result = ResultSet.find_by(find_params)
+    if result.nil?
       render :json => {}
     else
-      result_sets = [result_sets] until result_sets.is_a?(Array)
-      result_sets.each do |current_result_set|
-        result_sets_json.merge!(current_result_set.id => {'name' => current_result_set.name,
-                                                           'date' => current_result_set.date,
-                                                           'version' => current_result_set.version,
-                                                           'run_id' => current_result_set.run_id,
-                                                           'created_at' => current_result_set.created_at,
-                                                           'updated_at' => current_result_set.updated_at})
+      result = [result] until result.is_a?(Array)
+      result.each do |current_result|
+        result_sets_json.merge!(current_result.id => {'name' => current_result.name,
+                                                           'date' => current_result.date,
+                                                           'version' => current_result.version,
+                                                           'run_id' => current_result.run_id,
+                                                           'created_at' => current_result.created_at,
+                                                           'updated_at' => current_result.updated_at})
       end
       render :json => result_sets_json
     end

@@ -73,7 +73,8 @@ class ResultsController < ApplicationController
   def destroy
     @result.destroy
     respond_to do |format|
-      format.html { redirect_to action: "index", notice: 'Result was successfully destroyed.' }
+      # format.html { redirect_to action: "index", notice: 'Result was successfully destroyed.' }
+      # This method will be commented because creation can be only through API
       format.json { head :no_content }
     end
   end
@@ -117,5 +118,25 @@ class ResultsController < ApplicationController
                                                 'updated_at' => current_result.updated_at})
     end
     render :json => results_json
+  end
+
+  def get_result_by_param
+    results_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    results = Result.find_by(find_params)
+    if results.nil?
+      render :json => {}
+    else
+      results = [results] until results.is_a?(Array)
+      results.each do |current_result|
+        results_json.merge!(current_result.id => {'message' => current_result.message,
+                                                  'author' => current_result.author,
+                                                  'result_set_id' => current_result.result_set_id,
+                                                  'status_id' => current_result.status_id,
+                                                  'created_at' => current_result.created_at,
+                                                  'updated_at' => current_result.updated_at})
+      end
+      render :json => results_json
+    end
   end
 end
