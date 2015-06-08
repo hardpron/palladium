@@ -51,7 +51,7 @@ describe 'Unit tests' do
     @result_id = (JSON.parse result_responce)['id']
     # Status
     @status_name = "name#{Time.now.nsec}"
-    @status_color = "#FF000"
+    @status_color = "#FF0000"
     @status_params = {:status => {:name => @status_name, :color => @status_color}}
     status_response = @api.add_new_status(@status_params)
     @status_id = (JSON.parse status_response)['id']
