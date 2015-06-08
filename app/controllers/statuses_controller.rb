@@ -80,4 +80,22 @@ class StatusesController < ApplicationController
     end
     render :json => status_json
   end
+
+  def get_statuses_by_param
+    status_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    statuses = Status.find_by(find_params)
+    if statuses.nil?
+      render :json => {}
+    else
+      statuses = [statuses] until statuses.is_a?(Array)
+      statuses.each do |current_status|
+        status_json.merge!(current_status.id => {'name' => current_status.name,
+                                                  'color' => current_status.color,
+                                                  'created_at' => current_status.created_at,
+                                                  'updated_at' => current_status.updated_at})
+      end
+      render :json => status_json
+    end
+  end
 end

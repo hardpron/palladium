@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   post 'api/results/delete_result' => 'results#destroy'
   # Status
   get 'api/statuses/get_all_statuses' => 'statuses#get_all_statuses'
+  get 'api/statuses/get_statuses_by_param' => 'statuses#get_statuses_by_param'
   post 'api/status/add_new_status' => 'statuses#create'
 
   # The priority is based upon order of creation: first created -> highest priority.

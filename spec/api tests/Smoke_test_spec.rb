@@ -397,6 +397,14 @@ describe 'Unit tests' do
       expect(response).not_to be_empty
     end
 
+    it 'get_statuses_by_param' do
+      response = JSON.parse(@api.get_statuses_by_param({:name => @status_name}))
+      expect(response.values.first['name']).to eq(@status_name)
+      expect(response.values.first['color']).to eq @status_color
+      expect(response.values.first['created_at']).not_to be_nil
+      expect(response.values.first['updated_at']).not_to be_nil
+    end
+
     it 'add_new_status' do
       params = {:status => {:name => "name#{Time.now.nsec}", :color => "#FF0000"}}
       response = @api.add_new_status(params)
