@@ -53,13 +53,14 @@ Rails.application.routes.draw do
   post 'api/result_sets/add_new_result_set' => 'result_sets#create'
   post 'api/result_sets/update_result_set' => 'result_sets#update'
   post 'api/result_sets/delete_result_set' => 'result_sets#destroy'
-  #Result
+  # Result
   get 'api/results/get_all_results' => 'results#get_all_results'
   get 'api/results/get_result_by_param' => 'results#get_result_by_param'
   post 'api/results/add_new_result' => 'results#create'
   post 'api/results/update_result' => 'results#update'
   post 'api/results/delete_result' => 'results#destroy'
-  #Status
+  # Status
+  get 'api/statuses/get_all_statuses' => 'statuses#get_all_statuses'
   post 'api/status/add_new_status' => 'statuses#create'
 
   # The priority is based upon order of creation: first created -> highest priority.

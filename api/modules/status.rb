@@ -1,11 +1,11 @@
 module Resource
 module Status
-  # # api/results/get_all_results
-  # # @return [String] with all results data. Use +JSON.parse string+ to convert it to hash
-  # def get_all_results
-  #   send_get_request('results/get_all_results', {:user_email => @username, :user_token => @token})
-  # end
-  #
+  # api/statuses/get_all_statuses
+  # @return [String] with all results data. Use +JSON.parse string+ to convert it to hash
+  def get_all_statuses
+    send_get_request('statuses/get_all_statuses', {:user_email => @username, :user_token => @token})
+  end
+
   # # api/results/get_result_by_param
   # # @return [String] with result_set data. Use +JSON.parse string+ to convert it to hash
   # def get_result_by_param(param)

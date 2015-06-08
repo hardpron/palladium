@@ -49,6 +49,13 @@ describe 'Unit tests' do
                       :result_set_id => @result_set_id}
     result_responce = @api.add_new_result(@result_params)
     @result_id = (JSON.parse result_responce)['id']
+    # Status
+    @status_name = "name#{Time.now.nsec}"
+    @status_color = "color#{Time.now.nsec}"
+    @status_params = {:status => {:name => @status_name, :color => @status_color}}
+    status_response = @api.add_new_status(@status_params)
+    @status_id = (JSON.parse status_response)['id']
+
   end
 
   describe 'Products' do
@@ -385,6 +392,11 @@ describe 'Unit tests' do
   end
 
   describe 'Status' do
+    it 'get_all_statuses' do
+      response = JSON.parse @api.get_all_statuses
+      expect(response).not_to be_empty
+    end
+
     it 'add_new_status' do
       params = {:status => {:name => "name#{Time.now.nsec}", :color => "#FF0000"}}
       response = @api.add_new_status(params)

@@ -68,4 +68,16 @@ class StatusesController < ApplicationController
     def status_params
       params.require(:status).permit(:name, :color)
     end
+
+  public
+  def get_all_statuses
+    status_json = {}
+    Status.all.each do |current_status|
+      status_json.merge!(current_status.id => {'name' => current_status.name,
+                                                'color' => current_status.color,
+                                                'created_at' => current_status.created_at,
+                                                'updated_at' => current_status.updated_at})
+    end
+    render :json => status_json
+  end
 end
