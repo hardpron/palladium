@@ -1,6 +1,7 @@
 class ResultSetsController < ApplicationController
   before_action :set_result_set, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  acts_as_token_authentication_handler_for User
+
 
   # GET /result_sets
   # GET /result_sets.json
@@ -33,12 +34,13 @@ class ResultSetsController < ApplicationController
   # POST /result_sets.json
   def create
     @result_set = ResultSet.new(result_set_params)
-
+    run = set_run
     respond_to do |format|
       if @result_set.save
-        set_run.result_sets << @result_set
-        format.html { redirect_to product_plan_run_result_set_path(product_find_by_id, set_plan, set_run, @result_set), notice: 'Result set was successfully created.' }
-        format.json { render :show, status: :created, location: @result_set }
+        run.result_sets << @result_set
+        # format.html { redirect_to product_plan_run_result_set_path(product_find_by_id, set_plan, set_run, @result_set), notice: 'Result set was successfully created.' }
+        # This string will be commented because creation can be only through API
+        format.json { render :json => @result_set}
       else
         format.html { render :new }
         format.json { render json: @result_set.errors, status: :unprocessable_entity }
@@ -51,8 +53,9 @@ class ResultSetsController < ApplicationController
   def update
     respond_to do |format|
       if @result_set.update(result_set_params)
-        format.html { redirect_to product_plan_run_result_set_path(product_find_by_id, set_plan, set_run, @result_set), notice: 'Result set was successfully updated.' }
-        format.json { render :show, status: :ok, location: @result_set }
+        # format.html { redirect_to product_plan_run_result_set_path(product_find_by_id, set_plan, set_run, @result_set), notice: 'Result set was successfully updated.' }
+        # This string will be commented because creation can be only through API
+        format.json { render :json => @result_set }
       else
         format.html { render :edit }
         format.json { render json: @result_set.errors, status: :unprocessable_entity }
@@ -65,7 +68,8 @@ class ResultSetsController < ApplicationController
   def destroy
     @result_set.destroy
     respond_to do |format|
-      format.html { redirect_to product_plan_run_result_sets_path(product_find_by_id, set_plan, set_run), notice: 'Result set was successfully destroyed.' }
+      # format.html { redirect_to product_plan_run_result_sets_path(product_find_by_id, set_plan, set_run), notice: 'Result set was successfully destroyed.' }
+      # This method will be commented because creation can be only through API
       format.json { head :no_content }
     end
   end
@@ -78,7 +82,7 @@ class ResultSetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def result_set_params
-      params.require(:result_set).permit(:name, :date, :version, :status)
+      params.require(:result_set).permit(:name, :date, :version)
     end
 
   def set_run
@@ -91,5 +95,39 @@ class ResultSetsController < ApplicationController
 
   def product_find_by_id
     Product.find(params.require(:product_id))
+  end
+
+  public
+  def get_all_result_sets
+    result_sets_json = {}
+    ResultSet.all.each do |current_result_set|
+      result_sets_json.merge!(current_result_set.id => {'name' => current_result_set.name,
+                                                         'date' => current_result_set.date,
+                                                         'version' => current_result_set.version,
+                                                         'run_id' => current_result_set.run_id,
+                                                         'created_at' => current_result_set.created_at,
+                                                         'updated_at' => current_result_set.updated_at})
+    end
+    render :json => result_sets_json
+    end
+
+  def get_result_sets_by_param
+    result_sets_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    result = ResultSet.find_by(find_params)
+    if result.nil?
+      render :json => {}
+    else
+      result = [result] until result.is_a?(Array)
+      result.each do |current_result|
+        result_sets_json.merge!(current_result.id => {'name' => current_result.name,
+                                                           'date' => current_result.date,
+                                                           'version' => current_result.version,
+                                                           'run_id' => current_result.run_id,
+                                                           'created_at' => current_result.created_at,
+                                                           'updated_at' => current_result.updated_at})
+      end
+      render :json => result_sets_json
+    end
   end
 end

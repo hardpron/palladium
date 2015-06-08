@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  acts_as_token_authentication_handler_for User
 
   # GET /plans
   # GET /plans.json
@@ -17,10 +17,11 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/new
-  def new
-    @product = product_find_by_id
-    @plan = Plan.new
-  end
+  # This method will be commented because creation can be only through API
+  # def new
+  #   @product = product_find_by_id
+  #   @plan = Plan.new
+  # end
 
   # GET /plans/1/edit
   def edit
@@ -31,10 +32,11 @@ class PlansController < ApplicationController
   # POST /plans.json
   def create
     @plan = Plan.new(plan_params)
-
+    product_for_plan = product_find_by_id
     respond_to do |format|
       if @plan.save
-        product_find_by_id.plans << @plan
+        product_for_plan.plans << @plan
+        format.json { render :json => @plan }
         format.html { redirect_to product_plan_url(product_find_by_id, @plan), notice: 'Plan was successfully created.' }
         format.json { render :show, status: :created, location: @plan }
       else
@@ -49,6 +51,7 @@ class PlansController < ApplicationController
   def update
     respond_to do |format|
       if @plan.update(plan_params)
+        format.json { render :json => @plan }
         format.html { redirect_to product_plan_path(product_find_by_id, @plan), notice: 'Plan was successfully updated.' }
         format.json { render :show, status: :ok, location: @plan }
       else
@@ -76,10 +79,61 @@ class PlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plan_params
-      params.require(:plan).permit(:name, :version)
+      params.require(:plan).permit(:name, :version, :product_id)
     end
 
   def product_find_by_id
       Product.find(params.require(:product_id))
+  end
+
+  public
+  def get_plans
+    plans_json = {}
+    Plan.all.each do |current_plan|
+      plans_json.merge!(current_plan.id => {'name' => current_plan.name,
+                                            'version' => current_plan.version,
+                                            'product_id' => current_plan.product_id,
+                                            'created_at' => current_plan.created_at,
+                                            'updated_at' => current_plan.updated_at})
     end
+    render :json => plans_json
+  end
+
+  def get_plans_by_param
+    plans_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    plans = Plan.find_by(find_params)
+    if plans.nil?
+      render :json => {}
+    else
+      plans = [plans] until plans.is_a?(Array)
+      plans.each do |current_plan|
+        plans_json.merge!(current_plan.id => {'name' => current_plan.name,
+                                              'version' => current_plan.version,
+                                              'product_id' => current_plan.product_id,
+                                              'created_at' => current_plan.created_at,
+                                              'updated_at' => current_plan.updated_at})
+      end
+      render :json => plans_json
+    end
+    end
+
+  def get_all_runs_by_plan
+    runs_json = {}
+    find_params = JSON.parse(params['param'].gsub('=>', ':'))
+    runs = Plan.find(find_params['id']).runs
+    if runs.nil?
+      render :json => {}
+    else
+      runs = [runs] until runs.is_a?(Array)
+      runs.each do |current_run|
+        runs_json.merge!(current_run.first.id => {'name' => current_run.first.name,
+                                                  'version' => current_run.first.version,
+                                                  'plan_id' => current_run.first.plan_id,
+                                                  'created_at' => current_run.first.created_at,
+                                                  'updated_at' => current_run.first.updated_at})
+      end
+      render :json => runs_json
+    end
+  end
 end
