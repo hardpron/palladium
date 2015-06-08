@@ -24,6 +24,7 @@ class StatusesController < ApplicationController
 
     respond_to do |format|
       if @status.save
+        format.json { render :json => @status }
         format.html { redirect_to '/settings/status_settings_title' , notice: 'Status was successfully created.' }
         format.json { render :show, status: :created, location: @status }
       else

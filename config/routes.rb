@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   post 'api/results/add_new_result' => 'results#create'
   post 'api/results/update_result' => 'results#update'
   post 'api/results/delete_result' => 'results#destroy'
+  #Status
+  post 'api/status/add_new_status' => 'statuses#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
