@@ -17,7 +17,7 @@ namespace :generate_random_items do
 
   task :plans => :environment do
     Product.all.each do |product|
-      5.times do |i|
+      2.times do |i|
         product.plans << Plan.create(name:"Plan#{i}", version:"Version#{i}")
       end
     end
@@ -25,7 +25,7 @@ namespace :generate_random_items do
 
   task :runs => :environment do
     Plan.all.each do |plan|
-      4.times do |i|
+      3.times do |i|
         plan.runs << Run.create(name:"Plan#{i}", version:"Version#{i}")
       end
     end
@@ -33,7 +33,7 @@ namespace :generate_random_items do
 
    task :result_sets => :environment do
     Run.all.each do |run|
-      3.times do |i|
+      5.times do |i|
         run.result_sets << ResultSet.create(name:"Plan#{i}", version:"Version#{i}")
       end
     end
@@ -43,6 +43,7 @@ namespace :generate_random_items do
     ResultSet.all.each do |result_sets|
       2.times do |i|
         result_sets.results << Result.create(message:"Message#{i}", author:"Author#{i}")
+        # if Status.find_by_main_status(true)
       end
     end
   end
