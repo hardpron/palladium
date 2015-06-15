@@ -20,7 +20,7 @@
           </thead>
           <tbody>
           <% @results.each do |result| %>
-              <tr class="clickable-row result_table" data-href="<%= "#{request.original_url }/#{result.id}/results" %>">
+              <tr class="clickable-row">
                 <td><%= result.message %></td>
                 <td><%= result.author %></td>
                 <td><%= result.status_id %></td>

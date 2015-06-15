@@ -47,6 +47,20 @@ namespace :generate_random_items do
       end
     end
   end
+
+  task :series => :environment do
+    a1 = Product.create(name:"Product_series", status:"Status_series", version:"Version_series")
+    a2 = Plan.create(name:"Plan_series", version:"Version_series")
+    a1.plans << a2
+    a3 = Run.create(name:"Plan_series", version:"Version_series")
+    a2.runs << a3
+    a4 = ResultSet.create(name:"Plan_series", version:"Version_series")
+    a3.result_sets << a4
+    a5 = Result.create(message:"Message_series", author:"Author_series")
+    a4.results << a5
+    a6 = Status.create(name: 'Failed', color: '#FFAAAA')
+    a6.results << a5
+  end
 end
 
 namespace :delete_all do
