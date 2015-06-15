@@ -21,17 +21,69 @@
                     <td><%= plan.name %></td>
                     <td><%= plan.version %></td>
                     <td>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-success" style="width: 50%">
+                      <div id="status-bar-<%= plan.id %>" style="min-width: 100px; max-width: 100px; height: 50px; margin: 0 auto"></div>
 
-                        </div>
-                        <div class="progress-bar progress-bar-warning" style="width: 20%">
-                          <span class="sr-only">20% Complete (warning)</span>
-                        </div>
-                        <div class="progress-bar progress-bar-danger" style="width: 10%">
-                          <span class="sr-only">10% Complete (danger)</span>
-                        </div>
-                      </div>
+                      <script>
+                          $(function () {
+                              $("#status-bar-<%= plan.id %>").highcharts({
+                                  navigation: {
+                                      buttonOptions: {
+                                          enabled: false
+                                      }
+                                  },
+                                  credits: {
+                                      enabled: false
+                                  },
+                                  tooltip: {
+                                      enabled: false
+                                  },
+                                  chart: {
+                                      height: 50,
+                                      width: 250,
+                                      type: 'bar',
+                                      backgroundColor: null
+                                  },
+                                  title: {
+                                      text: ''
+                                  },
+                                  subTitle: {
+                                      text: ''
+                                  },
+                                  legend: {
+                                      enabled: false
+                                  },
+                                  xAxis: {
+
+                                      labels: {
+                                          enabled: false
+                                      }
+                                  },
+                                  yAxis: {
+                                      gridLineWidth: 0,
+                                      labels: {
+                                          enabled: false
+                                      },
+                                      title: {
+                                          text: ''
+                                      }
+                                  },
+                                  legend: {
+                                      enabled: false
+                                  },
+                                  series: [{name: 'John', data: [5], color: '#FFAAAA'},
+                                      {name: 'Jane', data: [2], color: '#FFBBBB'},
+                                      {name: 'Joe', data: [3], color: '#FFEEEE'}],
+                                  plotOptions: {
+                                      series: {
+                                          stacking: 'normal',
+                                          dataLabels: {
+                                              enabled: true
+                                          }
+                                      }
+                                  }
+                              });
+                          });
+                      </script>
                     </td>
                   </tr>
               <% end %>
