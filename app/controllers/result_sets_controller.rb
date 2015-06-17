@@ -123,6 +123,7 @@ class ResultSetsController < ApplicationController
         result_sets_json.merge!(current_result.id => {'name' => current_result.name,
                                                            'date' => current_result.date,
                                                            'version' => current_result.version,
+                                                           'status' => current_result.status,
                                                            'run_id' => current_result.run_id,
                                                            'created_at' => current_result.created_at,
                                                            'updated_at' => current_result.updated_at})
