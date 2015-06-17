@@ -39,6 +39,8 @@ class Result < ActiveRecord::Base
   def update_status(result_set)
     result_set.update(status: [{name: Status.find_by_main_status(true).name, count:[], color: Status.find_by_main_status(true).color}]) if result_set.status.nil?
     result_set_status = result_set.status
+    array_of_statuses = result_set_status.map{|current_status_hash| current_status_hash[:name]}
+    if array_of_statuses.include?(Status.find(self.status_id).name)
     result_set_status.map! do |current_status_hash|
       if current_status_hash[:name] == Status.find(self.status_id).name
         unless current_status_hash[:count].convert_to_array.include?(self.id)
@@ -47,6 +49,9 @@ class Result < ActiveRecord::Base
           current_status_hash
         end
       end
+    end
+    else
+      result_set_status << {name: Status.find(self.status_id).name, count: [ self.id], color: Status.find_by_main_status(true).color}
     end
     result_set.update(status: result_set_status)
   end
