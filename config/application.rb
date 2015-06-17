@@ -29,5 +29,9 @@ class String
   def convert_to_hash
     Hash[self.split(",").collect{|x| x.strip.split("=>").map!{|current_key_ore_value| current_key_ore_value.strip}}]
   end
+
+  def convert_to_array
+    self[1..-2].split(',').map!{|current_element| current_element}
+  end
 end
 

@@ -56,10 +56,12 @@ namespace :generate_random_items do
     a2.runs << a3
     a4 = ResultSet.create(name:'Plan_series', version:'Version_series')
     a3.result_sets << a4
-    a5 = Result.create(message:'Message_series', author:'Author_series')
+    a5 = Result.create(message:'Message_series1', author:'Author_series1')
     a4.results << a5
-    a6 = Status.create(name: 'Failed', color: '#FFAAAA')
+    # a6 = Status.create(name: 'Failed', color: '#FFAAAA')
+    a6 = Status.find_by_main_status(true)
     a6.results << a5
+    a5.save
   end
 end
 
