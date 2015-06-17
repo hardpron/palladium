@@ -31,7 +31,7 @@ class String
   end
 
   def convert_to_array
-    self[1..-2].split(',').map!{|current_element| current_element}
+    self[1..-2].split(',').map!{|current_element| current_element.to_i}
   end
 end
 

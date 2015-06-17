@@ -2,7 +2,7 @@ require_relative '../../api/api'
 require 'json'
 describe 'Unit tests' do
   before :all do
-    @api = Api.new('localhost:3000', 'flamine@list.ru', '-8Bc7sRD6-MRSXnTP69T')
+    @api = Api.new('localhost:3000', 'flamine@list.ru', 'bBGm21gsxC2_zsNRY_Dw')
 
     # Product Data
     @product_name = "Product_name#{Time.now.nsec}"
