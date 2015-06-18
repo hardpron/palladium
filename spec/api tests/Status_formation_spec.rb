@@ -28,6 +28,12 @@ describe 'Formation_status' do
   response_result_set = @api.add_new_result_set(result_set_param)
   @result_set_id = (JSON.parse response_result_set)['id']
 
+    @status_name = "Statusname#{Time.now.nsec}"
+    @status_color = "#FF0000"
+    @status_params = {:status => {:name => @status_name, :color => @status_color}}
+    status_response = @api.add_new_status(@status_params)
+    @status_id = (JSON.parse status_response)['id']
+
   end
 
   describe 'Without added status' do
@@ -40,6 +46,19 @@ describe 'Formation_status' do
     result_set_status = @api.get_result_set_by_param(:id => @result_set_id)
     count = JSON.parse(result_set_status).values.first['status'].first['count']
     expect(count).to eq([@result_id].to_s)
-  end
+    end
+
+    it 'add results with different status' do
+      result_params = {:result => {:message => "Result_message#{Time.now.nsec}",
+                                   :author => "Result_author#{Time.now.nsec}"},
+                       :result_set_id => @result_set_id}
+      @api.add_new_result(result_params)
+      result_params.merge!({:status_id => @status_id})
+      result_responce = @api.add_new_result(result_params)
+      @result_id = (JSON.parse result_responce)['id']
+      result_set_status = @api.get_result_set_by_param(:id => @result_set_id)
+      count = JSON.parse(result_set_status).values.first['status'].size
+      expect(count).to eq(2)
+    end
   end
 end

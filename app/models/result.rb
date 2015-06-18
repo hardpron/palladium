@@ -52,7 +52,7 @@ class Result < ActiveRecord::Base
       end
     end
     else
-      result_set_status << {name: Status.find(self.status_id).name, count: [self.id], data:[1], color: Status.find_by_main_status(true).color}
+      result_set_status << {name: Status.find(self.status_id).name, count: [self.id], data:[1], color: Status.find(self.status_id).color}
     end
     result_set.update(status: result_set_status)
   end
