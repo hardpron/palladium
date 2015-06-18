@@ -18,72 +18,76 @@
           </thead>
           <tbody>
           <% @result_sets.order(name: :desc).each do |result| %>
+              <% data = result.status.map do |current_hash|%>
+                  <%  current_hash.delete_if {| key | key == :count } %>
+                  <%  {name:current_hash[:name], data:current_hash[:data], color:current_hash[:color]} %>
+              <% end %>
               <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{result.id}/results" %>">
                 <td><%= result.name %></td>
                 <td><%= result.version %></td>
                 <td>
-                  <div id="status-bar-<%= result.id %>" style="min-width: 100px; max-width: 100px; height: 50px; margin: 0 auto"></div>
+                  <div id="status-bar-<%= result.id %>" style="min-width: 100px; max-width: 100px; height: 50px; margin: 0 auto" value = ></div>
                 </td>
               </tr>
               <script>
                   $(function () {
-                      $("#status-bar-<%= result.id %>").highcharts({
-                          navigation: {
-                              buttonOptions: {
-                                  enabled: false
-                              }
-                          },
-                          credits: {
-                              enabled: false
-                          },
-                          tooltip: {
-                              enabled: false
-                          },
-                          chart: {
-                              height: 50,
-                              width: 250,
-                              type: 'bar',
-                              backgroundColor: null
-                          },
-                          title: {
-                              text: ''
-                          },
-                          subTitle: {
-                              text: ''
-                          },
-                          legend: {
-                              enabled: false
-                          },
-                          xAxis: {
+                      $("#status-bar-<%= result.id %>").highcharts(
+                              {
+                                  navigation: {
+                                      buttonOptions: {
+                                          enabled: false
+                                      }
+                                  },
+                                  credits: {
+                                      enabled: false
+                                  },
+                                  tooltip: {
+                                      enabled: false
+                                  },
+                                  chart: {
+                                      height: 50,
+                                      width: 250,
+                                      type: 'bar',
+                                      backgroundColor: null
+                                  },
+                                  title: {
+                                      text: ''
+                                  },
+                                  subTitle: {
+                                      text: ''
+                                  },
+                                  legend: {
+                                      enabled: false
+                                  },
+                                  xAxis: {
 
-                              labels: {
-                                  enabled: false
-                              }
-                          },
-                          yAxis: {
-                              gridLineWidth: 0,
-                              labels: {
-                                  enabled: false
-                              },
-                              title: {
-                                  text: ''
-                              }
-                          },
-                          legend: {
-                              enabled: false
-                          },
-                          series: [{name: 'John', data: [5], color: '#FFAAAA'},
-                                   {name: 'Jane', data: [2], color: '#FFBBBB'},
-                                   {name: 'Joe', data: [3], color: '#FFEEEE'}],
-                          plotOptions: {
-                              series: {
-                                  stacking: 'normal',
-                                  dataLabels: {
-                                      enabled: true
+                                      labels: {
+                                          enabled: false
+                                      }
+                                  },
+                                  yAxis: {
+                                      gridLineWidth: 0,
+                                      labels: {
+                                          enabled: false
+                                      },
+                                      title: {
+                                          text: ''
+                                      }
+                                  },
+                                  legend: {
+                                      enabled: false
+                                  },
+                                  series: <%= data.to_json.html_safe %>,
+                                  plotOptions: {
+                                      series: {
+                                          stacking: 'normal',
+                                          dataLabels: {
+                                              enabled: true
+                                          }
+                                      }
                                   }
                               }
-                          }
-                      });
+                      );
                   });
               </script>
           <% end %>
