@@ -49,27 +49,91 @@ namespace :generate_random_items do
   end
 
   task :series => :environment do
-    a1 = Product.create(name:'Product_series', status:'Status_series', version:'Version_series')
-    a2 = Plan.create(name:'Plan_series', version:'Version_series')
-    a1.plans << a2
-    a3 = Run.create(name:'Run_series', version:'Version_series')
-    a2.runs << a3
-    a4 = ResultSet.create(name:'ResultSet_series', version:'Version_series')
-    a3.result_sets << a4
-    a5 = Result.create(message:'Message_series1', author:'Author_series1')
-    a55 = Result.create(message:'Message_series2', author:'Author_series2')
-    a555 = Result.create(message:'Message_series2', author:'Author_series2')
-    a6 = Status.find_by_main_status(true)
-    a5.save
-    a55.save
-    a555.save
-    a6.results << a5
-    a6.results << a55
-    a6.results << a555
-    a4.results << a5
-    a4.results << a55
-    a4.results << a555
-    # a6 = Status.create(name: 'Failed', color: '#FFAAAA')
+    product = Product.create(name:'Product_series', status:'Status_series', version:'Version_series')
+
+    plan1 = Plan.create(name:'Plan_series1', version:'Version_series1')
+    plan2 = Plan.create(name:'Plan_series2', version:'Version_series2')
+    product.plans << plan1
+    product.plans << plan2
+
+    run1 = Run.create(name:'Run_series1', version:'Version_series1')
+    run2 = Run.create(name:'Run_series2', version:'Version_series2')
+    run3 = Run.create(name:'Run_series3', version:'Version_series3')
+    run4 = Run.create(name:'Run_series4', version:'Version_series4')
+    plan1.runs << run1
+    plan1.runs << run2
+    plan2.runs << run3
+    plan2.runs << run4
+     result_set1  = ResultSet.create(name:'ResultSet_series1', version:'Version_series1')
+     result_set2  = ResultSet.create(name:'ResultSet_series2', version:'Version_series2')
+     result_set3  = ResultSet.create(name:'ResultSet_series3', version:'Version_series3')
+     result_set4  = ResultSet.create(name:'ResultSet_series4', version:'Version_series4')
+     result_set5  = ResultSet.create(name:'ResultSet_series5', version:'Version_series5')
+     result_set6  = ResultSet.create(name:'ResultSet_series6', version:'Version_series6')
+     result_set7  = ResultSet.create(name:'ResultSet_series7', version:'Version_series7')
+     result_set8  = ResultSet.create(name:'ResultSet_series8', version:'Version_series8')
+    run1.result_sets << result_set1
+    run1.result_sets << result_set2
+    run2.result_sets << result_set3
+    run2.result_sets << result_set4
+    run3.result_sets << result_set5
+    run3.result_sets << result_set6
+    run4.result_sets << result_set7
+    run4.result_sets << result_set8
+
+    result1 = Result.create(message:'Message_series1',  author:'Author_series1')
+    result2 = Result.create(message:'Message_series2',  author:'Author_series2')
+    result3 = Result.create(message:'Message_series3',  author:'Author_series3')
+    result4 = Result.create(message:'Message_series4',  author:'Author_series4')
+    result5 = Result.create(message:'Message_series5',  author:'Author_series5')
+    result6 = Result.create(message:'Message_series6',  author:'Author_series6')
+    result7 = Result.create(message:'Message_series7',  author:'Author_series7')
+    result8 = Result.create(message:'Message_series8',  author:'Author_series8')
+    result9 = Result.create(message:'Message_series9',  author:'Author_series9')
+    result10 = Result.create(message:'Message_series10', author:'Author_series10')
+    result11 = Result.create(message:'Message_series11', author:'Author_series11')
+    result12 = Result.create(message:'Message_series12', author:'Author_series12')
+    result13 = Result.create(message:'Message_series13', author:'Author_series13')
+    result14 = Result.create(message:'Message_series14', author:'Author_series14')
+    result15 = Result.create(message:'Message_series15', author:'Author_series15')
+    result16 = Result.create(message:'Message_series16', author:'Author_series16')
+    status = Status.create(name: 'Failed', color: '#FFAAAA')
+    status1 = Status.create(name: 'Passed', color: '#00FF00')
+
+    status.results << result1
+    status1.results << result2
+    status.results << result3
+    status1.results << result4
+    status.results << result5
+    status1.results << result6
+    status.results << result7
+    status1.results << result8
+    status.results << result9
+    status1.results << result10
+    status.results << result11
+    status1.results << result12
+    status.results << result13
+    status1.results << result14
+    status.results << result15
+    status1.results << result16
+
+
+    result_set1.results << result1
+    result_set1.results << result2
+    result_set2.results << result3
+    result_set2.results << result4
+    result_set3.results << result5
+    result_set3.results << result6
+    result_set4.results << result7
+    result_set4.results << result8
+    result_set5.results << result9
+    result_set5.results << result10
+    result_set6.results << result11
+    result_set6.results << result12
+    result_set7.results << result13
+    result_set7.results << result14
+    result_set8.results << result15
+    result_set8.results << result16
   end
 
   task :only_one => :environment do
@@ -93,6 +157,6 @@ namespace :delete_all do
     Run.delete_all
     ResultSet.delete_all
     Result.delete_all
-    Status.delete_all
+    # Status.delete_all
   end
 end
