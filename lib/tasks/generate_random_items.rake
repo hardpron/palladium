@@ -114,8 +114,8 @@ namespace :generate_random_items do
     status1.results << result12
     status.results << result13
     status1.results << result14
-    status.results << result15
-    status1.results << result16
+    status1.results << result15
+    status.results << result16
 
 
     result_set1.results << result1
@@ -147,6 +147,12 @@ namespace :generate_random_items do
     ResultSet.last.results << result1
     ResultSet.last.results << result2
     ResultSet.last.results << result3
+  end
+
+  task :new_result_to_last_set => :environment do
+    result1 = Result.create(message:'Message_series1only_one', author:'Author_series1only_one')
+    Status.last.results << result1
+    ResultSet.last.results << result1
   end
 end
 

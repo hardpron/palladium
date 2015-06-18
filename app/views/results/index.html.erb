@@ -19,11 +19,11 @@
           </tr>
           </thead>
           <tbody>
-          <% @results.each do |result| %>
+          <% @results.order(created_at: :desc).each do |result| %>
               <tr class="clickable-row">
                 <td><%= result.message %></td>
                 <td><%= result.author %></td>
-                <td><%= result.status_id %></td>
+                <td style = "background-color: <%= Status.find(result.status_id).color%>">status id <%= result.status_id %></td>
               </tr>
           <% end %>
           </tbody>

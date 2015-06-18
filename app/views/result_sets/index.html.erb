@@ -17,79 +17,15 @@
           </tr>
           </thead>
           <tbody>
-          <% @result_sets.order(name: :desc).each do |result| %>
-              <% data = result.status.map do |current_hash|%>
-                  <%  current_hash.delete_if {| key | key == :count } %>
-                  <%  {name:current_hash[:name], data:current_hash[:data], color:current_hash[:color]} %>
-              <% end %>
-              <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{result.id}/results" %>">
-                <td><%= result.name %></td>
-                <td><%= result.version %></td>
-                <td>
-                  <div id="status-bar-<%= result.id %>" style="min-width: 100px; max-width: 100px; height: 50px; margin: 0 auto" value = ></div>
+          <%= data = nil%>
+          <% @result_sets.order(name: :desc).each do |set_result| %>
+              <% status_id = set_result.results.order(created_at: :desc).first.status_id %>
+              <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{set_result.id}/results" %>">
+                <td><%= set_result.name %></td>
+                <td><%= set_result.version %></td>
+                <td style="background-color: <%= Status.find(status_id).color%>">
                 </td>
               </tr>
-              <script>
-                  $(function () {
-                      $("#status-bar-<%= result.id %>").highcharts(
-                              {
-                                  navigation: {
-                                      buttonOptions: {
-                                          enabled: false
-                                      }
-                                  },
-                                  credits: {
-                                      enabled: false
-                                  },
-                                  tooltip: {
-                                      enabled: false
-                                  },
-                                  chart: {
-                                      height: 50,
-                                      width: 250,
-                                      type: 'bar',
-                                      backgroundColor: null
-                                  },
-                                  title: {
-                                      text: ''
-                                  },
-                                  subTitle: {
-                                      text: ''
-                                  },
-                                  legend: {
-                                      enabled: false
-                                  },
-                                  xAxis: {
-
-                                      labels: {
-                                          enabled: false
-                                      }
-                                  },
-                                  yAxis: {
-                                      gridLineWidth: 0,
-                                      labels: {
-                                          enabled: false
-                                      },
-                                      title: {
-                                          text: ''
-                                      }
-                                  },
-                                  legend: {
-                                      enabled: false
-                                  },
-                                  series: <%= data.to_json.html_safe %>,
-                                  plotOptions: {
-                                      series: {
-                                          stacking: 'normal',
-                                          dataLabels: {
-                                              enabled: true
-                                          }
-                                      }
-                                  }
-                              }
-                      );
-                  });
-              </script>
           <% end %>
           </tbody>
         </table>
@@ -141,10 +77,7 @@
                 type: 'pie',
                 name: 'Browser share',
                 innerSize: '50%',
-                data: [{name: 'Others',
-                        y: 40,
-                        color: '#FFAAAA'}
-                ]
+                data: <%= data.to_json.html_safe %>
             }]
         });
     });
