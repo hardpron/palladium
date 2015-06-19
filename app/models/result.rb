@@ -2,6 +2,7 @@ class Result < ActiveRecord::Base
   belongs_to :result_set
   belongs_to :status
   after_commit :count_result_set_status
+  # after_rollback :count_run_status
 
   private
   def count_result_set_status

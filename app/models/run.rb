@@ -4,6 +4,7 @@ class Run < ActiveRecord::Base
   serialize :status
 
   after_commit :count_plan_status
+  # after_rollback :count_plan_status
 
   def count_plan_status
     p 'count_plan_status'
@@ -23,11 +24,14 @@ class Run < ActiveRecord::Base
     p runs
     runs.each do |current_run|
       p current_run
-
-      current_run.status.each do |current_status_element|
+      status_hash = current_run.status
+      status_hash = [{name: Status.find_by_main_status(true).name, color: Status.find_by_main_status(true).color, count:[:id]}] if status_hash.nil?
+      status_hash.each do |current_status_element|
         edit_hash = {}
         if status_exist(current_status_element, plan_status)
           plan_status.each do |status_hash|
+            p status_hash
+
             if status_hash[:name] == current_status_element[:name]
               name = status_hash[:name]
               count = status_hash[:count] + current_status_element[:count]
@@ -48,6 +52,8 @@ class Run < ActiveRecord::Base
 
   def status_exist(current_status_element, plan_status)
     p 'status_exist run'
+    p current_status_element
+    p plan_status
     all_statuses = plan_status.map { |current_status_hash| current_status_hash[:name] }
     all_statuses.include? current_status_element[:name]
   end

@@ -3,6 +3,7 @@ class ResultSet < ActiveRecord::Base
   has_many :results, dependent: :destroy
   serialize :status
   after_commit :count_run_status
+  # after_rollback :count_run_status
 
   private
   def count_run_status
