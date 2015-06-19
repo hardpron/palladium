@@ -36,7 +36,7 @@ class ResultSet < ActiveRecord::Base
         run_status.delete_if { |current_hash| current_hash[:name] == edit_hash[:name] }
         run_status << edit_hash unless edit_hash.empty?
       else
-        run_status << {name: Status.find(status_id).name, count: [:id], data: [1], color: Status.find(status_id).color}
+        run_status << {name: Status.find(status_id).name, count: [result_id], data: [1], color: Status.find(status_id).color}
       end
     end
     run.update(status: run_status)

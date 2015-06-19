@@ -114,6 +114,7 @@ namespace :generate_random_items do
     status1.results << result12
     status.results << result13
     status1.results << result14
+    status1.results << result14
     status1.results << result15
     status.results << result16
 
@@ -162,9 +163,17 @@ namespace :generate_random_items do
     Status.find(6).results << result1
     result_set = ResultSet.create(name: 'ResultSet_series1', version: 'Version_series1')
     Run.last.result_sets << result_set
-
-
     result_set.results << result1
+  end
+
+  task :new_run_to_last_plan => :environment do
+    result1 = Result.create(message: 'Message_series1only_one', author: 'Author_series1only_one')
+    Status.find(1).results << result1
+    result_set = ResultSet.create(name: 'ResultSet_series1', version: 'Version_series1')
+    run1 = Run.create(name:'Run_series1', version:'Version_series1')
+    run1.result_sets << result_set
+    result_set.results << result1
+    Plan.last.runs << run1
   end
 end
 
