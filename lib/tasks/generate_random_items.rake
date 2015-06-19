@@ -144,15 +144,27 @@ namespace :generate_random_items do
     main_status.results << result1
     main_status.results << result2
     main_status.results << result3
-    ResultSet.last.results << result1
-    ResultSet.last.results << result2
-    ResultSet.last.results << result3
+    result_set1  = ResultSet.create(name:'ResultSet_series1', version:'Version_series1')
+    result_set1.results << result1
+    result_set1.results << result2
+    result_set1.results << result3
+    Run.last.result_sets << result_set1
   end
 
   task :new_result_to_last_set => :environment do
     result1 = Result.create(message:'Message_series1only_one', author:'Author_series1only_one')
     Status.last.results << result1
     ResultSet.last.results << result1
+  end
+
+  task :new_result_set_to_last_run => :environment do
+    result1 = Result.create(message: 'Message_series1only_one', author: 'Author_series1only_one')
+    Status.find(6).results << result1
+    result_set = ResultSet.create(name: 'ResultSet_series1', version: 'Version_series1')
+    Run.last.result_sets << result_set
+
+
+    result_set.results << result1
   end
 end
 

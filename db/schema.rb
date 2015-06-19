@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150528104224) do
     t.string   "name"
     t.string   "version"
     t.integer  "plan_id"
+    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
