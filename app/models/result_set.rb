@@ -30,7 +30,7 @@ class ResultSet < ActiveRecord::Base
             name = current_hash[:name]
             count = current_hash[:count] + [result_id]
             data = count.size
-            edit_hash = {name: name, count: count, data: data, color: Status.find(status_id).color}
+            edit_hash = {name: name, count: count, data: [data], color: Status.find(status_id).color}
           end
         end
         run_status.delete_if { |current_hash| current_hash[:name] == edit_hash[:name] }

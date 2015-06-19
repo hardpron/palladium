@@ -21,11 +21,14 @@
             <% @plan.runs.order(created_at: :desc).each do |run| %>
                 <tr class="clickable-row run_str" data-href=<%= product_plan_run_result_sets_path(@product, @plan, run) %> name=<%= run.version %>>
 
-                  <td><%= run.name %></td>
+                  <td><%= run.id %></td>
                   <td><%= run.version %></td>
                   <td>
                     <div id="status-bar-<%= run.id %>" style="min-width: 100px; max-width: 100px; height: 50px; margin: 0 auto"></div>
-
+                    <% data = run.status.map do |current_hash| %>
+                        <%  current_hash.delete_if {| key | key == :count } %>
+                        <%  {name:current_hash[:name], data:current_hash[:data], color:current_hash[:color]} %>
+                    <% end %>
                     <script>
                         $(function () {
                             $("#status-bar-<%= run.id %>").highcharts({
@@ -73,9 +76,7 @@
                                 legend: {
                                     enabled: false
                                 },
-                                series: [{name: 'John', data: [5], color: '#FFAAAA'},
-                                    {name: 'Jane', data: [2], color: '#FFBBBB'},
-                                    {name: 'Joe', data: [3], color: '#FFEEEE'}],
+                                series: <%= data.to_json.html_safe %>,
                                 plotOptions: {
                                     series: {
                                         stacking: 'normal',
