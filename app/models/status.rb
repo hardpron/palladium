@@ -1,6 +1,6 @@
 class Status < ActiveRecord::Base
   has_many :results
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, presence: true, format: { without: /\s/ }
   validates :color, length: {is: 7},
             presence: true
 
