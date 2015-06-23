@@ -1,10 +1,10 @@
 require File.expand_path('../boot', __FILE__)
-
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
 
 module Palladium
   class Application < Rails::Application
@@ -24,3 +24,14 @@ module Palladium
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
+
+class String
+  def convert_to_hash
+    Hash[self.split(",").collect{|x| x.strip.split("=>").map!{|current_key_ore_value| current_key_ore_value.strip}}]
+  end
+
+  def convert_to_array
+    self[1..-2].split(',').map!{|current_element| current_element.to_i}
+  end
+end
+

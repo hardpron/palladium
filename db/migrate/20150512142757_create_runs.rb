@@ -4,6 +4,7 @@ class CreateRuns < ActiveRecord::Migration
       t.string :name
       t.string :version
       t.integer :plan_id
+      t.string :status
 
       t.timestamps null: false
     end

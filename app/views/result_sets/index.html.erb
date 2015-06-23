@@ -7,7 +7,7 @@
         <div class="page-header sets_hading">
           <h1 align="center"><%= t('helpers.titles.test_results') %></h1>
         </div>
-        <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+        <div id="run_status_chart" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
         <h3><%= t('helpers.titles.results') %></h3>
         <table class="table table-hover sets_table">
           <thead>
@@ -17,28 +17,25 @@
           </tr>
           </thead>
           <tbody>
-          <% @result_sets.order(name: :desc).each do |result| %>
-              <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{result.id}/results" %>">
-                <td><%= result.name %></td>
-                <td><%= result.version %></td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" style="width: 50%">
-
-                    </div>
-                    <div class="progress-bar progress-bar-warning" style="width: 20%">
-                      <span class="sr-only">20% Complete (warning)</span>
-                    </div>
-                    <div class="progress-bar progress-bar-danger" style="width: 10%">
-                      <span class="sr-only">10% Complete (danger)</span>
-                    </div>
-                  </div>
+          <% data = @run.status.map do |current_hash|%>
+              <%  current_hash.delete_if {| key | key == :count } %>
+              <%  {name:current_hash[:name], y:current_hash[:data].first, color:current_hash[:color]} %>
+          <% end %>
+          <% @result_sets.order(name: :desc).each do |set_result| %>
+              <% if set_result.results.order(created_at: :desc).first.nil? %>
+                  <% last_result = Status.find_by_main_status(true).id %>
+                  <% else %>
+                  <% last_result = set_result.results.order(created_at: :desc).first.status_id %>
+              <% end %>
+              <tr class="clickable-row run_str" data-href="<%= "#{request.original_url }/#{set_result.id}/results" %>">
+                <td><%= set_result.name %></td>
+                <td><%= set_result.version %></td>
+                <td style="background-color: <%= Status.find(last_result).color %>">
                 </td>
               </tr>
           <% end %>
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
@@ -46,7 +43,7 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#container').highcharts({
+        $('#run_status_chart').highcharts({
             navigation: {
                 buttonOptions: {
                     enabled: false
@@ -87,23 +84,11 @@
                 type: 'pie',
                 name: 'Browser share',
                 innerSize: '50%',
-                data: [
-                    ['Firefox', 45.0],
-                    ['IE', 45.8],
-                    ['Chrome', 12.8],
-                    ['Safari', 8.5],
-                    ['Opera', 6.2],
-                    {
-                        name: 'Others',
-                        y: 0.7,
-                        dataLabels: {
-                            enabled: false
-                        }
-                    }
-                ]
+                data: <%= data.to_json.html_safe %>
             }]
         });
     });
+
 
     jQuery(document).ready(function ($) {
         $(".clickable-row").click(function () {

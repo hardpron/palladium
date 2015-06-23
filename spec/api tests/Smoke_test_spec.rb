@@ -2,7 +2,7 @@ require_relative '../../api/api'
 require 'json'
 describe 'Unit tests' do
   before :all do
-    @api = Api.new('localhost:3000', 'flamine@list.ru', '4s8Fq325PJmsD1frVSHx')
+    @api = Api.new('localhost:3000', 'flamine@list.ru', '6gVmTd6Xk79z-4TwibSu')
 
     # Product Data
     @product_name = "Product_name#{Time.now.nsec}"
@@ -170,7 +170,6 @@ describe 'Unit tests' do
       response = JSON.parse(response)
       expect(response['name']).to eq(params[:plan][:name])
       expect(response['version']).to eq(params[:plan][:version])
-      expect(response['status']).to be_nil
       expect(response['product_id']).not_to be_nil
       expect(response['created_at']).not_to be_nil
       expect(response['updated_at']).not_to be_nil
@@ -227,7 +226,6 @@ describe 'Unit tests' do
       response = JSON.parse(response)
       expect(response['name']).to eq(params[:run][:name])
       expect(response['version']).to eq(params[:run][:version])
-      expect(response['status']).to be_nil
       expect(response['plan_id']).not_to be_nil
       expect(response['created_at']).not_to be_nil
       expect(response['updated_at']).not_to be_nil

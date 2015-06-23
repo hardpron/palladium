@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150528104224) do
   create_table "plans", force: :cascade do |t|
     t.string   "name"
     t.string   "version"
+    t.string   "status"
     t.integer  "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150528104224) do
     t.string   "name"
     t.string   "version"
     t.integer  "plan_id"
+    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -7,6 +7,7 @@ class ResultSetsController < ApplicationController
   # GET /result_sets.json
   def index
     @result_sets = Product.find(product_find_by_id).plans.find(params.require(:plan_id)).runs.find(params.require(:run_id)).result_sets
+    @run = set_run
   end
 
   # GET /result_sets/1
@@ -123,6 +124,7 @@ class ResultSetsController < ApplicationController
         result_sets_json.merge!(current_result.id => {'name' => current_result.name,
                                                            'date' => current_result.date,
                                                            'version' => current_result.version,
+                                                           'status' => current_result.status,
                                                            'run_id' => current_result.run_id,
                                                            'created_at' => current_result.created_at,
                                                            'updated_at' => current_result.updated_at})
