@@ -7,7 +7,7 @@ class Run < ActiveRecord::Base
   # after_rollback :count_plan_status
 
   def count_plan_status
-    p 'count_plan_status'
+    # p 'count_plan_status'
     unless self.plan_id.nil?
       plan = Plan.find(self.plan_id)
       unless Plan.find(self.plan_id).runs.nil?
@@ -17,20 +17,20 @@ class Run < ActiveRecord::Base
   end
 
   def update_plan_status(plan)
-    p 'update_plan_status'
+    # p 'update_plan_status'
     plan_status = []
     runs = plan.runs
-    p '--------------------------------------------------'
-    p runs
+    # p '--------------------------------------------------'
+    # p runs
     runs.each do |current_run|
-      p current_run
+      # p current_run
       status_hash = current_run.status
       status_hash = [{name: Status.find_by_main_status(true).name, color: Status.find_by_main_status(true).color, count:[:id]}] if status_hash.nil?
       status_hash.each do |current_status_element|
         edit_hash = {}
         if status_exist(current_status_element, plan_status)
           plan_status.each do |status_hash|
-            p status_hash
+            # p status_hash
 
             if status_hash[:name] == current_status_element[:name]
               name = status_hash[:name]
@@ -51,9 +51,9 @@ class Run < ActiveRecord::Base
   end
 
   def status_exist(current_status_element, plan_status)
-    p 'status_exist run'
-    p current_status_element
-    p plan_status
+    # p 'status_exist run'
+    # p current_status_element
+    # p plan_status
     all_statuses = plan_status.map { |current_status_hash| current_status_hash[:name] }
     all_statuses.include? current_status_element[:name]
   end

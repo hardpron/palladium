@@ -7,7 +7,7 @@ class ResultSet < ActiveRecord::Base
 
   private
   def count_run_status
-    p 'count_run_status'
+    # p 'count_run_status'
     unless self.results.nil?
       unless self.status.nil?
         unless self.run_id.nil?
