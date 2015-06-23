@@ -162,7 +162,7 @@ namespace :generate_random_items do
     result1 = Result.create(message: 'Message_series1only_one', author: 'Author_series1only_one')
     Status.find(3).results << result1
     result_set = ResultSet.create(name: 'ResultSet_series1', version: 'Version_series1')
-    Run.find(18).result_sets << result_set
+    Run.last.result_sets << result_set
     result_set.results << result1
   end
 
