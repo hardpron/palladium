@@ -13,24 +13,18 @@ en:
   product:
     errors:
       not_presence: "can`t be space"
-      with_space: "%{value} is not a valid name. Delete all space."
   plan:
     errors:
       not_presence: "can`t be space"
-      with_space: "%{value} is not a valid name. Delete all space."
   run:
     errors:
       not_presence: "can`t be space"
-      with_space: "%{value} is not a valid name. Delete all space."
   result_set:
     errors:
       not_presence: "can`t be space"
-      with_space: "%{value} is not a valid name. Delete all space."
   result:
     errors:
       not_presence: "can`t be space"
-      with_space: "%{value} is not a valid name. Delete all space."
-
 
   breadcrumbs:
     application:

@@ -1,8 +1,7 @@
 class Status < ActiveRecord::Base
   has_many :results
   validates :name, presence: {message: I18n.t('status.errors.not_presence')},
-            uniqueness: {message: I18n.t('status.errors.not_uniqueness')},
-            format: { without: /\s/, message: I18n.t('status.errors.with_space') }
+            uniqueness: {message: I18n.t('status.errors.not_uniqueness')}
   validates :color, length: {is: 7, message: I18n.t('status.errors.length_is_overlong')},
             presence: {message: I18n.t('status.errors.not_presence')}
 

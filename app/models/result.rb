@@ -1,6 +1,5 @@
 class Result < ActiveRecord::Base
-  validates :name, presence: {message: I18n.t('result.errors.not_presence')},
-            format: { without: /\s/, message: I18n.t('result.errors.with_space') }
+  validates :name, presence: {message: I18n.t('result.errors.not_presence')}
   belongs_to :result_set
   belongs_to :status
   after_commit :count_result_set_status

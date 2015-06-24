@@ -1,6 +1,5 @@
 class ResultSet < ActiveRecord::Base
-  validates :name, presence: {message: I18n.t('result_set.errors.not_presence')},
-            format: { without: /\s/, message: I18n.t('result_set.errors.with_space') }
+  validates :name, presence: {message: I18n.t('result_set.errors.not_presence')}
   belongs_to :run
   has_many :results, dependent: :destroy
   serialize :status
