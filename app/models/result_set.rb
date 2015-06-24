@@ -1,13 +1,13 @@
 class ResultSet < ActiveRecord::Base
+  validates :name, presence: {message: I18n.t('result_set.errors.not_presence')},
+            format: { without: /\s/, message: I18n.t('result_set.errors.with_space') }
   belongs_to :run
   has_many :results, dependent: :destroy
   serialize :status
   after_commit :count_run_status
-  # after_rollback :count_run_status
 
   private
   def count_run_status
-    # p 'count_run_status'
     unless self.results.nil?
       unless self.status.nil?
         unless self.run_id.nil?
