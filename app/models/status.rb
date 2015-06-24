@@ -1,18 +1,20 @@
 class Status < ActiveRecord::Base
   has_many :results
-  validates :name, presence: true, uniqueness: true, presence: true, format: { without: /\s/ }
-  validates :color, length: {is: 7},
-            presence: true
+  validates :name, presence: {message: I18n.t('status.errors.not_presence')},
+            uniqueness: {message: I18n.t('status.errors.not_uniqueness')},
+            format: { without: /\s/, message: I18n.t('status.errors.with_space') }
+  validates :color, length: {is: 7, message: I18n.t('status.errors.length_is_overlong')},
+            presence: {message: I18n.t('status.errors.not_presence')}
 
   validates_each :color do |record, attr, value|
-    if value[0] == '#'
+    if value.match('\A.') == '#'
       value[1..6].downcase.each_char do |current_char|
         unless '1234567890abcdef'.include? current_char
-          record.errors.add(attr, "data is not correct. Use hex color data - only numbers and symbols 'abcdef' or 'ABCDEF'")
+          record.errors.add(attr, I18n.t('status.errors.not_correct_data'))
         end
       end
     else
-      value.errors.add(attr, "Need to add symbol '#' in the beginning of the word")
+      record.errors.add(attr, value.match('\A.') == '#')
     end
   end
 end
