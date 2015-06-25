@@ -124,7 +124,7 @@ class ResultsController < ApplicationController
     results_json = {}
     find_params = JSON.parse(params['param'].gsub('=>', ':'))
     results = Result.find_by(find_params)
-    if results.nil?
+    if results.empty?
       render :json => {}
     else
       results = [results] until results.is_a?(Array)

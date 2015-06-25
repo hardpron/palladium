@@ -5,6 +5,7 @@ class Run < ActiveRecord::Base
   serialize :status
 
   after_commit :count_plan_status
+  after_create :count_plan_status_after_create
 
   def count_plan_status
     unless self.plan_id.nil?
@@ -20,7 +21,7 @@ class Run < ActiveRecord::Base
     runs = plan.runs
     runs.each do |current_run|
       status_hash = current_run.status
-      status_hash = [{name: Status.find_by_main_status(true).name, color: Status.find_by_main_status(true).color, count:[:id]}] if status_hash.nil?
+      status_hash = [{name: Status.find_by_main_status(true).name, color: Status.find_by_main_status(true).color, count: [:id]}] if status_hash.nil?
       status_hash.each do |current_status_element|
         edit_hash = {}
         if status_exist(current_status_element, plan_status)
@@ -46,5 +47,9 @@ class Run < ActiveRecord::Base
   def status_exist(current_status_element, plan_status)
     all_statuses = plan_status.map { |current_status_hash| current_status_hash[:name] }
     all_statuses.include? current_status_element[:name]
+  end
+
+  def count_plan_status_after_create
+    self.update(status: [{:name => Status.find_by_main_status(true).name, :count => [:id], :data => [1], :color => Status.find_by_main_status(true).color}])
   end
 end

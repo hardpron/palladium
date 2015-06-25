@@ -110,13 +110,12 @@ class ProductsController < ApplicationController
     plans_json = {}
     find_params = JSON.parse(params['param'].gsub('=>', ':'))
     plans = Product.find(find_params['id']).plans
-    if plans.nil?
+    if plans.empty?
       render :json => {}
     else
       plans = [plans] unless plans.is_a?(Array)
       plans.each do |current_plan|
-        plans_json.merge!(current_plan.first.id => {'PlanName' => current_plan.first.name,
-                                                    'PlanVersion' => current_plan.first.version,
+        plans_json.merge!(current_plan.first.id => {'name' => current_plan.first.name,
                                                     'created_at' => current_plan.first.created_at,
                                                     'updated_at' => current_plan.first.updated_at})
       end
