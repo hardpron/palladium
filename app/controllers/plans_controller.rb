@@ -36,7 +36,12 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         product_for_plan.plans << @plan
-        format.json { render :json => @plan }
+        format.json { render :json => {@plan.id => {'name'=> @plan.name,
+                                                    'version' => @plan.version,
+                                                    'status' => @plan.status,
+                                                    'product_id'=> @plan.product_id,
+                                                    'created_at'=> @plan.created_at,
+                                                    'updated_at'=> @plan.updated_at}} }
         format.html { redirect_to product_plan_url(product_find_by_id, @plan), notice: 'Plan was successfully created.' }
         format.json { render :show, status: :created, location: @plan }
       else
@@ -125,13 +130,13 @@ class PlansController < ApplicationController
     if runs.empty?
       render :json => {}
     else
-      runs = [runs] until runs.count == 1
+      # runs = [runs] until runs.count == 1
       runs.each do |current_run|
-        runs_json.merge!(current_run.first.id => {'name' => current_run.first.name,
-                                                  'version' => current_run.first.version,
-                                                  'plan_id' => current_run.first.plan_id,
-                                                  'created_at' => current_run.first.created_at,
-                                                  'updated_at' => current_run.first.updated_at})
+        runs_json.merge!(current_run.id => {'name' => current_run.name,
+                                                  'version' => current_run.version,
+                                                  'plan_id' => current_run.plan_id,
+                                                  'created_at' => current_run.created_at,
+                                                  'updated_at' => current_run.updated_at})
       end
       render :json => runs_json
     end

@@ -38,7 +38,11 @@ class RunsController < ApplicationController
         plan_for_runs.runs << @run
         # This string will be commented because creation can be only through API
         # format.html { redirect_to product_plan_run_path(product_find_by_id, plan_find_by_id, @run), notice: 'Run was successfully created.' }
-        format.json { render :json => @run }
+        format.json { render :json => {@run.id => {'name'=> @run.name,
+                                                    'version' => @run.version,
+                                                    'product_id'=> @run.plan_id,
+                                                    'created_at'=> @run.created_at,
+                                                    'updated_at'=> @run.updated_at}} }
       else
         render :json => @run.errors
       end
@@ -128,14 +132,17 @@ class RunsController < ApplicationController
     if result_sets.empty?
       render :json => {}
     else
-      result_sets = [result_sets] until result_sets.is_a?(Array)
-      result_sets.each do |current_result_set|
-        result_sets_json.merge!(current_result_set.first.id => {'name' => current_result_set.first.name,
-                                                          'date' => current_result_set.first.date,
-                                                          'version' => current_result_set.first.version,
-                                                          'run_id' => current_result_set.first.run_id,
-                                                          'created_at' => current_result_set.first.created_at,
-                                                          'updated_at' => current_result_set.first.updated_at})
+      # p '--------------------------------------------------------------------------------------------------------------'
+      # p result_sets.first
+      # result_sets = [result_sets] if result_sets.count == 1
+      result_sets.map do |current_result_set|
+        # p i
+        result_sets_json.merge!(current_result_set.id => {'name' => current_result_set.name,
+                                                          'date' => current_result_set.date,
+                                                          'version' => current_result_set.version,
+                                                          'run_id' => current_result_set.run_id,
+                                                          'created_at' => current_result_set.created_at,
+                                                          'updated_at' => current_result_set.updated_at})
       end
       render :json => result_sets_json
     end

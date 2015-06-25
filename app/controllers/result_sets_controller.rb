@@ -41,7 +41,12 @@ class ResultSetsController < ApplicationController
         run.result_sets << @result_set
         # format.html { redirect_to product_plan_run_result_set_path(product_find_by_id, set_plan, set_run, @result_set), notice: 'Result set was successfully created.' }
         # This string will be commented because creation can be only through API
-        format.json { render :json => @result_set}
+        format.json { render :json => {@result_set.id => {'name'=> @result_set.name,
+                                                   'version' => @result_set.version,
+                                                   'date' => @result_set.date,
+                                                   'product_id'=> @result_set.run_id,
+                                                   'created_at'=> @result_set.created_at,
+                                                   'updated_at'=> @result_set.updated_at}} }
       else
         format.html { render :new }
         format.json { render json: @result_set.errors, status: :unprocessable_entity }
@@ -119,12 +124,11 @@ class ResultSetsController < ApplicationController
     if result.empty?
       render :json => {}
     else
-      result = [result] until result.is_a?(Array)
-      result.each do |current_result|
+      result = [result] if result.count == 1
+      result.map do |current_result|
         result_sets_json.merge!(current_result.id => {'name' => current_result.name,
                                                            'date' => current_result.date,
                                                            'version' => current_result.version,
-                                                           'status' => current_result.status,
                                                            'run_id' => current_result.run_id,
                                                            'created_at' => current_result.created_at,
                                                            'updated_at' => current_result.updated_at})
