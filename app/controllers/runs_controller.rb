@@ -125,7 +125,7 @@ class RunsController < ApplicationController
     result_sets_json = {}
     find_params = JSON.parse(params['param'].gsub('=>', ':'))
     result_sets = Run.find(find_params['id']).result_sets
-    if result_sets.nil?
+    if result_sets.empty?
       render :json => {}
     else
       result_sets = [result_sets] until result_sets.is_a?(Array)

@@ -110,7 +110,7 @@ class ProductsController < ApplicationController
     plans_json = {}
     find_params = JSON.parse(params['param'].gsub('=>', ':'))
     plans = Product.find(find_params['id']).plans
-    if plans.nil?
+    if plans.empty?
       render :json => {}
     else
       plans = [plans] unless plans.is_a?(Array)

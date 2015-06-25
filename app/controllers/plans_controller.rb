@@ -122,10 +122,10 @@ class PlansController < ApplicationController
     runs_json = {}
     find_params = JSON.parse(params['param'].gsub('=>', ':'))
     runs = Plan.find(find_params['id']).runs
-    if runs.nil?
+    if runs.empty?
       render :json => {}
     else
-      runs = [runs] until runs.is_a?(Array)
+      runs = [runs] until runs.count == 1
       runs.each do |current_run|
         runs_json.merge!(current_run.first.id => {'name' => current_run.first.name,
                                                   'version' => current_run.first.version,
