@@ -11,7 +11,6 @@ describe 'Multiplication' do
   #   testrail_config.ignore_parameters = starter.ignored_tags
   # end
   palladium = APIShell.new 'Multiplication', 'plan_first', 'Multiplication Tests1'
-p
   describe 'Correct' do
     [1,2,3,4,5,6,7,8,9].each do |current_element_first|
       [1,2,3,4,5,6,7,8,9].each do |current_element_second|
