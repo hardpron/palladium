@@ -64,4 +64,5 @@ en:
       status_settings_title: "Status Settings"
       results: "Results"
       test_results: "Test results"
+      set_result_statistic: "Statistic"
       result_created_by: "Create by"
