@@ -1,24 +1,36 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @result_set.name %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @result_set.date %>
-</p>
-
-<p>
-  <strong>Version:</strong>
-  <%= @result_set.version %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @result_set.status %>
-</p>
-
-<%= link_to 'Edit', controller: "result_sets", action: "edit", id: @result_set %> |
-<%= link_to 'Back', controller: "result_sets" %>
+  <div class="container jumbotron runs_table">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="page-header sets_hading">
+          <h1 align="center">Statistic</h1>
+        </div>
+        <h3><%= t('helpers.titles.results') %></h3>
+        <table class="table table-hover sets_table">
+          <thead>
+          <tr>
+            <th>Data</th>
+            <th>Plan</th>
+            <th>Message</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @results.order(created_at: :desc).each do |results| %>
+          <% current_plan = Plan.find(Run.find(ResultSet.find(results.result_set_id).run_id).plan_id) %>
+              <tr class="clickable-row run_str">
+                <td><%= results.created_at %></td>
+                <td><%= link_to current_plan.name, controller: "plans", action: "show", id: current_plan  %>
+                </td>
+                <td><%= results.message %></td>
+                <td style="background-color: <%= Status.find(results.status_id).color %>">
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
