@@ -76,9 +76,11 @@ class ResultSetsController < ApplicationController
   # DELETE /result_sets/1
   # DELETE /result_sets/1.json
   def destroy
-    @result_set.destroy
+    @result_sets =  ResultSet.where(run_id: Run.where(plan_id: Product.find(product_find_by_id).plans.ids).ids, name: set_result_set.name)
+
+    @result_sets.destroy_all
     respond_to do |format|
-      # format.html { redirect_to product_plan_run_result_sets_path(product_find_by_id, set_plan, set_run), notice: 'Result set was successfully destroyed.' }
+      format.html { redirect_to product_plan_run_result_sets_path(product_find_by_id, set_plan, set_run), notice: 'Result set was successfully destroyed.' }
       # This method will be commented because creation can be only through API
       format.json { head :no_content }
     end

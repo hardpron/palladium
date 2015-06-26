@@ -7,6 +7,13 @@
         <div class="page-header sets_hading">
           <h1 align="center">Statistic</h1>
           <h2 align="center"><%= @result_set.name %></h2>
+          <div align="right">
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        '',
+                        :method => 'delete',
+                        :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
+                        :class => 'btn btn-danger' %>
+          </div>
         </div>
         <h3><%= t('helpers.titles.results') %></h3>
         <table class="table table-hover sets_table">
@@ -19,10 +26,10 @@
           </thead>
           <tbody>
           <% @results.order(created_at: :desc).each do |results| %>
-          <% current_plan = Plan.find(Run.find(ResultSet.find(results.result_set_id).run_id).plan_id) %>
+              <% current_plan = Plan.find(Run.find(ResultSet.find(results.result_set_id).run_id).plan_id) %>
               <tr class="clickable-row run_str">
                 <td><%= results.created_at %></td>
-                <td><%= link_to current_plan.name, controller: "plans", action: "show", id: current_plan  %>
+                <td><%= link_to current_plan.name, controller: "plans", action: "show", id: current_plan %>
                 </td>
                 <td><%= results.message %></td>
                 <td style="background-color: <%= Status.find(results.status_id).color %>">

@@ -1,33 +1,36 @@
 <%- model_class = Product -%>
-<div class="page-header">
-  <h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
-<div class="container ">
-  <table class="table table-hover">
-    <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:version) %></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @products.each do |product| %>
-        <tr class="clickable-row <%= "list-group-item-#{product.status}" %>" data-href= <%= product_path(product) %>>
-          <td><%= product.name %></td>
-          <td><%= product.status %></td>
-          <td><%= product.version %></td>
+<div class="container">
+  <div class="products_jumbotron">
+    <div class="page-header">
+      <h1><%= t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+    </div>
+    <div class="container ">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th><%= model_class.human_attribute_name(:name) %></th>
+          <th><%= model_class.human_attribute_name(:status) %></th>
+          <th><%= model_class.human_attribute_name(:version) %></th>
         </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <br>
+        </thead>
+        <tbody>
+        <% @products.each do |product| %>
+            <tr class="clickable-row <%= "list-group-item-#{product.status}" %>" data-href= <%= product_path(product) %>>
+              <td><%= product.name %></td>
+              <td><%= product.status %></td>
+              <td><%= product.version %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <br>
 
-  <%= link_to t('.new', :default => t("helpers.links.new")),
-              new_product_path,
-              :class => 'btn btn-success' %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_product_path,
+                  :class => 'btn btn-success' %>
+    </div>
+  </div>
 </div>
-
 <script>
     jQuery(document).ready(function ($) {
         $(".clickable-row").click(function () {
@@ -35,4 +38,3 @@
         });
     });
 </script>
-
