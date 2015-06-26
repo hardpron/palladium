@@ -12,13 +12,17 @@
           <thead>
           <tr>
             <th>Data</th>
+            <th>Plan</th>
             <th>Message</th>
           </tr>
           </thead>
           <tbody>
           <% @results.order(created_at: :desc).each do |results| %>
+          <% current_plan = Plan.find(Run.find(ResultSet.find(results.result_set_id).run_id).plan_id) %>
               <tr class="clickable-row run_str">
                 <td><%= results.created_at %></td>
+                <td><%= link_to current_plan.name, controller: "plans", action: "show", id: current_plan  %>
+                </td>
                 <td><%= results.message %></td>
                 <td style="background-color: <%= Status.find(results.status_id).color %>">
                 </td>
@@ -30,11 +34,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-    jQuery(document).ready(function ($) {
-        $(".clickable-row").click(function () {
-            window.document.location = $(this).data("href");
-        });
-    });
-</script>
