@@ -13,6 +13,8 @@
                         :method => 'delete',
                         :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
                         :class => 'btn btn-danger' %>
+
+            <%= link_to 'Edit', {controller: "result_sets", action: "edit"}, id: @result_set, class: 'btn btn-warning' %>
           </div>
         </div>
         <h3><%= t('helpers.titles.results') %></h3>
