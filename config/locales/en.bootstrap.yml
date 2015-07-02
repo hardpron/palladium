@@ -8,6 +8,7 @@ en:
       not_presence: "can`t be space"
       not_uniqueness: "%{value} is already exists"
       length_is_overlong: "length can not be greater than 7 symbols. Use hex color data - only numbers and symbols 'abcdef' or 'ABCDEF'"
+      color: "color without symbol '#'"
       without_hash_symbol: "need to add symbol '#' in the beginning of the word"
       not_correct_data: "data is not correct. Use hex color data - only numbers and symbols 'abcdef' or 'ABCDEF'"
   product:

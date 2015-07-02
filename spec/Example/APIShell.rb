@@ -4,7 +4,7 @@ class APIShell
   attr_accessor :add_all_suites, :ignore_parameters, :suites_to_add, :search_plan_by_substring, :in_debug
 
   def initialize(product_name, plan_name, run_name)
-    @api = Api.new('localhost:3000', 'flamine@list.ru', '6gVmTd6Xk79z-4TwibSu')
+    @api = Api.new('localhost:3000', 'flamine@list.ru', 'NX_FY9zLz5BFH-qVvDHE')
     # @in_debug = RspecHelper.debug?
     # if @in_debug
     #   LoggerHelper.print_to_log 'Do not initialize Palladium, because spec run in debug'

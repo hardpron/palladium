@@ -9,22 +9,17 @@
         <thead>
         <tr>
           <th><%= model_class.human_attribute_name(:name) %></th>
-          <th><%= model_class.human_attribute_name(:status) %></th>
-          <th><%= model_class.human_attribute_name(:version) %></th>
         </tr>
         </thead>
         <tbody>
         <% @products.each do |product| %>
-            <tr class="clickable-row <%= "list-group-item-#{product.status}" %>" data-href= <%= product_path(product) %>>
+            <tr class="clickable-row" data-href= <%= product_path(product) %>>
               <td><%= product.name %></td>
-              <td><%= product.status %></td>
-              <td><%= product.version %></td>
             </tr>
         <% end %>
         </tbody>
       </table>
       <br>
-
       <%= link_to t('.new', :default => t("helpers.links.new")),
                   new_product_path,
                   :class => 'btn btn-success' %>
