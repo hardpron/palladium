@@ -8,9 +8,11 @@ class Result < ActiveRecord::Base
   def count_result_set_status
     unless self.result_set_id.nil?
       unless self.status.nil?
-        result_set = ResultSet.find(self.result_set_id)
-        unless result_set.results.count == number_of_results_in_status(result_set)
-          update_status(result_set)
+        if ResultSet.exists?(:id => self.result_set_id)
+          result_set = ResultSet.find(self.result_set_id)
+          unless result_set.results.count == number_of_results_in_status(result_set)
+            update_status(result_set)
+          end
         end
       end
     end
@@ -49,7 +51,7 @@ class Result < ActiveRecord::Base
             edit_hash = {name: name, count: count, data: data}
           end
         end
-        result_set_status.delete_if{|current_hash| current_hash[:name] == edit_hash[:name]}
+        result_set_status.delete_if { |current_hash| current_hash[:name] == edit_hash[:name] }
         result_set_status << edit_hash
       else
         result_set_status << {name: Status.find(current_result.status_id).name, count: [current_result.id], data: [1], color: Status.find(current_result.status_id).color}
@@ -59,7 +61,7 @@ class Result < ActiveRecord::Base
   end
 
   def status_exist(current_result, result_set_status)
-    all_statuses = result_set_status.map { |current_status_hash|current_status_hash[:name]}
+    all_statuses = result_set_status.map { |current_status_hash| current_status_hash[:name] }
     all_statuses.include? Status.find(current_result.status_id).name
   end
 end

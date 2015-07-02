@@ -50,8 +50,10 @@ en:
       add_new_status: "Add new status"
       edit_status: "Edit status"
       status_name: "Status name"
+      result_set_name: "Result set name"
       status_color: "Status color"
       change_color: "Change color"
+      change_date: "Change dale"
       all_version: "All version"
 
     titles:

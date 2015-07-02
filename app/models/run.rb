@@ -9,9 +9,11 @@ class Run < ActiveRecord::Base
 
   def count_plan_status
     unless self.plan_id.nil?
-      plan = Plan.find(self.plan_id)
-      unless Plan.find(self.plan_id).runs.nil?
-        update_plan_status(plan)
+      if Plan.exists?(self.plan_id)
+        plan = Plan.find(self.plan_id)
+        unless Plan.find(self.plan_id).runs.nil?
+          update_plan_status(plan)
+        end
       end
     end
   end

@@ -6,13 +6,12 @@ data = nil
 set_name = ''
 plan_data = ''
 describe 'Multiplication' do
-
   # testrail = TestrailHelper.new SettingsEditors::DOCUMENT::PROJECT_NAME, name_of_suite, starter.plan_name do |testrail_config|
   #   testrail_config.ignore_parameters = starter.ignored_tags
   # end
-  palladium = APIShell.new 'Multiplication', 'plan_first', 'Multiplication Tests1'
+  palladium = APIShell.new 'Multiplication', 'plan_3', "Multiplication Tests"
   describe 'Correct' do
-    [1,2,3,4,5,6,7,8,9].each do |current_element_first|
+    (1..100).to_a.each do |current_element_first|
       [1,2,3,4,5,6,7,8,9].each do |current_element_second|
         it "#{current_element_first}*#{current_element_second}" do
           set_name = "#{current_element_first}*#{current_element_second} Correct"
