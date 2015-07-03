@@ -30,10 +30,8 @@ class Run < ActiveRecord::Base
           plan_status.each do |status_hash|
             if status_hash[:name] == current_status_element[:name]
               name = status_hash[:name]
-              count = status_hash[:count] + current_status_element[:count]
-              count.uniq! # TODO: иногда элементы дублируются. Хз почему, надо разобраться
-              data = count.size
-              edit_hash = {name: name, count: count, data: [data], color: current_status_element[:color]}
+              data = status_hash[:data].first + current_status_element[:data].first
+              edit_hash = {name: name, data: [data], color: current_status_element[:color]}
             end
             plan_status.delete_if { |current_hash| current_hash[:name] == edit_hash[:name] }
             plan_status << edit_hash unless edit_hash.empty?

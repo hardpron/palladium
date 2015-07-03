@@ -23,20 +23,18 @@ class ResultSet < ActiveRecord::Base
       result = current_result_set.results.order(created_at: :desc).first # и брать последний записанный результат
       edit_hash = {}
       status_id = get_status_id(result)
-      result_id = get_result_id(result)
       if status_exist(status_id, run_status)                  # проверка того, что в run.status уже есть такой статус, и необходимо просто перезаписать этот элемент массива
         run_status.each do |current_hash|
           if current_hash[:name] == Status.find(status_id).name
             name = current_hash[:name]
-            count = current_hash[:count] + [result_id]
-            data = count.size
-            edit_hash = {name: name, count: count, data: [data], color: Status.find(status_id).color}
+            data = current_hash[:data].first + 1
+            edit_hash = {name: name, data: [data], color: Status.find(status_id).color}
           end
         end
         run_status.delete_if { |current_hash| current_hash[:name] == edit_hash[:name] }
         run_status << edit_hash unless edit_hash.empty?
       else
-        run_status << {name: Status.find(status_id).name, count: [result_id], data: [1], color: Status.find(status_id).color}
+        run_status << {name: Status.find(status_id).name, data: [1], color: Status.find(status_id).color}
       end
     end
     run.update(status: run_status)
