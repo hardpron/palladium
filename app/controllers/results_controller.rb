@@ -37,21 +37,28 @@ class ResultsController < ApplicationController
     @result = Result.new(result_params)
     set_result = set_result_set
     respond_to do |format|
-      if @result.save
-        if params['status_id'].nil?
-          Status.find_by_main_status(true).results << @result
+      status_is_active?(params['status_id']) unless params['status_id'].nil?
+      if @result.errors.empty?
+        if @result.save && @result.errors.empty?
+          if params['status_id'].nil?
+            Status.find_by_main_status(true).results << @result
+          else
+            Status.find(params['status_id']).results << @result
+          end
+          set_result.results << @result
+          # format.html { redirect_to product_plan_run_result_set_result_path(product_find_by_id, set_plan, set_run, set_result_set, @result), notice: 'Result was successfully created.' }
+          # This method will be commented because creation can be only through API
+          format.json { render :json => @result }
         else
-          Status.find(params['status_id']).results << @result
+          format.html { render :new }
+          format.json { render json: @result.errors, status: :unprocessable_entity }
         end
-        set_result.results << @result
-        # format.html { redirect_to product_plan_run_result_set_result_path(product_find_by_id, set_plan, set_run, set_result_set, @result), notice: 'Result was successfully created.' }
-        # This method will be commented because creation can be only through API
-        format.json { render :json => @result }
-      else
-        format.html { render :new }
-        format.json { render json: @result.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def status_is_active?(status_id)
+    @result.errors.add(:status, 'Status is disable') if Status.find(status_id).disabled
   end
 
   # PATCH/PUT /results/1

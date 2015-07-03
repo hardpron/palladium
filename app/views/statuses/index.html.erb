@@ -25,13 +25,17 @@
         <!-- Modal -->
         <table class="table table-hover">
           <tbody>
-          <% @statuses.each do |status| %>
-              <tr class="clickable-row" data-href="/settings/status_settings_title/<%= status.id %>/edit">
+          <% @statuses.where(disabled: false).each do |status| %>
+              <tr class="row">
                 <td><%= status.name %></td>
                 <td>
                   <div class="color_rect_index masthead" style = "background-color: <%= status.color %>;"></div>
                 </td>
-                <td><%= link_to 'Edit', edit_status_path(status) %></td>
+                <td><%= link_to 'Edit', "/settings/status_settings_title/#{status.id}/edit" %>
+                  <%= link_to t('.disable', :default => t("helpers.links.disable")),
+                              "/settings/status_settings_title/#{status.id}",
+                              :method => 'disable',
+                              :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))} unless status.main_status %></td>
               </tr>
           <% end %>
           </tbody>

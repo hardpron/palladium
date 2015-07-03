@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150528104224) do
     t.string   "name"
     t.string   "color"
     t.boolean  "main_status", default: false
+    t.boolean  "disabled",    default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
