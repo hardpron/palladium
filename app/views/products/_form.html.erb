@@ -14,14 +14,7 @@
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :version %><br>
-    <%= f.text_field :version %>
+    <%= f.hidden_field :id, :value => @product.id %>
   </div>
   <div class="actions">
     <%= f.submit %>

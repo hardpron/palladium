@@ -8,6 +8,8 @@
       <div class="col-md-10 col-md-offset-1">
         <div class="page-header sets_hading">
           <h1 align="center"><%= t('helpers.titles.test_results') %></h1>
+          <h2 align="center"><%= @result_set.name %></h2>
+          <h3 align="center"><%= link_to 'Statistic', controller: "result_sets", action: "show", id:@result_set %></h3>
         </div>
         <h3><%= t('helpers.titles.results') %></h3>
         <table class="table table-hover result_table">
@@ -19,20 +21,19 @@
           </tr>
           </thead>
           <tbody>
-          <% @results.each do |result| %>
-              <tr class="clickable-row result_table" data-href="<%= "#{request.original_url }/#{result.id}/results" %>">
+          <% @results.order(created_at: :desc).each do |result| %>
+              <tr class="clickable-row">
                 <td><%= result.message %></td>
                 <td><%= result.author %></td>
+                <td style = "background-color: <%= Status.find(result.status_id).color%>"> <%= result.message %></td>
               </tr>
           <% end %>
           </tbody>
         </table>
-
       </div>
     </div>
   </div>
 </div>
-
 
 
 

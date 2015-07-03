@@ -23,9 +23,49 @@ Rails.application.routes.draw do
 
   get '/settings/status_settings_title' => 'statuses#index'
   get '/settings/status_settings_title/:id/edit' => 'statuses#edit'
+  post '/settings/status_settings_title/:id' => 'statuses#disable'
   resources :statuses, path: '/settings/status_settings'
 
-
+  #---------------------------API------------------------------#
+  # Products
+  get 'api/products/get_products' => 'products#get_products'
+  get 'api/products/get_products_by_param' => 'products#get_products_by_param'
+  get 'api/products/get_all_plans_by_product' => 'products#get_all_plans_by_product'
+  post 'api/products/add_new_product' => 'products#create'
+  post 'api/products/update_product' => 'products#update'
+  post 'api/products/delete_product' => 'products#destroy'
+  # Plans
+  get 'api/plans/get_plans' => 'plans#get_plans'
+  get 'api/plans/get_plans_by_param' => 'plans#get_plans_by_param'
+  get 'api/plans/get_all_runs_by_plan' => 'plans#get_all_runs_by_plan'
+  post 'api/plans/add_new_plan' => 'plans#create'
+  post 'api/plans/update_plan' => 'plans#update'
+  post 'api/plans/delete_plan' => 'plans#destroy'
+  # Runs
+  get 'api/runs/get_all_runs' => 'runs#get_all_runs'
+  get 'api/runs/get_runs_by_param' => 'runs#get_runs_by_param'
+  get 'api/runs/get_all_result_sets_by_run' => 'runs#get_all_result_sets_by_run'
+  post 'api/runs/add_new_run' => 'runs#create'
+  post 'api/runs/update_run' => 'runs#update'
+  post 'api/runs/delete_run' => 'runs#destroy'
+  # ResultSet
+  get 'api/result_sets/get_all_result_sets' => 'result_sets#get_all_result_sets'
+  get 'api/result_sets/get_result_sets_by_param' => 'result_sets#get_result_sets_by_param'
+  post 'api/result_sets/add_new_result_set' => 'result_sets#create'
+  post 'api/result_sets/update_result_set' => 'result_sets#update'
+  post 'api/result_sets/delete_result_set' => 'result_sets#destroy'
+  # Result
+  get 'api/results/get_all_results' => 'results#get_all_results'
+  get 'api/results/get_result_by_param' => 'results#get_result_by_param'
+  post 'api/results/add_new_result' => 'results#create'
+  post 'api/results/update_result' => 'results#update'
+  post 'api/results/delete_result' => 'results#destroy'
+  # Status
+  get 'api/statuses/get_all_statuses' => 'statuses#get_all_statuses'
+  get 'api/statuses/get_statuses_by_param' => 'statuses#get_statuses_by_param'
+  post 'api/statuses/add_new_status' => 'statuses#create'
+  post 'api/statuses/update_status' => 'statuses#update'
+  # post 'api/statuses/delete_status' => 'statuses#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
