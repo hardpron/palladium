@@ -39,6 +39,7 @@ en:
       cancel: "Cancel"
       confirm: "Are you sure?"
       destroy: "Delete"
+      disable: "Disable"
       new: "New"
       new_run: "New Run"
       runs: "Runs"

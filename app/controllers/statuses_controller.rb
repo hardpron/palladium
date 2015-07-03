@@ -1,5 +1,5 @@
 class StatusesController < ApplicationController
-  before_action :set_status, only: [:show, :edit, :update, :destroy]
+  before_action :set_status, only: [:show, :edit, :update, :disable]
   acts_as_token_authentication_handler_for User
   # GET /statuses
   # GET /statuses.json
@@ -21,7 +21,6 @@ class StatusesController < ApplicationController
   # POST /statuses.json
   def create
     @status = Status.new(status_params)
-
     respond_to do |format|
       if @status.save
         format.json { render :json => @status }
@@ -49,10 +48,9 @@ class StatusesController < ApplicationController
     end
   end
 
-  # DELETE /statuses/1
-  # DELETE /statuses/1.json
-  def destroy
-    @status.destroy
+
+  def disable
+    @status.update(disabled: true) unless @status.main_status
     respond_to do |format|
       format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
       format.json { head :no_content }

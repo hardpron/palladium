@@ -4,7 +4,7 @@ class APIShell
   attr_accessor :add_all_suites, :ignore_parameters, :suites_to_add, :search_plan_by_substring, :in_debug
 
   def initialize(product_name, plan_name, run_name)
-    @api = Api.new('localhost:3000', 'flamine@list.ru', 'NX_FY9zLz5BFH-qVvDHE')
+    @api = Api.new('localhost:3000', 'flamine@list.ru', '44skLaHyXM8-yrU5DWqc')
     # @in_debug = RspecHelper.debug?
     # if @in_debug
     #   LoggerHelper.print_to_log 'Do not initialize Palladium, because spec run in debug'
@@ -95,14 +95,12 @@ class APIShell
       @result_set = JSON.parse(@result_set)
     end
 
-    @api.add_new_result({:result => {:message => comment,
+    response = @api.add_new_result({:result => {:message => comment,
                                      :author => 'API'},
                          :result_set_id => @result_set.keys.first,
                          :status_id => status_id})
-
-
+    raise("Status with id #{status_id} is not found. Create it or make active") unless JSON.parse(response)['status_id'].to_s == status_id
     @last_case = example.description
-    # @suite.section(section_name).case(example.description).add_result @run.id, result, comment, custom_fields
   end
 
   def get_product_data_by_name(product_name)

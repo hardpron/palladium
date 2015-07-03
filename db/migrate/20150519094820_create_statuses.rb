@@ -4,7 +4,7 @@ class CreateStatuses < ActiveRecord::Migration
       t.string :name
       t.string :color
       t.boolean :main_status, :default => false
-
+      t.boolean :disabled, :default => false
       t.timestamps null: false
     end
   end

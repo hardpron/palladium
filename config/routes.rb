@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get '/settings/status_settings_title' => 'statuses#index'
   get '/settings/status_settings_title/:id/edit' => 'statuses#edit'
+  post '/settings/status_settings_title/:id' => 'statuses#disable'
   resources :statuses, path: '/settings/status_settings'
 
   #---------------------------API------------------------------#
@@ -64,7 +65,7 @@ Rails.application.routes.draw do
   get 'api/statuses/get_statuses_by_param' => 'statuses#get_statuses_by_param'
   post 'api/statuses/add_new_status' => 'statuses#create'
   post 'api/statuses/update_status' => 'statuses#update'
-  post 'api/statuses/delete_status' => 'statuses#destroy'
+  # post 'api/statuses/delete_status' => 'statuses#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
