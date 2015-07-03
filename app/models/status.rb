@@ -6,14 +6,14 @@ class Status < ActiveRecord::Base
             presence: {message: I18n.t('status.errors.not_presence')}
 
   validates_each :color do |record, attr, value|
-    if value.match('\A.') == '#'
+    if value.match('\A.').to_s == '#'
       value[1..6].downcase.each_char do |current_char|
         unless '1234567890abcdef'.include? current_char
           record.errors.add(attr, I18n.t('status.errors.not_correct_data'))
         end
       end
     else
-      record.errors.add(attr, value.match('\A.') == '#')
+      record.errors.add(attr, I18n.t('status.errors.color'))
     end
   end
 end

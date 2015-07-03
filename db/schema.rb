@@ -27,8 +27,6 @@ ActiveRecord::Schema.define(version: 20150528104224) do
 
   create_table "products", force: :cascade do |t|
     t.string   "name"
-    t.string   "status"
-    t.string   "version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

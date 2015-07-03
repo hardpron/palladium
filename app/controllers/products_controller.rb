@@ -66,12 +66,16 @@ class ProductsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_product
-    @product = Product.find(params[:id])
+    if params.has_key?(:product)
+      @product = Product.find(params[:product][:id])
+    else
+      @product = Product.find(params[:id])
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def product_params
-    params.require(:product).permit(:name, :version)
+    params.require(:product).permit(:name)
   end
 
   public
@@ -79,8 +83,6 @@ class ProductsController < ApplicationController
     products_json = {}
     Product.all.each do |current_product|
       products_json.merge!(current_product.id => {'name' => current_product.name,
-                                                  'status' => current_product.status,
-                                                  'version' => current_product.version,
                                                   'created_at' => current_product.created_at,
                                                   'updated_at' => current_product.updated_at})
     end
@@ -97,8 +99,6 @@ class ProductsController < ApplicationController
       products = [products] unless products.is_a?(Array)
       products.each do |current_product|
         products_json.merge!(current_product.id => {'name' => current_product.name,
-                                                    'status' => current_product.status,
-                                                    'version' => current_product.version,
                                                     'created_at' => current_product.created_at,
                                                     'updated_at' => current_product.updated_at})
       end
@@ -109,15 +109,15 @@ class ProductsController < ApplicationController
   def get_all_plans_by_product
     plans_json = {}
     find_params = JSON.parse(params['param'].gsub('=>', ':'))
-    plans = Product.find(find_params['id']).plans
+    plans = Product.find_by(find_params).plans
     if plans.empty?
       render :json => {}
     else
-      plans = [plans] unless plans.is_a?(Array)
       plans.each do |current_plan|
-        plans_json.merge!(current_plan.first.id => {'name' => current_plan.first.name,
-                                                    'created_at' => current_plan.first.created_at,
-                                                    'updated_at' => current_plan.first.updated_at})
+        p current_plan
+        plans_json.merge!(current_plan.id => {'name' => current_plan.name,
+                                              'created_at' => current_plan.created_at,
+                                              'updated_at' => current_plan.updated_at})
       end
       render :json => plans_json
     end

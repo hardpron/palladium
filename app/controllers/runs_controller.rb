@@ -132,11 +132,7 @@ class RunsController < ApplicationController
     if result_sets.empty?
       render :json => {}
     else
-      # p '--------------------------------------------------------------------------------------------------------------'
-      # p result_sets.first
-      # result_sets = [result_sets] if result_sets.count == 1
       result_sets.map do |current_result_set|
-        # p i
         result_sets_json.merge!(current_result_set.id => {'name' => current_result_set.name,
                                                           'date' => current_result_set.date,
                                                           'version' => current_result_set.version,
