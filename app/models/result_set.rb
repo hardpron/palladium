@@ -25,16 +25,16 @@ class ResultSet < ActiveRecord::Base
       status_id = get_status_id(result)
       if status_exist(status_id, run_status)                  # проверка того, что в run.status уже есть такой статус, и необходимо просто перезаписать этот элемент массива
         run_status.each do |current_hash|
-          if current_hash[:name] == Status.find(status_id).name
+          if current_hash[:name] == status.name
             name = current_hash[:name]
             data = current_hash[:data].first + 1
-            edit_hash = {name: name, data: [data], color: Status.find(status_id).color}
+            edit_hash = {name: name, data: [data], color: status.color}
           end
         end
         run_status.delete_if { |current_hash| current_hash[:name] == edit_hash[:name] }
         run_status << edit_hash unless edit_hash.empty?
       else
-        run_status << {name: Status.find(status_id).name, data: [1], color: Status.find(status_id).color}
+        run_status << {name: status.name, data: [1], color: status.color}
       end
     end
     run.update(status: run_status)
