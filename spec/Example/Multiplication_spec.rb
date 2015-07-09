@@ -8,7 +8,7 @@ describe 'Multiplication' do
   describe 'Correct' do
     (1..100).to_a.each do |current_element_second|
       it "#{current_element_second}" do
-        @palladium = APIShell.new 'CDE', 'plan_3', "Multiplication Tests_#{i}"
+        @palladium = APIShell.new 'CDE', 'plan_5', "Multiplication Tests_#{i}"
         expect(current_element_second*2).to eq(current_element_second*2)
         end
       end
